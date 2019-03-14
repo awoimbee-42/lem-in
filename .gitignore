@@ -1,0 +1,15 @@
+*.a
+*.o
+doom-nukem
+doom_editor
+.vscode
+*.gen
+.DS_Store
+sdl2/bin
+sdl2/include
+sdl2/lib
+sdl2/share
+sdl2/build
+._*
+*.m4
+*.dSYM
