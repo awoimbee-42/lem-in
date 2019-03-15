@@ -6,7 +6,7 @@
 /*   By: awoimbee <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:37:38 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/03/15 20:00:16 by allespag         ###   ########.fr       */
+/*   Updated: 2019/03/15 21:26:53 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,15 @@ long long				ft_atoi_pimp(char *line);
 int						is_comment(char *line);
 
 /*
+**	FIND_ROOMS
+*/
+int						is_room(char *line);
+void					find_rooms(t_graph *g, t_str *str);
+
+/*
 **	COMMAND_LINE
 */
+int						command_hub(char *line);
 int						is_command(char *line);
 
 /*

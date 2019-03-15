@@ -6,7 +6,7 @@
 /*   By: allespag <allespag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:06:22 by allespag          #+#    #+#             */
-/*   Updated: 2019/03/15 20:45:32 by allespag         ###   ########.fr       */
+/*   Updated: 2019/03/15 21:00:18 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,34 +41,6 @@ void			find_ants(t_graph *g, t_str *str)
 			g->ants = (int)tmp;
 			str = add_t_str(str, line);
 			return ;
-		}
-	}
-}
-
-void			find_rooms(t_graph *g, t_str *str)
-{
-	char		*line;
-	int			command;
-
-	while (1)
-	{
-		if (get_next_line(0, &line) == -1)
-			exit_lem_in("Error: get_next_line failed in find_rooms");
-		if (is_comment(line))
-			str = add_t_str(str, line);
-		else if (is_command(line))
-		{
-			command = command_hub(line);
-			str = add_t_str(str, line);
-		}
-		else
-		{
-			// check si la ligne est "valide" pour une room (si non) check si c'est un tube
-			
-			// compter le nb d'espace,
-			// si (nb - 2 == 0) : normal,
-			// sinon si (nb - 2 < 0) de la merde,
-			// sinon si (nb - 2 > 0) le nom a pleins d'espace
 		}
 	}
 }

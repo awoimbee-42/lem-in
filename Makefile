@@ -6,7 +6,7 @@
 #    By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/26 22:06:19 by marvin            #+#    #+#              #
-#    Updated: 2019/03/15 19:47:21 by allespag         ###   ########.fr        #
+#    Updated: 2019/03/15 21:23:11 by allespag         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRC_NAME =	main.c					\
 			parser/t_str.c			\
 			parser/get_input.c		\
 			parser/deal_with_line.c	\
+			parser/find_rooms.c		\
 			parser/command_line.c	\
 			parser/init_room.c		\
 			parser/init_graph.c		\
