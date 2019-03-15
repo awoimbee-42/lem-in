@@ -6,7 +6,7 @@
 #    By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/26 22:06:19 by marvin            #+#    #+#              #
-#    Updated: 2019/03/14 17:42:58 by awoimbee         ###   ########.fr        #
+#    Updated: 2019/03/15 19:47:21 by allespag         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,13 @@ CC = gcc
 
 CFLAGS	=	-Wall -Wextra -g3 #-Ofast -march=native -ftree-vectorize -fstrict-aliasing
 
-SRC_NAME =	main.c							
+SRC_NAME =	main.c					\
+			parser/t_str.c			\
+			parser/get_input.c		\
+			parser/deal_with_line.c	\
+			parser/command_line.c	\
+			parser/init_room.c		\
+			parser/init_graph.c		\
 
 SRC_FOLDERS = parser
 ################################################################################
