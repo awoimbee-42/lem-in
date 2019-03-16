@@ -6,7 +6,7 @@
 /*   By: awoimbee <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:37:38 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/03/16 22:16:19 by allespag         ###   ########.fr       */
+/*   Updated: 2019/03/16 22:31:24 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@
 
 # include "libft.h"
 
+struct					s_str;
+struct					s_map;
+struct					s_room;
+struct					s_graph;
+
 typedef struct			s_str
 {
 	char				**str;
@@ -31,7 +36,7 @@ typedef struct			s_str
 
 typedef struct			s_map
 {
-	t_room				*list;
+	struct s_room		*list;
 	size_t				size;
 	size_t				used;
 }						t_map;
