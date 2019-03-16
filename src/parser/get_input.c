@@ -6,7 +6,7 @@
 /*   By: allespag <allespag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:06:22 by allespag          #+#    #+#             */
-/*   Updated: 2019/03/15 21:00:18 by allespag         ###   ########.fr       */
+/*   Updated: 2019/03/16 21:30:36 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void			find_ants(t_graph *g, t_str *str)
 	{
 		if (get_next_line(0, &line) == -1)
 			exit_lem_in("Error: get_next_line failed in find_ants\n");
+		if (!line)
+			exit_lem_in("ERROR");
 		if (is_comment(line))
 			str = add_t_str(str, line);
 		else if (is_command(line))
@@ -45,8 +47,16 @@ void			find_ants(t_graph *g, t_str *str)
 	}
 }
 
+// DANS FIND_* check line == null
 void			get_input(t_graph *g, t_str *str)
 {
+	int			ret;
+	char		*line;
+
+	line = NULL;
 	find_ants(g, str);
-	find_rooms(g, str);
+	ret = find_rooms(g, str, &line);
+	if (ret == 0)
+		return ;
+	//find_links(g, str, line);
 }

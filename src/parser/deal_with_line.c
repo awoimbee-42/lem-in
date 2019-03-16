@@ -6,7 +6,7 @@
 /*   By: allespag <allespag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 19:10:08 by allespag          #+#    #+#             */
-/*   Updated: 2019/03/15 21:31:43 by allespag         ###   ########.fr       */
+/*   Updated: 2019/03/16 20:31:36 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int					is_comment(char *line)
 {
 	if (!ft_strcmp(line, ""))
 		exit_lem_in("ERROR");
-	if (line[0] == '#' && line[1] != '#')
+	else if (line[0] == '#' && line[1] != '#')
 		return (1);
 	return (0);
 }

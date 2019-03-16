@@ -6,7 +6,7 @@
 /*   By: awoimbee <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:38:11 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/03/15 21:22:46 by allespag         ###   ########.fr       */
+/*   Updated: 2019/03/16 19:58:31 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,9 @@ int			main(int argc, char **argv)
 
 	new = init_graph();
 	file = new_t_str(500);
-	find_rooms(new, file);
 	//parse...
-		//get_input(new, file);
-		//display_t_str(file);
+		get_input(new, file);
+		display_t_str(file);
 	//edmon karp...
 	return (EXIT_SUCCESS);
 }

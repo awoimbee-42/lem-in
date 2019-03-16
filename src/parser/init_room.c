@@ -6,7 +6,7 @@
 /*   By: allespag <allespag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 17:58:15 by allespag          #+#    #+#             */
-/*   Updated: 2019/03/15 19:07:23 by allespag         ###   ########.fr       */
+/*   Updated: 2019/03/16 18:40:26 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,17 @@ t_room			*new_room(char *name, int ants, int x, int y)
 	new->y = y;
 	new->linked = NULL;
 	return (new);
+}
+
+void			room_free(t_room *room)
+{
+	if (room)
+	{
+		if (room->name)
+			free(room->name);
+		//creer free_linked
+		//if (linked)
+		//	free_linked(room->linked);
+		free(room);
+	}
 }
