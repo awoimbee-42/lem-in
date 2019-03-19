@@ -6,7 +6,7 @@
 /*   By: allespag <allespag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 19:45:11 by allespag          #+#    #+#             */
-/*   Updated: 2019/03/15 21:25:46 by allespag         ###   ########.fr       */
+/*   Updated: 2019/03/19 18:13:31 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,23 @@
 //les return sont a ignores (il faut les changer)
 int				command_hub(char *line)
 {
-	if (!ft_strcmp(line, "start"))
-		return (1);
-	else if (!ft_strcmp(line, "end"))
-		return (1);
-	else if (!ft_strcmp(line, "commande inventee dans le cadre des bonus"))
-		return (1);
+	if (!ft_strcmp(line, "##start"))
+		return (START);
+	else if (!ft_strcmp(line, "##end"))
+		return (END);
+	else if (!ft_strcmp(line, "##commande inventee dans le cadre des bonus"))
+		return (3);
 	else			// commande inconnue, on ignore (dunno si ont doit l'add dans l'historique des cmd)
-		return (0);
+		return (UNKNOWN);
+}
+
+void			exec_command(t_graph *g, int command, t_room *to_set)
+{
+	if (command == START)
+		g->start = to_set;
+	else if (command == END)
+		g->end = to_set;
+	// else if command == autre chose, bha on peut set la couleur de la room a command
 }
 
 int				is_command(char *line)

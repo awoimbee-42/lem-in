@@ -6,7 +6,7 @@
 /*   By: allespag <allespag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 20:49:07 by allespag          #+#    #+#             */
-/*   Updated: 2019/03/16 22:31:50 by allespag         ###   ########.fr       */
+/*   Updated: 2019/03/19 18:38:18 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int		count_spaces(char *line)
 
 // si ce n'est pas une room => check si c'est un tube, si c'est pas le cas
 // c'est une ERROR ape
-t_room			*is_room(char *line)
+t_room			*is_room(char *line, t_graph *g)
 {
 	int			i;
 	int			count;
@@ -44,16 +44,16 @@ t_room			*is_room(char *line)
 	count = 0;
 	spaces = count_spaces(line);
 	tmp = line;
-	res = new_room(NULL, -1, -1, -1);
 	if (spaces - 2 < 0)
 		return (0);
+	res = new_room(NULL, -1, -1, -1);
 	while (spaces - count != 1 && tmp[i])
 	{
 		if (tmp[i] == ' ')
 			count++;
 		i++;
 	}
-	if(!ft_strncat_join(&res->name, line, i))
+	if (!ft_strncat_join(&res->name, line, i))
 		exit_lem_in("Error: ft_strncat_join failed in is_room");
 	prev_err = errno;
 	tmp = &(tmp[i]);
@@ -66,6 +66,8 @@ t_room			*is_room(char *line)
 		room_free(res);
 		return (NULL);
 	}
+	else if (is_room_here(g->map, res))
+		exit_lem_in("ERROR");
 	return (res);
 }
 
@@ -76,14 +78,13 @@ int				find_rooms(t_graph *g, t_str *str, char **tmp)
 	int			command;
 	t_room		*to_add;
 
+	command = 0;
 	while (1)
 	{
 		ret = get_next_line(0, &line);
-		if (ret == 0)
-			return (0);
-		else if (ret == -1)
+		if (ret == -1)
 			exit_lem_in("Error: get_next_line failed in find_rooms");
-		if (!line)
+		else if (ret == 0 || !line)
 			return (0);
 		if (is_comment(line))
 			str = add_t_str(str, line);
@@ -94,17 +95,18 @@ int				find_rooms(t_graph *g, t_str *str, char **tmp)
 		}
 		else
 		{
-			// pas set g->map mais add le resultat de is_room dans g->map:
-			if (!((to_add = is_room(line))))
+			if (!((to_add = is_room(line, g))))
 			{
 				*tmp = line;
 				return (1);
 			}
 			else
 			{
-				// gerer la commande, et set la commande a 0 apres
-				//g->map = add_t_map(to_add);
+				if (command > 0)
+					exec_command(g, command, to_add);
+				g->map = add_t_map(g->map, to_add);
 				str = add_t_str(str, line);
+				command = 0;
 			}
 		}
 	}

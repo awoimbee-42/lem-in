@@ -6,7 +6,7 @@
 /*   By: allespag <allespag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 17:58:15 by allespag          #+#    #+#             */
-/*   Updated: 2019/03/16 18:40:26 by allespag         ###   ########.fr       */
+/*   Updated: 2019/03/19 18:23:32 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_room			*new_room(char *name, int ants, int x, int y)
 	new->ants = ants;
 	new->x = x;
 	new->y = y;
-	new->linked = NULL;
+	new->linked = new_t_map(10);
 	return (new);
 }
 
@@ -32,9 +32,17 @@ void			room_free(t_room *room)
 	{
 		if (room->name)
 			free(room->name);
-		//creer free_linked
-		//if (linked)
-		//	free_linked(room->linked);
+		if (room->linked)
+			free_t_map(room->linked);
 		free(room);
 	}
+}
+
+// NORME ICI POUR LE RETURN 0 JE SAIS PAS
+int				cmp_room(t_room *a, t_room *b)
+{
+	if (!ft_strcmp(a->name, b->name)
+			|| (a->x == b->x && a->y == b->y))
+		return (0);
+	return (1);
 }

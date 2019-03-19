@@ -6,7 +6,7 @@
 #    By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/26 22:06:19 by marvin            #+#    #+#              #
-#    Updated: 2019/03/15 21:23:11 by allespag         ###   ########.fr        #
+#    Updated: 2019/03/19 17:12:30 by allespag         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ CFLAGS	=	-Wall -Wextra -g3 #-Ofast -march=native -ftree-vectorize -fstrict-alias
 
 SRC_NAME =	main.c					\
 			parser/t_str.c			\
+			parser/t_map.c			\
 			parser/get_input.c		\
 			parser/deal_with_line.c	\
 			parser/find_rooms.c		\

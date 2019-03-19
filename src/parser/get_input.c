@@ -6,7 +6,7 @@
 /*   By: allespag <allespag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:06:22 by allespag          #+#    #+#             */
-/*   Updated: 2019/03/16 21:30:36 by allespag         ###   ########.fr       */
+/*   Updated: 2019/03/19 18:41:31 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,12 @@ void			get_input(t_graph *g, t_str *str)
 	line = NULL;
 	find_ants(g, str);
 	ret = find_rooms(g, str, &line);
+	// TOI QUI FAIT LA NORME, N'OUBLIE PAS DE CHANGER LE MESSAGE DU EXIT_LEM_IN SUIVANT APE
+	if (g->start == NULL || g->end == NULL)
+		exit_lem_in("ERROR (no start or/and no end)");
 	if (ret == 0)
 		return ;
+	else if (ret == 1)
+		str = add_t_str(str, ft_strdup("REMOVE THIS LINE IN CODE PLS"));
 	//find_links(g, str, line);
 }

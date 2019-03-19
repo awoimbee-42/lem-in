@@ -6,7 +6,7 @@
 /*   By: awoimbee <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:37:38 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/03/16 22:31:24 by allespag         ###   ########.fr       */
+/*   Updated: 2019/03/19 18:36:14 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@
 # include <inttypes.h>
 
 # include "libft.h"
+
+# define START 1
+# define END 2
+# define UNKNOWN -1
 
 struct					s_str;
 struct					s_map;
@@ -80,13 +84,14 @@ int						is_comment(char *line);
 /*
 **	FIND_ROOMS
 */
-t_room					*is_room(char *line);
+t_room					*is_room(char *line, t_graph *g);
 int						find_rooms(t_graph *g, t_str *str, char **tmp);
 
 /*
 **	COMMAND_LINE
 */
 int						command_hub(char *line);
+void					exec_command(t_graph *g, int command, t_room *to_set);
 int						is_command(char *line);
 
 /*
@@ -99,13 +104,23 @@ t_str					*add_t_str(t_str *string, char *add);
 void					display_t_str(t_str *string);
 
 /*
-**	ROOM
+**	T_MAP
+*/
+t_map					*new_t_map(size_t size);
+void					free_t_map(t_map *map);
+t_map					*realloc_t_map(t_map *map);
+t_map					*add_t_map(t_map *map, t_room *add);
+int						is_room_here(t_map *map, t_room *room);
+
+/*
+**	INIT_ROOM
 */
 t_room					*new_room(char *name, int ants, int x, int y);
 void					room_free(t_room *room);
+int						cmp_room(t_room *a, t_room *b);
 
 /*
-**	GRAPH
+**	INIT_GRAPH
 */
 t_graph					*init_graph(void);
 
