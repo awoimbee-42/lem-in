@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_rooms.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allespag <allespag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 20:49:07 by allespag          #+#    #+#             */
-/*   Updated: 2019/03/19 19:16:46 by allespag         ###   ########.fr       */
+/*   Updated: 2019/03/19 20:45:36 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_room			*is_room(char *line, t_graph *g)
 	int			spaces;
 	char		*tmp;
 	t_room		*res;
-	int			prev_err;
+	int			err;
 
 	i = 0;
 	count = 0;
@@ -55,17 +55,15 @@ t_room			*is_room(char *line, t_graph *g)
 	}
 	if (!ft_strncat_join(&res->name, line, i))
 		exit_lem_in("Error: ft_strncat_join failed in is_room");
-	prev_err = errno;
-	tmp = &(tmp[i]);
+	err = 0;
+	tmp = &(tmp[i - 1]);
 	// modifier ft_atoi_mv pour ne pas return 0 en cas de nb invalide
 	// + ca va peut etre ajouter 2 3 soucis (peut etre falloir avancer les ptr de 1
-	//===
-	//ALORS POUR ATOI_MV, le truc cool serait qu'il prenne un ptr sur int qu'on set a 0 si 
-	//il y a une erreur lors de la lecture du int, genre si la string ne represente pas un int
-	res->x = ft_atoi_mv(&tmp);
-	res->y = ft_atoi_mv(&tmp);
-	if (prev_err != errno)
+	res->x = ft_atoi_mv_err(&tmp, &err);
+	res->y = ft_atoi_mv_err(&tmp, &err);
+	if (err)
 	{
+		printf("Error majenta");
 		room_free(res);
 		return (NULL);
 	}

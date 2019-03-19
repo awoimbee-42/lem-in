@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: awoimbee <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:37:38 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/03/19 18:36:14 by allespag         ###   ########.fr       */
+/*   Updated: 2019/03/19 20:37:22 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void					get_input(t_graph *g, t_str *str);
 **	DEAL_WITH_LINE
 */
 long long				ft_atoi_pimp(char *line);
+int						ft_atoi_mv_err(char **nptr, int *err);
 int						is_comment(char *line);
 
 /*
