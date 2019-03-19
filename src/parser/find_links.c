@@ -6,7 +6,7 @@
 /*   By: allespag <allespag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 21:19:18 by allespag          #+#    #+#             */
-/*   Updated: 2019/03/16 21:30:29 by allespag         ###   ########.fr       */
+/*   Updated: 2019/03/19 18:57:58 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@ void			find_links(t_graph *g, t_str *str, char **tmp)
 		if (is_comment(line))
 			str = add_t_str(str, line);
 		// peut etre changer la gestion de la commande pour le tubes
+		//	UPDATE : LES COMMANDES SONT IGNOREES ICI
 		else if (is_command(line))
-			exit_lem_in("ERROR");
+			continue ;
 		else
 		{
 			// ajoute le link dans les 2 sens, pour n1 et n2

@@ -6,7 +6,7 @@
 /*   By: allespag <allespag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 20:49:07 by allespag          #+#    #+#             */
-/*   Updated: 2019/03/19 18:38:18 by allespag         ###   ########.fr       */
+/*   Updated: 2019/03/19 19:16:46 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ t_room			*is_room(char *line, t_graph *g)
 	tmp = &(tmp[i]);
 	// modifier ft_atoi_mv pour ne pas return 0 en cas de nb invalide
 	// + ca va peut etre ajouter 2 3 soucis (peut etre falloir avancer les ptr de 1
+	//===
+	//ALORS POUR ATOI_MV, le truc cool serait qu'il prenne un ptr sur int qu'on set a 0 si 
+	//il y a une erreur lors de la lecture du int, genre si la string ne represente pas un int
 	res->x = ft_atoi_mv(&tmp);
 	res->y = ft_atoi_mv(&tmp);
 	if (prev_err != errno)

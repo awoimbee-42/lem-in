@@ -1,0 +1,10 @@
+#ANTS:
+55768
+#ERROR HERE
+#rooms
+##start
+pedro 1 1
+##end
+pablo 0 0
+pablo-pedro
+pedro-pablo
