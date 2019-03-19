@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:38:11 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/03/19 20:37:24 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/03/19 20:49:26 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int			ft_atoi_mv_err(char **nptr, int *err)
 /*
 **	Peut etre devoir free 2/3 trucs ici
 */
-void		exit_lem_in(char *key, char *key2)
+void		exit_lem_in(char *key)
 {
 	ft_putstr_fd(key, 2);
 	exit(EXIT_FAILURE);
