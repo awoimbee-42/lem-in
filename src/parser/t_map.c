@@ -6,7 +6,7 @@
 /*   By: allespag <allespag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 22:40:16 by allespag          #+#    #+#             */
-/*   Updated: 2019/03/19 18:37:03 by allespag         ###   ########.fr       */
+/*   Updated: 2019/03/20 17:46:53 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ t_map			*add_t_map(t_map *map, t_room *add)
 	if (map->used >= map->size)
 	{
 		tmp = realloc_t_map(map);
+		//free un truc qu'il fallait pas ici
 		free_t_map(map);
 		tmp->list[tmp->used] = *add;
 		tmp->used++;

@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:38:11 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/03/19 20:49:26 by allespag         ###   ########.fr       */
+/*   Updated: 2019/03/20 21:04:04 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ int			main(int argc, char **argv)
 	//parse...
 		get_input(new, file);
 		display_t_str(file);
+		// DISPLAY_GRAPH POUR DEBUG
+		display_graph(new);
 	//edmon karp...
 	return (EXIT_SUCCESS);
 }

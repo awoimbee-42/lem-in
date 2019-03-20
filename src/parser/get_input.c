@@ -6,7 +6,7 @@
 /*   By: allespag <allespag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:06:22 by allespag          #+#    #+#             */
-/*   Updated: 2019/03/19 18:41:31 by allespag         ###   ########.fr       */
+/*   Updated: 2019/03/20 21:04:06 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,8 @@ void			find_ants(t_graph *g, t_str *str)
 			exit_lem_in("Error: get_next_line failed in find_ants\n");
 		if (!line)
 			exit_lem_in("ERROR");
-		if (is_comment(line))
+		if (is_comment(line) || is_command(line))
 			str = add_t_str(str, line);
-		else if (is_command(line))
-		{
-			// alors la c'est un peu le bordel pour gerer ca
-			// il va avoir des commandes qui parfois passent parfois non
-			str = add_t_str(str, line);
-		}
 		else 
 		{
 			if (ft_strlen(line) > 11)
@@ -62,6 +56,9 @@ void			get_input(t_graph *g, t_str *str)
 	if (ret == 0)
 		return ;
 	else if (ret == 1)
-		str = add_t_str(str, ft_strdup("REMOVE THIS LINE IN CODE PLS"));
-	//find_links(g, str, line);
+	{
+		if (!is_link(g, str, line))
+			return ;
+		find_links(g, str);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 20:49:07 by allespag          #+#    #+#             */
-/*   Updated: 2019/03/19 20:45:36 by allespag         ###   ########.fr       */
+/*   Updated: 2019/03/20 20:39:20 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ t_room			*is_room(char *line, t_graph *g)
 	tmp = line;
 	if (spaces - 2 < 0)
 		return (0);
-	res = new_room(NULL, -1, -1, -1);
+	res = new_room(NULL, 0, -1, -1);
 	while (spaces - count != 1 && tmp[i])
 	{
 		if (tmp[i] == ' ')
 			count++;
 		i++;
 	}
-	if (!ft_strncat_join(&res->name, line, i))
+	if (!ft_strncat_join(&res->name, line, i - 1))
 		exit_lem_in("Error: ft_strncat_join failed in is_room");
 	err = 0;
 	tmp = &(tmp[i - 1]);

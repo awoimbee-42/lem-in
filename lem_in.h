@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:37:38 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/03/19 20:37:22 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/03/20 20:45:36 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,15 @@ t_room					*is_room(char *line, t_graph *g);
 int						find_rooms(t_graph *g, t_str *str, char **tmp);
 
 /*
+**	FIND_LINKS
+*/
+t_room					*find_room_link(t_graph *g, char *ptr, size_t n);
+t_room					*get_first_link_part(t_graph *g, char *line);
+t_room					*get_second_link_part(t_graph *g, char *line);
+int						is_link(t_graph *g, t_str *str, char *line);
+void					find_links(t_graph *g, t_str *str);
+
+/*
 **	COMMAND_LINE
 */
 int						command_hub(char *line);
@@ -124,5 +133,12 @@ int						cmp_room(t_room *a, t_room *b);
 **	INIT_GRAPH
 */
 t_graph					*init_graph(void);
+
+/*
+**	DISPLAY_GRAPH_ROOM_MAP (DEBUG)
+*/
+void					display_map(t_map *map);
+void					display_room(t_room *room, int map);
+void					display_graph(t_graph *g);
 
 #endif
