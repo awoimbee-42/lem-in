@@ -39,7 +39,6 @@ t_room			*get_first_link_part(t_graph *g, char *line)
 			break ;
 		i++;
 	}
-	ft_putstr("1st: ");
 	return (find_room_link(g, line, i));
 }
 
@@ -56,7 +55,6 @@ t_room			*get_second_link_part(t_graph *g, char *line)
 			break ;
 		i++;
 	}
-	ft_putstr("2nd: ");
 	return (find_room_link(g, (line + i + 1), ft_strlen(line + i + 1)));
 }
 
@@ -72,9 +70,13 @@ int				is_link(t_graph *g, t_str *str, char *line)
 		r1 = get_first_link_part(g, line);
 		r2 = get_second_link_part(g, line);
 		if (!r1 || !r2)
+		{
 			return (0);
+		}
 		r1->linked = add_t_map(r1->linked, r2);
 		r2->linked = add_t_map(r2->linked, r1);
+		ft_putendl("chaussette");
+		display_t_str(str);
 		str = add_t_str(str, line);
 	}
 	return (1);

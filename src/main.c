@@ -59,12 +59,13 @@ int			main(int argc, char **argv)
 	t_str			*file;
 
 	new = init_graph();
-	file = new_t_str(500);
+	file = new_t_str(10);
 	//parse...
 		get_input(new, file);
 		display_t_str(file);
 		// DISPLAY_GRAPH POUR DEBUG
-		display_graph(new);
+		//	display_graph(new);
 	//edmon karp...
+	ft_putstr("exit sucess well done\n");
 	return (EXIT_SUCCESS);
 }

@@ -37,11 +37,11 @@ void			free_t_str(t_str *string)
 	{
 		if (string->str)
 		{
-			while (i < string->used)
-			{
-				free(string->str[i]);
-				i++;
-			}
+		//	while (i < string->used)
+		//	{
+		//		free(string->str[i]);
+		//		i++;
+		//	}
 			free(string->str);
 		}
 		free(string);
@@ -50,6 +50,11 @@ void			free_t_str(t_str *string)
 
 t_str			*realloc_t_str(t_str *string)
 {
+	ft_putendl("=========================");
+	ft_putendl("I WILL REALLOC APE:");
+	display_t_str(string);
+	ft_putendl("=========================");
+
 	size_t		i;
 	t_str		*new;
 
@@ -74,7 +79,8 @@ t_str			*add_t_str(t_str *string, char *add)
 		free_t_str(string);
 		tmp->str[tmp->used] = add;
 		tmp->used++;
-		return (tmp);
+		string = tmp;
+		return (string);
 	}
 	string->str[string->used] = add;
 	string->used++;
@@ -86,6 +92,7 @@ void			display_t_str(t_str *string)
 	size_t		i;
 
 	i = 0;
+	ft_printf("[%d] %d < %d\n", (i < string->used), i, string->used);
 	while (i < string->used)
 	{
 		ft_putendl(string->str[i]);

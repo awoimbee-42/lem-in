@@ -34,11 +34,11 @@ void			free_t_map(t_map *map)
 	{
 		if (map->list)
 		{
-			while (i < map->used)
-			{
-				room_free(&map->list[i]);
-				i++;
-			}
+		//	while (i < map->used)
+		//	{
+		//		room_free(&map->list[i]);
+		//		i++;
+		//	}
 			free(map->list);
 		}
 		free(map);

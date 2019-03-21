@@ -55,6 +55,13 @@ void			get_input(t_graph *g, t_str *str)
 		exit_lem_in("ERROR (no start or/and no end)");
 	if (ret == 0)
 		return ;
+	else if (1)
+	{
+		write(1, "==========\n", 11);
+		write(1, "ELSE IF 1\n", 10);
+		display_t_str(str);
+		write(1, "==========\n", 11);
+	}
 	else if (ret == 1)
 	{
 		if (!is_link(g, str, line))
