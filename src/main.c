@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:38:11 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/03/20 21:04:04 by allespag         ###   ########.fr       */
+/*   Updated: 2019/03/22 18:11:37 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int			main(int argc, char **argv)
 	new = init_graph();
 	file = new_t_str(10);
 	//parse...
-		get_input(new, file);
+		get_input(new, &file);
 		display_t_str(file);
 		// DISPLAY_GRAPH POUR DEBUG
 		//	display_graph(new);

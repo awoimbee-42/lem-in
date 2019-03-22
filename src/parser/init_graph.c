@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_graph.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allespag <allespag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 17:55:10 by allespag          #+#    #+#             */
-/*   Updated: 2019/03/20 16:27:45 by allespag         ###   ########.fr       */
+/*   Updated: 2019/03/22 17:15:09 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void			display_map(t_map *map)
 
 void			display_room(t_room *room, int map)
 {
+	if (!room)
+		ft_putendl("romm est null yes");
 	ft_putstr("Room: ");
 	ft_putendl(room->name);
 	ft_putstr("Ants: ");
@@ -58,7 +60,7 @@ void			display_graph(t_graph *g)
 {
 	ft_putstr("Ants: ");
 	ft_putnbr(g->ants);
-	ft_putstr("\nStart: ");	
+	ft_putstr("\nStart: ");
 	display_room(g->start, 0);
 	ft_putstr("End: ");
 	display_room(g->end, 0);

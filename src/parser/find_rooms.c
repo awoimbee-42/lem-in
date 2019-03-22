@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 20:49:07 by allespag          #+#    #+#             */
-/*   Updated: 2019/03/20 20:39:20 by allespag         ###   ########.fr       */
+/*   Updated: 2019/03/22 18:03:53 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_room			*is_room(char *line, t_graph *g)
 	return (res);
 }
 
-int				find_rooms(t_graph *g, t_str *str, char **tmp)
+int				find_rooms(t_graph *g, t_str **str, char **tmp)
 {
 	int			ret;
 	char		*line;
@@ -86,19 +86,23 @@ int				find_rooms(t_graph *g, t_str *str, char **tmp)
 		if (ret == -1)
 			exit_lem_in("Error: get_next_line failed in find_rooms");
 		else if (ret == 0 || !line)
+		{
+			printf("ret == 0 || !line\n");
 			return (0);
+		}
 		if (is_comment(line))
-			str = add_t_str(str, line);
+			*str = add_t_str(*str, line);
 		else if (is_command(line))
 		{
 			command = command_hub(line);
-			str = add_t_str(str, line);
+			*str = add_t_str(*str, line);
 		}
 		else
 		{
 			if (!((to_add = is_room(line, g))))
 			{
 				*tmp = line;
+				display_t_str(*str);
 				return (1);
 			}
 			else
@@ -106,7 +110,7 @@ int				find_rooms(t_graph *g, t_str *str, char **tmp)
 				if (command > 0)
 					exec_command(g, command, to_add);
 				g->map = add_t_map(g->map, to_add);
-				str = add_t_str(str, line);
+				*str = add_t_str(*str, line);
 				command = 0;
 			}
 		}

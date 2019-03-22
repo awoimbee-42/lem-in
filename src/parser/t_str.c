@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   t_str.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allespag <allespag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 18:12:57 by allespag          #+#    #+#             */
-/*   Updated: 2019/03/15 19:07:40 by allespag         ###   ########.fr       */
+/*   Updated: 2019/03/22 18:13:42 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ t_str			*realloc_t_str(t_str *string)
 		new->str[i] = string->str[i];
 		i++;
 	}
+	ft_printf("{grn}realloc_t_str: used: %d\tsize: %d{eoc}\n", new->used, new->size);
 	return (new);
 }
 
@@ -80,10 +81,12 @@ t_str			*add_t_str(t_str *string, char *add)
 		tmp->str[tmp->used] = add;
 		tmp->used++;
 		string = tmp;
+		ft_printf("{red}end of add_t_str: tmp: used: %d\tsize: %d{eoc}\n", tmp->used, tmp->size);
 		return (string);
 	}
 	string->str[string->used] = add;
 	string->used++;
+	ft_printf("{red}end of add_t_str: string: used: %d\tsize: %d{eoc}\n", string->used, string->size);
 	return (string);
 }
 

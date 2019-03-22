@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:37:38 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/03/20 20:45:36 by allespag         ###   ########.fr       */
+/*   Updated: 2019/03/22 18:11:46 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ void					exit_lem_in(char *key);
 /*
 **	PARSER
 */
-void					find_ants(t_graph *g, t_str *str);
-void					get_input(t_graph *g, t_str *str);
+void					find_ants(t_graph *g, t_str **str);
+void					get_input(t_graph *g, t_str **str);
 
 /*
 **	DEAL_WITH_LINE
@@ -86,7 +86,7 @@ int						is_comment(char *line);
 **	FIND_ROOMS
 */
 t_room					*is_room(char *line, t_graph *g);
-int						find_rooms(t_graph *g, t_str *str, char **tmp);
+int						find_rooms(t_graph *g, t_str **str, char **tmp);
 
 /*
 **	FIND_LINKS
@@ -94,8 +94,8 @@ int						find_rooms(t_graph *g, t_str *str, char **tmp);
 t_room					*find_room_link(t_graph *g, char *ptr, size_t n);
 t_room					*get_first_link_part(t_graph *g, char *line);
 t_room					*get_second_link_part(t_graph *g, char *line);
-int						is_link(t_graph *g, t_str *str, char *line);
-void					find_links(t_graph *g, t_str *str);
+int						is_link(t_graph *g, t_str **str, char *line);
+void					find_links(t_graph *g, t_str **str);
 
 /*
 **	COMMAND_LINE

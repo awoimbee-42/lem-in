@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_input.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allespag <allespag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:06:22 by allespag          #+#    #+#             */
-/*   Updated: 2019/03/20 21:04:06 by allespag         ###   ########.fr       */
+/*   Updated: 2019/03/22 18:11:33 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // on check la command ou oublie pas, on est pas con hein
 
-void			find_ants(t_graph *g, t_str *str)
+void			find_ants(t_graph *g, t_str **str)
 {
 	char		*line;
 	long long	tmp;
@@ -26,8 +26,8 @@ void			find_ants(t_graph *g, t_str *str)
 		if (!line)
 			exit_lem_in("ERROR");
 		if (is_comment(line) || is_command(line))
-			str = add_t_str(str, line);
-		else 
+			*str = add_t_str(*str, line);
+		else
 		{
 			if (ft_strlen(line) > 11)
 				exit_lem_in("ERROR");
@@ -35,14 +35,14 @@ void			find_ants(t_graph *g, t_str *str)
 			if (tmp < INT_MIN || tmp > INT_MAX)
 				exit_lem_in("ERROR");
 			g->ants = (int)tmp;
-			str = add_t_str(str, line);
+			*str = add_t_str(*str, line);
 			return ;
 		}
 	}
 }
 
 // DANS FIND_* check line == null
-void			get_input(t_graph *g, t_str *str)
+void			get_input(t_graph *g, t_str **str)
 {
 	int			ret;
 	char		*line;
@@ -55,13 +55,6 @@ void			get_input(t_graph *g, t_str *str)
 		exit_lem_in("ERROR (no start or/and no end)");
 	if (ret == 0)
 		return ;
-	else if (1)
-	{
-		write(1, "==========\n", 11);
-		write(1, "ELSE IF 1\n", 10);
-		display_t_str(str);
-		write(1, "==========\n", 11);
-	}
 	else if (ret == 1)
 	{
 		if (!is_link(g, str, line))
