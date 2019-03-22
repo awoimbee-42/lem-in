@@ -6,14 +6,13 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:06:22 by allespag          #+#    #+#             */
-/*   Updated: 2019/03/22 18:11:33 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/03/22 20:16:10 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-// on check la command ou oublie pas, on est pas con hein
-
+// TOI QUI FAIS LA NORME : check si ants <= 0 ^^^^^^^^^
 void			find_ants(t_graph *g, t_str **str)
 {
 	char		*line;

@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 21:19:18 by allespag          #+#    #+#             */
-/*   Updated: 2019/03/22 18:09:39 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/03/22 19:46:02 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,18 +63,6 @@ int				is_link(t_graph *g, t_str **str, char *line)
 	t_room		*r1;
 	t_room		*r2;
 
-
-	ft_printf("yolo");
-
-
-	if (str[0]->size)
-		;
-
-	if (str[0]->size != 0 && !str[0]->str)
-		ft_printf("{blu}IS THIS NULL{eoc}\n");
-	if (!line)
-		ft_printf("{blu}PUTE{eoc}\n");
-	// ft_printf("str : {ylw}'%s'{eoc}\n", str->str[0]);
 	if (is_comment(line) || is_command(line))
 		*str = add_t_str(*str, line);
 	else
@@ -82,14 +70,9 @@ int				is_link(t_graph *g, t_str **str, char *line)
 		r1 = get_first_link_part(g, line);
 		r2 = get_second_link_part(g, line);
 		if (!r1 || !r2)
-		{
 			return (0);
-		}
 		r1->linked = add_t_map(r1->linked, r2);
 		r2->linked = add_t_map(r2->linked, r1);
-		ft_putendl("chaussette");
-		ft_printf("used = %d & size = %d\n", str[0]->used, str[0]->size);
-		display_t_str(*str);
 		*str = add_t_str(*str, line);
 	}
 	return (1);

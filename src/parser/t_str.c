@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 18:12:57 by allespag          #+#    #+#             */
-/*   Updated: 2019/03/22 18:13:42 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/03/22 20:03:08 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ void			free_t_str(t_str *string)
 	{
 		if (string->str)
 		{
-		//	while (i < string->used)
-		//	{
-		//		free(string->str[i]);
-		//		i++;
-		//	}
+			while (i < string->used)
+			{
+				free(string->str[i]);
+				i++;
+			}
 			free(string->str);
 		}
 		free(string);
@@ -50,11 +50,6 @@ void			free_t_str(t_str *string)
 
 t_str			*realloc_t_str(t_str *string)
 {
-	ft_putendl("=========================");
-	ft_putendl("I WILL REALLOC APE:");
-	display_t_str(string);
-	ft_putendl("=========================");
-
 	size_t		i;
 	t_str		*new;
 
@@ -66,7 +61,6 @@ t_str			*realloc_t_str(t_str *string)
 		new->str[i] = string->str[i];
 		i++;
 	}
-	ft_printf("{grn}realloc_t_str: used: %d\tsize: %d{eoc}\n", new->used, new->size);
 	return (new);
 }
 
@@ -77,16 +71,13 @@ t_str			*add_t_str(t_str *string, char *add)
 	if (string->used >= string->size)
 	{
 		tmp = realloc_t_str(string);
-		free_t_str(string);
+	//	free_t_str(string);
 		tmp->str[tmp->used] = add;
 		tmp->used++;
-		string = tmp;
-		ft_printf("{red}end of add_t_str: tmp: used: %d\tsize: %d{eoc}\n", tmp->used, tmp->size);
-		return (string);
+		return (tmp);
 	}
 	string->str[string->used] = add;
 	string->used++;
-	ft_printf("{red}end of add_t_str: string: used: %d\tsize: %d{eoc}\n", string->used, string->size);
 	return (string);
 }
 
@@ -95,7 +86,8 @@ void			display_t_str(t_str *string)
 	size_t		i;
 
 	i = 0;
-	ft_printf("[%d] %d < %d\n", (i < string->used), i, string->used);
+	if (string->used >= string->size)
+		ft_printf("{red}[%d] %d < %d\n{eoc}", (i < string->used), i, string->used);
 	while (i < string->used)
 	{
 		ft_putendl(string->str[i]);

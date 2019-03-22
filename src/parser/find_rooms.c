@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 20:49:07 by allespag          #+#    #+#             */
-/*   Updated: 2019/03/22 18:03:53 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/03/22 19:42:20 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ static int		count_spaces(char *line)
 	return (count);
 }
 
-// si ce n'est pas une room => check si c'est un tube, si c'est pas le cas
-// c'est une ERROR ape
 t_room			*is_room(char *line, t_graph *g)
 {
 	int			i;
@@ -45,7 +43,7 @@ t_room			*is_room(char *line, t_graph *g)
 	spaces = count_spaces(line);
 	tmp = line;
 	if (spaces - 2 < 0)
-		return (0);
+		return (NULL);
 	res = new_room(NULL, 0, -1, -1);
 	while (spaces - count != 1 && tmp[i])
 	{
@@ -57,8 +55,6 @@ t_room			*is_room(char *line, t_graph *g)
 		exit_lem_in("Error: ft_strncat_join failed in is_room");
 	err = 0;
 	tmp = &(tmp[i - 1]);
-	// modifier ft_atoi_mv pour ne pas return 0 en cas de nb invalide
-	// + ca va peut etre ajouter 2 3 soucis (peut etre falloir avancer les ptr de 1
 	res->x = ft_atoi_mv_err(&tmp, &err);
 	res->y = ft_atoi_mv_err(&tmp, &err);
 	if (err)
@@ -102,7 +98,6 @@ int				find_rooms(t_graph *g, t_str **str, char **tmp)
 			if (!((to_add = is_room(line, g))))
 			{
 				*tmp = line;
-				display_t_str(*str);
 				return (1);
 			}
 			else

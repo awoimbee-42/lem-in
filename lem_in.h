@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:37:38 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/03/22 18:11:46 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/03/22 20:26:03 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ int						cmp_room(t_room *a, t_room *b);
 **	INIT_GRAPH
 */
 t_graph					*init_graph(void);
+void					free_t_graph(t_graph *g);
 
 /*
 **	DISPLAY_GRAPH_ROOM_MAP (DEBUG)

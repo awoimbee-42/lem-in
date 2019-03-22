@@ -8,7 +8,9 @@ pedro 1 1
 pablo 0 0
 jesus 2 2
 miguel 3 3
+jorge -1000 -1000
 pablo-pedro
 jesus-miguel
 jesus-pablo
 jesus-pedro
+jesus-jorge
