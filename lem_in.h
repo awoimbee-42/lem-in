@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:37:38 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/03/22 20:26:03 by allespag         ###   ########.fr       */
+/*   Updated: 2019/03/26 18:21:00 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int						is_command(char *line);
 **	T_STR
 */
 t_str					*new_t_str(size_t size);
-void					free_t_str(t_str *string);
+void					free_t_str(t_str *string, int free_sub);
 t_str					*realloc_t_str(t_str *string);
 t_str					*add_t_str(t_str *string, char *add);
 void					display_t_str(t_str *string);
@@ -117,7 +117,7 @@ void					display_t_str(t_str *string);
 **	T_MAP
 */
 t_map					*new_t_map(size_t size);
-void					free_t_map(t_map *map);
+void					free_t_map(t_map *map, int free_sub);
 t_map					*realloc_t_map(t_map *map);
 t_map					*add_t_map(t_map *map, t_room *add);
 int						is_room_here(t_map *map, t_room *room);

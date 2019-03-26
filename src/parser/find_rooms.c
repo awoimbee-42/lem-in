@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_rooms.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: allespag <allespag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/15 20:49:07 by allespag          #+#    #+#             */
-/*   Updated: 2019/03/22 19:42:20 by allespag         ###   ########.fr       */
+/*   Created: 2019/03/26 19:00:17 by allespag          #+#    #+#             */
+/*   Updated: 2019/03/26 20:19:12 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ t_room			*is_room(char *line, t_graph *g)
 	res->y = ft_atoi_mv_err(&tmp, &err);
 	if (err)
 	{
-		printf("Error majenta");
+		//NORME: remove ce printf
+		ft_printf("Error majenta\n");
 		room_free(res);
 		return (NULL);
 	}
@@ -83,7 +84,8 @@ int				find_rooms(t_graph *g, t_str **str, char **tmp)
 			exit_lem_in("Error: get_next_line failed in find_rooms");
 		else if (ret == 0 || !line)
 		{
-			printf("ret == 0 || !line\n");
+			//NORME: remove ce printf
+			ft_printf("ret == 0 || !line\n");
 			return (0);
 		}
 		if (is_comment(line))
@@ -102,6 +104,7 @@ int				find_rooms(t_graph *g, t_str **str, char **tmp)
 			}
 			else
 			{
+				ft_printf("{cyn}to_add = %p\n{eoc}", to_add);
 				if (command > 0)
 					exec_command(g, command, to_add);
 				g->map = add_t_map(g->map, to_add);

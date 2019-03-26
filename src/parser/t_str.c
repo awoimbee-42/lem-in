@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   t_str.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: allespag <allespag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/15 18:12:57 by allespag          #+#    #+#             */
-/*   Updated: 2019/03/22 20:03:08 by allespag         ###   ########.fr       */
+/*   Created: 2019/03/26 19:00:08 by allespag          #+#    #+#             */
+/*   Updated: 2019/03/26 19:00:10 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_str			*new_t_str(size_t size)
 	return (new);
 }
 
-void			free_t_str(t_str *string)
+void			free_t_str(t_str *string, int free_sub)
 {
 	size_t		i;
 
@@ -37,14 +37,17 @@ void			free_t_str(t_str *string)
 	{
 		if (string->str)
 		{
-			while (i < string->used)
+			while (free_sub && i < string->used)
 			{
 				free(string->str[i]);
+				string->str[i] = NULL;
 				i++;
 			}
 			free(string->str);
+			string->str = NULL;
 		}
 		free(string);
+		string = NULL;
 	}
 }
 
@@ -71,7 +74,7 @@ t_str			*add_t_str(t_str *string, char *add)
 	if (string->used >= string->size)
 	{
 		tmp = realloc_t_str(string);
-	//	free_t_str(string);
+		free_t_str(string, 0);
 		tmp->str[tmp->used] = add;
 		tmp->used++;
 		return (tmp);
@@ -86,8 +89,6 @@ void			display_t_str(t_str *string)
 	size_t		i;
 
 	i = 0;
-	if (string->used >= string->size)
-		ft_printf("{red}[%d] %d < %d\n{eoc}", (i < string->used), i, string->used);
 	while (i < string->used)
 	{
 		ft_putendl(string->str[i]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_room.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: allespag <allespag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/15 17:58:15 by allespag          #+#    #+#             */
-/*   Updated: 2019/03/22 17:53:00 by awoimbee         ###   ########.fr       */
+/*   Created: 2019/03/26 19:23:09 by allespag          #+#    #+#             */
+/*   Updated: 2019/03/26 20:36:22 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,12 @@ void			room_free(t_room *room)
 	if (room)
 	{
 		if (room->name)
+		{
 			free(room->name);
+			room->name = NULL;
+		}
 		if (room->linked)
-			free_t_map(room->linked);
-		free(room);
+			free_t_map(room->linked, 0);
 	}
 }
 

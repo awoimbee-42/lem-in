@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 17:55:10 by allespag          #+#    #+#             */
-/*   Updated: 2019/03/22 20:28:11 by allespag         ###   ########.fr       */
+/*   Updated: 2019/03/26 19:43:08 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,10 @@ t_graph			*init_graph(void)
 //il manque des trucs a free
 void			free_t_graph(t_graph *g)
 {
-	size_t		i;
-
-	i = 0;
 	if (g)
 	{
 		if (g->map)
-			free(g->map);
+			free_t_map(g->map, 1);
 		free(g);
 	}
 }

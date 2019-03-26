@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   t_map.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: allespag <allespag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/16 22:40:16 by allespag          #+#    #+#             */
-/*   Updated: 2019/03/22 20:18:38 by allespag         ###   ########.fr       */
+/*   Created: 2019/03/26 19:01:35 by allespag          #+#    #+#             */
+/*   Updated: 2019/03/26 20:39:53 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_map			*new_t_map(size_t size)
 	return (new);
 }
 
-void			free_t_map(t_map *map)
+void			free_t_map(t_map *map, int free_sub)
 {
 	size_t		i;
 
@@ -34,14 +34,16 @@ void			free_t_map(t_map *map)
 	{
 		if (map->list)
 		{
-		//	while (i < map->used)
-		//	{
-		//		room_free(&map->list[i]);
-		//		i++;
-		//	}
+			while (free_sub && i < map->used)
+			{
+				room_free(&map->list[i]);
+				i++;
+			}
 			free(map->list);
+			map->list = NULL;
 		}
 		free(map);
+		map = NULL;
 	}
 }
 
@@ -68,8 +70,7 @@ t_map			*add_t_map(t_map *map, t_room *add)
 	if (map->used >= map->size)
 	{
 		tmp = realloc_t_map(map);
-		//free un truc qu'il fallait pas ici
-		free_t_map(map);
+		free_t_map(map, 0);
 		tmp->list[tmp->used] = *add;
 		tmp->used++;
 		return (tmp);

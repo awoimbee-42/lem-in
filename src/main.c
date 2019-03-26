@@ -6,12 +6,13 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:38:11 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/03/22 20:26:47 by allespag         ###   ########.fr       */
+/*   Updated: 2019/03/26 20:34:19 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
+// deplacer cette fonction
 int			ft_atoi_mv_err(char **nptr, int *err)
 {
 	short int		sign;
@@ -41,7 +42,6 @@ int			ft_atoi_mv_err(char **nptr, int *err)
 	return (real_result);
 }
 
-
 /*
 **	Peut etre devoir free 2/3 trucs ici
 */
@@ -61,13 +61,14 @@ int			main(int argc, char **argv)
 	new = init_graph();
 	file = new_t_str(10);
 	//parse...
-		get_input(new, &file);
-		display_t_str(file);
+	get_input(new, &file);
+	display_t_str(file);
 		// DISPLAY_GRAPH POUR DEBUG
 			//display_graph(new);
 	//edmon karp...
-	free_t_str(file);
-	//free_t_graph(new);
+	free_t_str(file, 1);
+	ft_printf("{red}END OF DISPLAY_T_STR\n{eoc}");
+	free_t_graph(new);
 	ft_printf("{grn}exit sucess well done\n{eoc}");
 	return (EXIT_SUCCESS);
 }
