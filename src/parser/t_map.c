@@ -6,7 +6,7 @@
 /*   By: allespag <allespag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:01:35 by allespag          #+#    #+#             */
-/*   Updated: 2019/03/26 20:39:53 by allespag         ###   ########.fr       */
+/*   Updated: 2019/03/27 15:31:59 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ t_map			*add_t_map(t_map *map, t_room *add)
 		tmp->used++;
 		return (tmp);
 	}
+	//etrange
 	map->list[map->used] = *add;
 	map->used++;
 	return (map);

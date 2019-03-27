@@ -6,7 +6,7 @@
 /*   By: allespag <allespag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:00:17 by allespag          #+#    #+#             */
-/*   Updated: 2019/03/26 20:19:12 by allespag         ###   ########.fr       */
+/*   Updated: 2019/03/27 15:34:21 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,12 +104,12 @@ int				find_rooms(t_graph *g, t_str **str, char **tmp)
 			}
 			else
 			{
-				ft_printf("{cyn}to_add = %p\n{eoc}", to_add);
 				if (command > 0)
 					exec_command(g, command, to_add);
 				g->map = add_t_map(g->map, to_add);
 				*str = add_t_str(*str, line);
 				command = 0;
+				free(to_add);
 			}
 		}
 	}
