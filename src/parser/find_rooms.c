@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_rooms.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allespag <allespag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:00:17 by allespag          #+#    #+#             */
-/*   Updated: 2019/03/27 15:43:41 by allespag         ###   ########.fr       */
+/*   Updated: 2019/04/05 21:56:03 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ t_room			*is_room(char *line, t_graph *g)
 		exit_lem_in("Error: ft_strncat_join failed in is_room");
 	err = 0;
 	tmp = &(tmp[i - 1]);
-	res->x = ft_atoi_mv_err(&tmp, &err);
-	res->y = ft_atoi_mv_err(&tmp, &err);
+	res->coords.x = ft_atoi_mv_err(&tmp, &err);
+	res->coords.y = ft_atoi_mv_err(&tmp, &err);
 	if (err)
 	{
 		//NORME: remove ce printf

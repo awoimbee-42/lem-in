@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_input.c                                        :+:      :+:    :+:   */
+/*   parse_input.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -41,7 +41,7 @@ void			find_ants(t_graph *g, t_str **str)
 }
 
 // DANS FIND_* check line == null
-void			get_input(t_graph *g, t_str **str)
+void			parse_input(t_graph *g, t_str **str)
 {
 	int			ret;
 	char		*line;

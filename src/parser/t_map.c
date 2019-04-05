@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   t_map.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allespag <allespag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:01:35 by allespag          #+#    #+#             */
-/*   Updated: 2019/03/27 15:31:59 by allespag         ###   ########.fr       */
+/*   Updated: 2019/04/05 21:57:45 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_map			*new_t_map(size_t size)
 	return (new);
 }
 
-void			free_t_map(t_map *map, int free_sub)
+void			free_t_map(t_map *map, int free_sub)  // c'est quoi free_sub ? pourquoi tu free les room en fonction de free_sub ??
 {
 	size_t		i;
 

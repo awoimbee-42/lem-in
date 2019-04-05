@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:37:38 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/03/26 18:21:00 by allespag         ###   ########.fr       */
+/*   Updated: 2019/04/05 22:09:25 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,35 +31,40 @@ struct					s_map;
 struct					s_room;
 struct					s_graph;
 
+typedef struct			s_int2
+{
+	int				x;
+	int				y;
+}						t_int2;
+
 typedef struct			s_str
 {
-	char				**str;
-	size_t				size;
-	size_t				used;
-}						t_str;
+	char			**str;
+	size_t			size;
+	size_t			used;
+}					t_str;
 
 typedef struct			s_map
 {
-	struct s_room		*list;
-	size_t				size;
-	size_t				used;
+	struct s_room	*list;
+	size_t			size;
+	size_t			used;
 }						t_map;
 
 typedef struct			s_room
 {
-	char				*name;
-	int					ants;
-	int					x;
-	int					y;
-	t_map				*linked;
+	char			*name;
+	int				ants;
+	t_int2			coords;
+	t_map			*linked;			// link (pourquoi c'est un pointeur ??)
 }						t_room;
 
 typedef struct			s_graph
 {
-	int					ants;
-	t_room				*start;
-	t_room				*end;
-	t_map				*map;
+	int				ants;			// ants_nb
+	t_room			*start;
+	t_room			*end;
+	t_map			*map;			// Ca mene a quelle room ca ? pourquoi c'est la ?
 }						t_graph;
 
 // PROTEGER : ./lem-in < /dev/zero putain d'arthur de con (le /dev/random est protege mais random je pense)
@@ -73,7 +78,7 @@ void					exit_lem_in(char *key);
 **	PARSER
 */
 void					find_ants(t_graph *g, t_str **str);
-void					get_input(t_graph *g, t_str **str);
+void					parse_input(t_graph *g, t_str **str);
 
 /*
 **	DEAL_WITH_LINE

@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 17:55:10 by allespag          #+#    #+#             */
-/*   Updated: 2019/03/27 15:30:51 by allespag         ###   ########.fr       */
+/*   Updated: 2019/04/05 21:56:14 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void			display_room(t_room *room, int map)
 	ft_putendl(room->name);
 	ft_putstr("Ants: ");
 	ft_putnbr(room->ants);
-	ft_printf("\nCoord: %d %d\n", room->x, room->y);
+	ft_printf("\nCoord: %d %d\n", room->coords.x, room->coords.y);
 	if (map)
 	{
 		ft_putendl("linked: ");

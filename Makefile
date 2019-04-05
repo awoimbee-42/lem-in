@@ -6,13 +6,13 @@
 #    By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/26 22:06:19 by marvin            #+#    #+#              #
-#    Updated: 2019/03/20 20:25:36 by allespag         ###   ########.fr        #
+#    Updated: 2019/04/05 22:08:59 by awoimbee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	lem-in
 
-CC = gcc
+
 
 CFLAGS	=	-Wall -Wextra -g3 #-Ofast -march=native -ftree-vectorize -fstrict-aliasing
 
@@ -26,8 +26,9 @@ SRC_NAME =	main.c					\
 			parser/command_line.c	\
 			parser/init_room.c		\
 			parser/init_graph.c		\
+			#path_finding/find_paths.c
 
-SRC_FOLDERS = parser
+SRC_FOLDERS = parser path_finding
 ################################################################################
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
@@ -38,19 +39,25 @@ OBJ_PATH =	obj
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 
+CC = gcc
 LDLIBS = -lft
+LDFLAGS = -Llibft
+CFLAGS += -I./ -I./libft -MMD
 
-LDFLAGS = -Llibft 
-
-CFLAGS += -I./ -I./libft
+ifeq ($(OS),Linux)
+		NUMPROC := $(shell grep -c ^processor /proc/cpuinfo)
+else ifeq ($(OS),Darwin)
+		NUMPROC := $(shell sysctl hw.ncpu | awk '{print $$2}')
+endif
 
 ################################################################################
 
-all : $(NAME)
+all :
+	@make -j$(NUMPROC) $(NAME) --no-print-directory
 
 libft/libft.a :
 	@printf "$(YLW)Making libft...$(EOC)\n"
-	@make -s -j -C libft/
+	@make -s -j$(NUMPROC) -C libft/
 
 $(NAME) : libft/libft.a $(OBJ) lem_in.h
 	@printf "$(GRN)Linking $(NAME)...$(EOC)\n"
@@ -64,6 +71,10 @@ $(OBJ_PATH) :
 $(OBJ_PATH)/%.o : $(SRC_PATH)/%.c | $(OBJ_PATH)
 	@printf "\t$(CC) (...) $@\n"
 	@$(CC) $(CFLAGS) -o $@ -c $<
+
+# Add rules written in .d files (by gcc -MMD)
+# The '-' makes it doesn't care if the file exists or not
+-include $(OBJ:.o=.d)
 
 libclean :
 	@printf "$(YLW)Cleaning libft...$(EOC)\n"

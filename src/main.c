@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:38:11 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/03/26 20:34:19 by allespag         ###   ########.fr       */
+/*   Updated: 2019/04/05 21:34:43 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,20 +55,27 @@ int			main(int argc, char **argv)
 {
 	(void)argc;
 	(void)argv;
-	t_graph			*new;
+	t_graph			*map;
 	t_str			*file;
 
-	new = init_graph();
+	map = init_graph();
 	file = new_t_str(10);
-	//parse...
-	get_input(new, &file);
-	display_t_str(file);
+
+	parse_input(map, &file);
+
+
+
+
+	display_t_str(file);      // DEBUG
+
+	// find_paths(map);
+
 		// DISPLAY_GRAPH POUR DEBUG
-			//display_graph(new);
+			//display_graph(map);
 	//edmon karp...
 	free_t_str(file, 1);
 	ft_printf("{red}END OF DISPLAY_T_STR\n{eoc}");
-	free_t_graph(new);
+	free_t_graph(map);
 	ft_printf("{grn}exit sucess well done\n{eoc}");
 	return (EXIT_SUCCESS);
 }

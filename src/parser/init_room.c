@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_room.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allespag <allespag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:23:09 by allespag          #+#    #+#             */
-/*   Updated: 2019/03/27 15:30:52 by allespag         ###   ########.fr       */
+/*   Updated: 2019/04/05 21:56:36 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ t_room			*new_room(char *name, int ants, int x, int y)
 		exit_lem_in("Error: malloc failed in new_room\n");
 	new->name = name;
 	new->ants = ants;
-	new->x = x;
-	new->y = y;
+	new->coords.x = x;
+	new->coords.y = y;
+	// new->linked.used = 0;
+	// if (!(new->linked.list = malloc(10 * sizeof(*new->linked.list))))
 	new->linked = new_t_map(10);
 	return (new);
 }
@@ -44,7 +46,7 @@ void			room_free(t_room *room)
 int				cmp_room(t_room *a, t_room *b)
 {
 	if (!ft_strcmp(a->name, b->name)
-			|| (a->x == b->x && a->y == b->y))
+			|| (a->coords.x == b->coords.x && a->coords.y == b->coords.y))
 		return (0);
 	return (1);
 }
