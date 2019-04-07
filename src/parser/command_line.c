@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allespag <allespag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 19:45:11 by allespag          #+#    #+#             */
-/*   Updated: 2019/03/19 18:13:31 by allespag         ###   ########.fr       */
+/*   Updated: 2019/04/08 00:45:44 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //schema de la gestion des commandes
 //les return sont a ignores (il faut les changer)
-int				command_hub(char *line)
+t_command		command_hub(char *line)
 {
 	if (!ft_strcmp(line, "##start"))
 		return (START);

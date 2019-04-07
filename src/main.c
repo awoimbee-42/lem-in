@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:38:11 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/04/07 17:25:53 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/07 20:36:02 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int			main(int argc, char **argv)
 		// DISPLAY_GRAPH POUR DEBUG
 			//display_graph(map);
 	//edmon karp...
-	free_t_str(file, 1);
+	free_t_str(file);
 	ft_printf("{red}END OF DISPLAY_T_STR\n{eoc}");
 	free_t_graph(map);
 	ft_printf("{grn}exit sucess well done\n{eoc}");

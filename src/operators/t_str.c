@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:00:08 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/07 17:19:04 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/07 20:35:44 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,15 @@ t_str			*new_t_str(size_t size)
 	return (new);
 }
 
-void			free_t_str(t_str *string, int free_sub)
+void			free_t_str(t_str *string)
 {
 	size_t		i;
 
 	i = 0;
 	if (string && string->str)
 	{
-		while (free_sub && i < string->used)
-		{
-			ft_memdel((void*)&string->str[i]);
-			i++;
-		}
+		while (i < string->used)
+			ft_memdel((void*)&string->str[i++]);
 		ft_memdel((void*)&string->str);
 	}
 	ft_memdel((void*)&string);
@@ -72,8 +69,5 @@ void			display_t_str(t_str *string)
 
 	i = 0;
 	while (i < string->used)
-	{
-		ft_putendl(string->str[i]);
-		i++;
-	}
+		ft_putendl(string->str[i++]);
 }

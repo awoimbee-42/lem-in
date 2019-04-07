@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:37:38 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/04/07 17:19:18 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/08 00:54:50 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,20 @@
 
 # include "libft.h"
 
-# define START 1
-# define END 2
-# define UNKNOWN -1
-
 # define REALLOC_COEFF 2
 
 struct					s_str;
 struct					s_map;
 struct					s_room;
 struct					s_graph;
+
+typedef enum	e_command
+{
+	UNKNOWN,
+	NONE,
+	START,
+	END
+}				t_command;
 
 typedef struct			s_int2
 {
@@ -109,7 +113,7 @@ void					find_links(t_graph *g, t_str **str);
 /*
 **	COMMAND_LINE
 */
-int						command_hub(char *line);
+t_command				command_hub(char *line);
 void					exec_command(t_graph *g, int command, t_room *to_set);
 int						is_command(char *line);
 
@@ -117,7 +121,7 @@ int						is_command(char *line);
 **	T_STR
 */
 t_str					*new_t_str(size_t size);
-void					free_t_str(t_str *string, int free_sub);
+void					free_t_str(t_str *string);
 void					realloc_t_str(t_str *string);
 t_str					*add_t_str(t_str *string, char *add);
 void					display_t_str(t_str *string);
@@ -135,7 +139,7 @@ int						is_room_here(t_map *map, t_room *room);
 **	INIT_ROOM
 */
 t_room					*new_room(char *name, int ants, int x, int y);
-void					room_free(t_room *room);
+void					free_room(t_room *room);
 int						cmp_room(t_room *a, t_room *b);
 
 /*

@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 21:19:18 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/07 17:15:17 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/08 00:32:54 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_room			*find_room_link(t_graph *g, char *ptr, size_t n)
 {
-	size_t		i;
+	uint		i;
 
 	i = 0;
 	while (i < g->map->used)
@@ -28,34 +28,24 @@ t_room			*find_room_link(t_graph *g, char *ptr, size_t n)
 
 t_room			*get_first_link_part(t_graph *g, char *line)
 {
-	size_t		i;
+	uint		i;
 
 	i = 0;
-	while (1)
-	{
-		if (line[i] == '\0')
-			return (NULL);
-		else if (line[i] == '-')
-			break ;
-		i++;
-	}
-	return (find_room_link(g, line, i));
+	while (line[i])
+		if (line[i++] == '-')
+			return (find_room_link(g, line, i));
+	return (NULL);
 }
 
 t_room			*get_second_link_part(t_graph *g, char *line)
 {
-	size_t		i;
-
-	i = 0;
-	while (1)
+	while (*line)
 	{
-		if (line[i] == '\0')
-			return (NULL);
-		else if (line[i] == '-')
-			break ;
-		i++;
+		if (*line == '-')
+			return (find_room_link(g, line + 1, ft_strlen(line + 1)));
+		++line;
 	}
-	return (find_room_link(g, &line[i + 1], ft_strlen(&line[i + 1])));
+	return (NULL);
 }
 
 int				is_link(t_graph *g, t_str **str, char *line)

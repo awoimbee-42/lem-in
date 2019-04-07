@@ -30,9 +30,9 @@ void			find_ants(t_graph *g, t_str **str)
 		{
 			if (ft_strlen(line) > 11)
 				exit_lem_in("ERROR");
-			tmp = ft_atoi_pimp(line);
-			if (tmp < INT_MIN || tmp > INT_MAX)
-				exit_lem_in("ERROR");
+			tmp = ft_atoi_pimp(line);               // MAIS FDP DE TES MORTS CA FONCTIONNE PAS CA, C'EST LE MEILLEUR MOYEN DE SE TAPER UN CRASH CHELOU
+			if (tmp < INT_MIN || tmp > INT_MAX)     // :((((
+				exit_lem_in("ERROR");               // whyyyyyyyyyyyyyy u do dis
 			g->ants = (int)tmp;
 			*str = add_t_str(*str, line);
 			return ;

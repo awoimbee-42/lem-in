@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:23:09 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/07 17:32:02 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/07 20:42:08 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_room			*new_room(char *name, int ants, int x, int y)
 	return (new);
 }
 
-void			room_free(t_room *room)
+void			free_room(t_room *room)
 {
 	if (room)
 	{
