@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:37:38 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/04/05 22:09:25 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/07 17:19:18 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # define END 2
 # define UNKNOWN -1
 
+# define REALLOC_COEFF 2
+
 struct					s_str;
 struct					s_map;
 struct					s_room;
@@ -40,15 +42,15 @@ typedef struct			s_int2
 typedef struct			s_str
 {
 	char			**str;
-	size_t			size;
-	size_t			used;
+	uint32_t		size;
+	uint32_t		used;
 }					t_str;
 
 typedef struct			s_map
 {
 	struct s_room	*list;
-	size_t			size;
-	size_t			used;
+	uint32_t		size;
+	uint32_t		used;
 }						t_map;
 
 typedef struct			s_room
@@ -57,6 +59,9 @@ typedef struct			s_room
 	int				ants;
 	t_int2			coords;
 	t_map			*linked;			// link (pourquoi c'est un pointeur ??)
+	//t_map			*links;
+	//uint32_t		nb_link;
+	//uint32_t		mem_link;
 }						t_room;
 
 typedef struct			s_graph
@@ -64,10 +69,9 @@ typedef struct			s_graph
 	int				ants;			// ants_nb
 	t_room			*start;
 	t_room			*end;
-	t_map			*map;			// Ca mene a quelle room ca ? pourquoi c'est la ?
+	t_map			*map;			// Ca mene a quelle room ca ?
 }						t_graph;
 
-// PROTEGER : ./lem-in < /dev/zero putain d'arthur de con (le /dev/random est protege mais random je pense)
 
 /*
 **	EXIT
@@ -114,7 +118,7 @@ int						is_command(char *line);
 */
 t_str					*new_t_str(size_t size);
 void					free_t_str(t_str *string, int free_sub);
-t_str					*realloc_t_str(t_str *string);
+void					realloc_t_str(t_str *string);
 t_str					*add_t_str(t_str *string, char *add);
 void					display_t_str(t_str *string);
 

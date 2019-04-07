@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:01:35 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/05 21:57:45 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/07 17:24:16 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,35 +49,22 @@ void			free_t_map(t_map *map, int free_sub)  // c'est quoi free_sub ? pourquoi t
 
 t_map			*realloc_t_map(t_map *map)
 {
-	size_t		i;
-	t_map		*new;
+	t_room		*new_list;
 
-	i = 0;
-	new = new_t_map(map->size * 2);
-	new->used = map->used;
-	while (i < map->size)
-	{
-		new->list[i] = map->list[i];
-		i++;
-	}
-	return (new);
+	if (!(new_list = malloc(sizeof(*map->list) * map->size * REALLOC_COEFF)))
+		exit_lem_in("Error: malloc in realloc_t_map\n");
+	ft_mempcpy(new_list, map->list, map->used * sizeof(*map->list));
+	free(map->list);
+	map->list = new_list;
+	map->size *= REALLOC_COEFF;
+	return (map);
 }
 
 t_map			*add_t_map(t_map *map, t_room *add)
 {
-	t_map		*tmp;
-
-	if (map->used >= map->size)
-	{
-		tmp = realloc_t_map(map);
-		free_t_map(map, 0);
-		tmp->list[tmp->used] = *add;
-		tmp->used++;
-		return (tmp);
-	}
-	//etrange
-	map->list[map->used] = *add;
-	map->used++;
+	if (map->used == map->size)
+		realloc_t_map(map);
+	map->list[map->used++] = *add;
 	return (map);
 }
 
@@ -93,4 +80,19 @@ int					is_room_here(t_map *map, t_room *room)
 		i++;
 	}
 	return (0);
+}
+
+void			display_map(t_map *map)
+{
+	size_t		i;
+
+	i = 0;
+	ft_putstr("---------------------\n");
+	while (i < map->used)
+	{
+		display_room(&map->list[i], 0);
+		i++;
+		ft_putchar('\n');
+	}
+	ft_putstr("---------------------\n");
 }

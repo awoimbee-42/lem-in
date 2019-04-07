@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_graph.c                                       :+:      :+:    :+:   */
+/*   t_graph.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 17:55:10 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/05 21:56:14 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/07 17:24:35 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,37 +33,6 @@ void			free_t_graph(t_graph *g)
 		if (g->map)
 			free_t_map(g->map, 1);
 		free(g);
-	}
-}
-
-void			display_map(t_map *map)
-{
-	size_t		i;
-
-	i = 0;
-	ft_putstr("---------------------\n");
-	while (i < map->used)
-	{
-		display_room(&map->list[i], 0);
-		i++;
-		ft_putchar('\n');
-	}
-	ft_putstr("---------------------\n");
-}
-
-void			display_room(t_room *room, int map)
-{
-	if (!room)
-		ft_putendl("romm est null yes");
-	ft_putstr("Room: ");
-	ft_putendl(room->name);
-	ft_putstr("Ants: ");
-	ft_putnbr(room->ants);
-	ft_printf("\nCoord: %d %d\n", room->coords.x, room->coords.y);
-	if (map)
-	{
-		ft_putendl("linked: ");
-		display_map(room->linked);
 	}
 }
 

@@ -6,41 +6,11 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:38:11 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/04/05 21:34:43 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/07 17:25:53 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-// deplacer cette fonction
-int			ft_atoi_mv_err(char **nptr, int *err)
-{
-	short int		sign;
-	double			result;
-	int				real_result;
-
-	result = 0;
-	sign = 1;
-	if (**nptr != ' ')
-	{
-		*err = 1;
-		return (0);
-	}
-	++*nptr;
-	if (!ft_isdigit(**nptr) && **nptr != '+' && **nptr != '-')
-		*err = 1;
-	if (**nptr == '-' && ++*nptr)
-		sign = -1;
-	else if (**nptr == '+')
-		++*nptr;
-	while ('0' <= **nptr && **nptr <= '9')
-		result = result * 10 + (*(*nptr)++ - 48);
-	result *= sign;
-	real_result = (int)result;
-	if (result != real_result)
-		*err = 1;
-	return (real_result);
-}
 
 /*
 **	Peut etre devoir free 2/3 trucs ici

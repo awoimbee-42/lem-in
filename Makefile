@@ -6,29 +6,30 @@
 #    By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/26 22:06:19 by marvin            #+#    #+#              #
-#    Updated: 2019/04/05 22:08:59 by awoimbee         ###   ########.fr        #
+#    Updated: 2019/04/07 17:30:29 by awoimbee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	lem-in
 
-
-
-CFLAGS	=	-Wall -Wextra -g3 #-Ofast -march=native -ftree-vectorize -fstrict-aliasing
+CFLAGS	=	-Wall -Wextra -g3 #-fsanitize=address #-Ofast -march=native -ftree-vectorize -fstrict-aliasing
 
 SRC_NAME =	main.c					\
-			parser/t_str.c			\
-			parser/t_map.c			\
-			parser/get_input.c		\
-			parser/deal_with_line.c	\
-			parser/find_rooms.c		\
-			parser/find_links.c		\
-			parser/command_line.c	\
-			parser/init_room.c		\
-			parser/init_graph.c		\
-			#path_finding/find_paths.c
+			\
+			operators/t_str.c			\
+			operators/t_map.c			\
+			operators/t_graph.c			\
+			operators/t_room.c			\
+			\
+			parser/get_input.c			\
+			parser/utils.c				\
+			parser/find_rooms.c			\
+			parser/find_links.c			\
+			parser/command_line.c		\
+			\
+			#pathfinding/find_paths.c
 
-SRC_FOLDERS = parser path_finding
+SRC_FOLDERS = parser pathfinding operators
 ################################################################################
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
@@ -91,10 +92,10 @@ outclean :
 clean	:	libclean	objclean
 fclean	:	clean		outclean
 re		:	fclean
-	make -sj all
+	make all
 sfclean	:	objclean	outclean
 sre		:	sfclean
-	make -sj $(NAME)
+	make all
 
 .PHONY: all libclean objclean outclean clean fclean re sfclean sre
 

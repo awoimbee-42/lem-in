@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   deal_with_line.c                                   :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allespag <allespag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 19:10:08 by allespag          #+#    #+#             */
-/*   Updated: 2019/03/19 19:16:47 by allespag         ###   ########.fr       */
+/*   Updated: 2019/04/07 17:26:00 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,33 @@ int					is_comment(char *line)
 	else if (line[0] == '#' && line[1] != '#')
 		return (1);
 	return (0);
+}
+
+int			ft_atoi_mv_err(char **nptr, int *err)
+{
+	short int		sign;
+	double			result;
+	int				real_result;
+
+	result = 0;
+	sign = 1;
+	if (**nptr != ' ')
+	{
+		*err = 1;
+		return (0);
+	}
+	++*nptr;
+	if (!ft_isdigit(**nptr) && **nptr != '+' && **nptr != '-')
+		*err = 1;
+	if (**nptr == '-' && ++*nptr)
+		sign = -1;
+	else if (**nptr == '+')
+		++*nptr;
+	while ('0' <= **nptr && **nptr <= '9')
+		result = result * 10 + (*(*nptr)++ - 48);
+	result *= sign;
+	real_result = (int)result;
+	if (result != real_result)
+		*err = 1;
+	return (real_result);
 }

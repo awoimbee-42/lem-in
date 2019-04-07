@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_room.c                                        :+:      :+:    :+:   */
+/*   t_room.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:23:09 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/05 21:56:36 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/07 17:32:02 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,26 @@ void			room_free(t_room *room)
 	}
 }
 
-// NORME ICI POUR LE RETURN 0 JE SAIS PAS
 int				cmp_room(t_room *a, t_room *b)
 {
 	if (!ft_strcmp(a->name, b->name)
-			|| (a->coords.x == b->coords.x && a->coords.y == b->coords.y))
+		|| (a->coords.x == b->coords.x && a->coords.y == b->coords.y))
 		return (0);
 	return (1);
+}
+
+void			display_room(t_room *room, int map)
+{
+	if (!room)
+		ft_putendl("romm est null yes");
+	ft_putstr("Room: ");
+	ft_putendl(room->name);
+	ft_putstr("Ants: ");
+	ft_putnbr(room->ants);
+	ft_printf("\nCoord: %d %d\n", room->coords.x, room->coords.y);
+	if (map)
+	{
+		ft_putendl("linked: ");
+		display_map(room->linked);
+	}
 }

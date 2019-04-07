@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 21:19:18 by allespag          #+#    #+#             */
-/*   Updated: 2019/03/22 19:46:02 by allespag         ###   ########.fr       */
+/*   Updated: 2019/04/07 17:15:17 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,17 +83,11 @@ void			find_links(t_graph *g, t_str **str)
 	int			ret;
 	char		*line;
 
-	while (1)
+	while((ret = get_next_line(STDIN_FILENO, &line)))
 	{
-		ret = get_next_line(0, &line);
 		if (ret == -1)
 			exit_lem_in("Error: get_next_line failed in find_links");
-		else if (ret == 0 || !line)
-			return ;
-		else
-		{
-			if (!is_link(g, str, line))
+		if (!is_link(g, str, line))
 				return ;
-		}
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   t_str.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allespag <allespag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:00:08 by allespag          #+#    #+#             */
-/*   Updated: 2019/03/26 19:00:10 by allespag         ###   ########.fr       */
+/*   Updated: 2019/04/07 17:19:04 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,52 +33,34 @@ void			free_t_str(t_str *string, int free_sub)
 	size_t		i;
 
 	i = 0;
-	if (string)
+	if (string && string->str)
 	{
-		if (string->str)
+		while (free_sub && i < string->used)
 		{
-			while (free_sub && i < string->used)
-			{
-				free(string->str[i]);
-				string->str[i] = NULL;
-				i++;
-			}
-			free(string->str);
-			string->str = NULL;
+			ft_memdel((void*)&string->str[i]);
+			i++;
 		}
-		free(string);
-		string = NULL;
+		ft_memdel((void*)&string->str);
 	}
+	ft_memdel((void*)&string);
 }
 
-t_str			*realloc_t_str(t_str *string)
+void			realloc_t_str(t_str *string)
 {
-	size_t		i;
-	t_str		*new;
+	char		**new_tab;
 
-	i = 0;
-	new = new_t_str(string->size * 2);
-	new->used = string->used;
-	while (i < string->size)
-	{
-		new->str[i] = string->str[i];
-		i++;
-	}
-	return (new);
+	if (!(new_tab = malloc(sizeof(char*) * string->size * REALLOC_COEFF)))
+		exit_lem_in("Error: malloc (2nd) failed in new_t_str\n");
+	ft_mempcpy(new_tab, string->str, string->size * sizeof(*string->str));
+	free(string->str);
+	string->str = new_tab;
+	string->size *= REALLOC_COEFF;
 }
 
 t_str			*add_t_str(t_str *string, char *add)
 {
-	t_str		*tmp;
-
-	if (string->used >= string->size)
-	{
-		tmp = realloc_t_str(string);
-		free_t_str(string, 0);
-		tmp->str[tmp->used] = add;
-		tmp->used++;
-		return (tmp);
-	}
+	if (string->used == string->size)
+		realloc_t_str(string);
 	string->str[string->used] = add;
 	string->used++;
 	return (string);
