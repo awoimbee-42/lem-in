@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 21:19:18 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/08 10:09:02 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/08 16:43:45 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_room			*find_room_link(t_graph *g, char *ptr, size_t n)
 {
-	uint		i;
+	uint32_t	i;
 
 	i = 0;
 	while (i < g->map->used)
@@ -28,12 +28,15 @@ t_room			*find_room_link(t_graph *g, char *ptr, size_t n)
 
 t_room			*get_first_link_part(t_graph *g, char *line)
 {
-	uint		i;
+	uint32_t	i;
 
 	i = 0;
 	while (line[i])
-		if (line[i++] == '-')
+	{
+		if (line[i] == '-')
 			return (find_room_link(g, line, i));
+		i++;
+	}
 	return (NULL);
 }
 

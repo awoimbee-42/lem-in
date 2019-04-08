@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:37:38 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/04/08 10:21:10 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/08 17:06:51 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ typedef struct			s_room
 	char			*name;
 	int				ants;
 	t_int2			coords;
-	t_map			linked;   // c'est plus un putain depointeur de merde :) *suicide*
+	t_map			linked;
 	//t_map			*links;
 	//uint32_t		nb_link;
 	//uint32_t		mem_link;

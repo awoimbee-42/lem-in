@@ -6,13 +6,12 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:06:22 by allespag          #+#    #+#             */
-/*   Updated: 2019/03/22 20:16:10 by allespag         ###   ########.fr       */
+/*   Updated: 2019/04/08 16:46:20 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-// TOI QUI FAIS LA NORME : check si ants <= 0 ^^^^^^^^^
 void			find_ants(t_graph *g, t_str **str)
 {
 	char		*line;
@@ -30,9 +29,9 @@ void			find_ants(t_graph *g, t_str **str)
 		{
 			if (ft_strlen(line) > 11)
 				exit_lem_in("ERROR");
-			tmp = ft_atoi_pimp(line);               // MAIS FDP DE TES MORTS CA FONCTIONNE PAS CA, C'EST LE MEILLEUR MOYEN DE SE TAPER UN CRASH CHELOU
-			if (tmp < INT_MIN || tmp > INT_MAX)     // :((((
-				exit_lem_in("ERROR");               // whyyyyyyyyyyyyyy u do dis
+			tmp = ft_atoi_pimp(line);
+			if (tmp <= 0 || tmp > INT_MAX)
+				exit_lem_in("ERROR");
 			g->ants = (int)tmp;
 			add_t_str(*str, line);
 			return ;
@@ -57,7 +56,11 @@ void			parse_input(t_graph *g, t_str **str)
 	else if (ret == 1)
 	{
 		if (!is_link(g, str, line))
+		{
+			free(line);
 			return ;
+		}
+		ft_printf("{YLW}is link != null\n{eoc}");
 		find_links(g, str);
 	}
 }

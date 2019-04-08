@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:23:09 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/08 10:15:06 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/08 17:10:44 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ t_room			*new_room(char *name, int ants, int x, int y)
 	new->ants = ants;
 	new->coords.x = x; // fdp de tes morts tu check pas les coordonnees
 	new->coords.y = y;
-
 	new->linked.used = 0;
 	new->linked.size = 10;
 	if (!(new->linked.list = malloc(DEF_MALLOC_MAP * sizeof(*new->linked.list))))
@@ -37,7 +36,7 @@ void			free_room(t_room *room)
 	{
 		ft_memdel((void*)&room->name);
 		ft_memdel((void*)&room->linked.list);
-		// ft_memdel((void*)&room); unused ?
+		//ft_memdel((void*)&room); //unused ?
 	}
 }
 

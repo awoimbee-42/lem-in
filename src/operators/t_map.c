@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:01:35 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/08 10:16:04 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/08 17:01:11 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_map			*new_t_map()
 	return (new);
 }
 
-void			free_t_map(t_map *map, int free_sub)  // c'est quoi free_sub ? pourquoi tu free les room en fonction de free_sub ??
+void			free_t_map(t_map *map, int free_sub)
 {
 	size_t		i;
 
@@ -66,7 +66,7 @@ void			add_t_map(t_map *map, t_room *add)
 	map->list[map->used++] = *add;
 }
 
-int					is_room_here(t_map *map, t_room *room)   // le nomest pas fou-fou
+int					is_room_here(t_map *map, t_room *room)
 {
 	size_t			i;
 
