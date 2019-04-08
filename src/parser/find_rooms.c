@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:00:17 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/08 00:54:02 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/08 10:07:05 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,15 @@ int				find_rooms(t_graph *g, t_str **str, char **tmp) // tmp ??
 	t_room		*to_add;
 
 	command = NONE;
-
+	// GNL LEAK ICI
 	while ((ret = get_next_line(STDIN_FILENO, &line)) == 1)
 	{
 		if (is_comment(line))
-			*str = add_t_str(*str, line);
+			add_t_str(*str, line);
 		else if (is_command(line))
 		{
 			command = command_hub(line);
-			*str = add_t_str(*str, line);
+			add_t_str(*str, line);
 		}
 		else
 		{
@@ -89,12 +89,14 @@ int				find_rooms(t_graph *g, t_str **str, char **tmp) // tmp ??
 				return (1);
 			if (command != NONE && command != UNKNOWN) //why even have an 'unknown'?
 				exec_command(g, command, to_add);
-			g->map = add_t_map(g->map, to_add);
-			*str = add_t_str(*str, line);
+			add_t_map(g->map, to_add);
+			add_t_str(*str, line);
 			command = NONE;
 			free(to_add);
 		}
+		// free(line); // unused ?
 	}
+	// free(line); // unused ?
 	if (ret == -1)
 		exit_lem_in("Error: get_next_line failed in find_rooms");
 	exit_lem_in("end of input in find_rooms");  // to remove

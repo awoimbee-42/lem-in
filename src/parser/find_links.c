@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 21:19:18 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/08 00:32:54 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/08 10:09:02 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,16 @@ int				is_link(t_graph *g, t_str **str, char *line)
 	t_room		*r2;
 
 	if (is_comment(line) || is_command(line))
-		*str = add_t_str(*str, line);
+		add_t_str(*str, line);
 	else
 	{
 		r1 = get_first_link_part(g, line);
 		r2 = get_second_link_part(g, line);
 		if (!r1 || !r2)
 			return (0);
-		r1->linked = add_t_map(r1->linked, r2);
-		r2->linked = add_t_map(r2->linked, r1);
-		*str = add_t_str(*str, line);
+		add_t_map(&r1->linked, r2);
+		add_t_map(&r2->linked, r1);
+		add_t_str(*str, line);
 	}
 	return (1);
 }

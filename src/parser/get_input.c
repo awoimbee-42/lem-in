@@ -25,7 +25,7 @@ void			find_ants(t_graph *g, t_str **str)
 		if (!line)
 			exit_lem_in("ERROR");
 		if (is_comment(line) || is_command(line))
-			*str = add_t_str(*str, line);
+			add_t_str(*str, line);
 		else
 		{
 			if (ft_strlen(line) > 11)
@@ -34,7 +34,7 @@ void			find_ants(t_graph *g, t_str **str)
 			if (tmp < INT_MIN || tmp > INT_MAX)     // :((((
 				exit_lem_in("ERROR");               // whyyyyyyyyyyyyyy u do dis
 			g->ants = (int)tmp;
-			*str = add_t_str(*str, line);
+			add_t_str(*str, line);
 			return ;
 		}
 	}

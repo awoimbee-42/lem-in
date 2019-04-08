@@ -6,21 +6,21 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:01:35 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/08 00:57:22 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/08 10:16:04 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-t_map			*new_t_map(size_t size)
+t_map			*new_t_map()
 {
 	t_map		*new;
 
 	if (!(new = (t_map *)malloc(sizeof(t_map))))
 		exit_lem_in("Error: malloc (1st) failed in new_t_map");
-	if (!(new->list = (t_room *)malloc(sizeof(t_room) * size)))
+	if (!(new->list = (t_room *)malloc(sizeof(t_room) * DEF_MALLOC_MAP)))
 		exit_lem_in("Error: malloc (2nd) failed in new_t_map");
-	new->size = size;
+	new->size = DEF_MALLOC_MAP;
 	new->used = 0;
 	return (new);
 }
@@ -47,7 +47,7 @@ void			free_t_map(t_map *map, int free_sub)  // c'est quoi free_sub ? pourquoi t
 	}
 }
 
-t_map			*realloc_t_map(t_map *map)
+void			realloc_t_map(t_map *map)
 {
 	t_room		*new_list;
 
@@ -57,15 +57,13 @@ t_map			*realloc_t_map(t_map *map)
 	free(map->list);
 	map->list = new_list;
 	map->size *= REALLOC_COEFF;
-	return (map);
 }
 
-t_map			*add_t_map(t_map *map, t_room *add)
+void			add_t_map(t_map *map, t_room *add)
 {
 	if (map->used == map->size)
 		realloc_t_map(map);
 	map->list[map->used++] = *add;
-	return (map);
 }
 
 int					is_room_here(t_map *map, t_room *room)   // le nomest pas fou-fou

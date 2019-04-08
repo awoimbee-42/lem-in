@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 17:55:10 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/07 17:24:35 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/08 10:18:52 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_graph			*init_graph(void)
 	new->ants = 0;
 	new->start = NULL;
 	new->end = NULL;
-	new->map = new_t_map(10);
+	new->map = new_t_map();
 	return (new);
 }
 

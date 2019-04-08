@@ -6,24 +6,24 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:00:08 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/07 20:35:44 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/08 10:17:31 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-t_str			*new_t_str(size_t size)
+t_str			*new_t_str()
 {
 	t_str		*new;
 
 	if (!(new = (t_str *)malloc(sizeof(t_str))))
 		exit_lem_in("Error: malloc (1st) failed in new_t_str\n");
-	if (!(new->str = (char **)malloc(sizeof(char *) * size)))
+	if (!(new->str = (char **)malloc(sizeof(char *) * DEF_MALLOC_TSTR)))
 	{
 		free(new);
 		exit_lem_in("Error: malloc (2nd) failed in new_t_str\n");
 	}
-	new->size = size;
+	new->size = DEF_MALLOC_TSTR;
 	new->used = 0;
 	return (new);
 }
@@ -54,13 +54,12 @@ void			realloc_t_str(t_str *string)
 	string->size *= REALLOC_COEFF;
 }
 
-t_str			*add_t_str(t_str *string, char *add)
+void			add_t_str(t_str *string, char *add)
 {
 	if (string->used == string->size)
 		realloc_t_str(string);
 	string->str[string->used] = add;
 	string->used++;
-	return (string);
 }
 
 void			display_t_str(t_str *string)

@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:23:09 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/07 20:42:08 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/08 10:15:06 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,14 @@ t_room			*new_room(char *name, int ants, int x, int y)
 		exit_lem_in("Error: malloc failed in new_room\n");
 	new->name = name;
 	new->ants = ants;
-	new->coords.x = x;
+	new->coords.x = x; // fdp de tes morts tu check pas les coordonnees
 	new->coords.y = y;
-	// new->linked.used = 0;
-	// if (!(new->linked.list = malloc(10 * sizeof(*new->linked.list))))
-	new->linked = new_t_map(10);
+
+	new->linked.used = 0;
+	new->linked.size = 10;
+	if (!(new->linked.list = malloc(DEF_MALLOC_MAP * sizeof(*new->linked.list))))
+		exit_lem_in("couldnt malloc links in new_room");
+	// new->linked = new_t_map(10);
 	return (new);
 }
 
@@ -32,13 +35,9 @@ void			free_room(t_room *room)
 {
 	if (room)
 	{
-		if (room->name)
-		{
-			free(room->name);
-			room->name = NULL;
-		}
-		if (room->linked)
-			free_t_map(room->linked, 0);
+		ft_memdel((void*)&room->name);
+		ft_memdel((void*)&room->linked.list);
+		// ft_memdel((void*)&room); unused ?
 	}
 }
 
@@ -62,6 +61,6 @@ void			display_room(t_room *room, int map)
 	if (map)
 	{
 		ft_putendl("linked: ");
-		display_map(room->linked);
+		display_map(&room->linked);
 	}
 }

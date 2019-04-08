@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:37:38 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/04/08 00:54:50 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/08 10:21:10 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include "libft.h"
 
 # define REALLOC_COEFF 2
+# define DEF_MALLOC_MAP 10
+# define DEF_MALLOC_TSTR 10
 
 struct					s_str;
 struct					s_map;
@@ -31,15 +33,15 @@ struct					s_graph;
 
 typedef enum	e_command
 {
-	UNKNOWN,
-	NONE,
+	UNKNOWN,  // ca c'est inutile nn ?
+	NONE,     // et avec ca c'est un peu redondant
 	START,
 	END
 }				t_command;
 
 typedef struct			s_int2
 {
-	int				x;
+	int				x; // des int 16 bits ca serait cool ici
 	int				y;
 }						t_int2;
 
@@ -50,7 +52,7 @@ typedef struct			s_str
 	uint32_t		used;
 }					t_str;
 
-typedef struct			s_map
+typedef struct			s_map // structure pas forcement utile, complexifie le code pour rien
 {
 	struct s_room	*list;
 	uint32_t		size;
@@ -62,7 +64,7 @@ typedef struct			s_room
 	char			*name;
 	int				ants;
 	t_int2			coords;
-	t_map			*linked;			// link (pourquoi c'est un pointeur ??)
+	t_map			linked;   // c'est plus un putain depointeur de merde :) *suicide*
 	//t_map			*links;
 	//uint32_t		nb_link;
 	//uint32_t		mem_link;
@@ -73,7 +75,7 @@ typedef struct			s_graph
 	int				ants;			// ants_nb
 	t_room			*start;
 	t_room			*end;
-	t_map			*map;			// Ca mene a quelle room ca ?
+	t_map			*map;			// Ca mene a quelle room ca ? ca sert a quoi ?
 }						t_graph;
 
 
@@ -120,19 +122,19 @@ int						is_command(char *line);
 /*
 **	T_STR
 */
-t_str					*new_t_str(size_t size);
+t_str					*new_t_str(void);
 void					free_t_str(t_str *string);
 void					realloc_t_str(t_str *string);
-t_str					*add_t_str(t_str *string, char *add);
+void					add_t_str(t_str *string, char *add);
 void					display_t_str(t_str *string);
 
 /*
 **	T_MAP
 */
-t_map					*new_t_map(size_t size);
+t_map					*new_t_map(void);
 void					free_t_map(t_map *map, int free_sub);
-t_map					*realloc_t_map(t_map *map);
-t_map					*add_t_map(t_map *map, t_room *add);
+void					realloc_t_map(t_map *map);
+void					add_t_map(t_map *map, t_room *add);
 int						is_room_here(t_map *map, t_room *room);
 
 /*

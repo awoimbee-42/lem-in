@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:38:11 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/04/07 20:36:02 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/08 10:18:33 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int			main(int argc, char **argv)
 	t_str			*file;
 
 	map = init_graph();
-	file = new_t_str(10);
+	file = new_t_str();
 
 	parse_input(map, &file);
 
