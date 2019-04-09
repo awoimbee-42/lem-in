@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 17:55:10 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/08 16:57:07 by allespag         ###   ########.fr       */
+/*   Updated: 2019/04/09 20:59:38 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,24 @@ t_graph			*init_graph(void)
 	t_graph		*new;
 
 	if (!(new = (t_graph *)malloc(sizeof(t_graph))))
-		exit_lem_in("Error: malloc failed in init_graph\n");
+		exit_lem_in("Error: graph malloc failed in init_graph\n");
 	new->ants = 0;
-	new->start = NULL;
-	new->end = NULL;
-	new->map = new_t_map();
+	new->start = UINT32_MAX;
+	new->end = UINT32_MAX;
+	new->map.size = DEF_MALLOC_MAP;
+	if (!(new->map.list = malloc(sizeof(t_room) * new->map.size)))
+		exit_lem_in("Error: map malloc failed in init_graph\n");
+	new->map.used = 0;
 	return (new);
 }
+
 
 //il manque des trucs a free
 void			free_t_graph(t_graph *g)
 {
 	if (g)
 	{
-		if (g->map)
-			free_t_map(g->map, 1);
+		free_t_map(&g->map, 1);
 		free(g);
 	}
 }
@@ -41,9 +44,9 @@ void			display_graph(t_graph *g)
 	ft_putstr("Ants: ");
 	ft_putnbr(g->ants);
 	ft_putstr("\nStart: ");
-	display_room(g->start, 0);
+	display_room(&g->map.list[g->start], 0);
 	ft_putstr("End: ");
-	display_room(g->end, 0);
+	display_room(&g->map.list[g->end], 0);
 	ft_putendl("Map: ");
-	display_map(g->map);
+	display_map(&g->map);
 }

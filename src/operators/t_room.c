@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:23:09 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/08 17:10:44 by allespag         ###   ########.fr       */
+/*   Updated: 2019/04/09 19:48:13 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ t_room			*new_room(char *name, int ants, int x, int y)
 	new->ants = ants;
 	new->coords.x = x; // fdp de tes morts tu check pas les coordonnees
 	new->coords.y = y;
-	new->linked.used = 0;
-	new->linked.size = 10;
-	if (!(new->linked.list = malloc(DEF_MALLOC_MAP * sizeof(*new->linked.list))))
+	new->nb_link = 0;
+	new->mem_link = 10;
+	if (!(new->links = malloc(DEF_MALLOC_MAP * sizeof(*new->links))))
 		exit_lem_in("couldnt malloc links in new_room");
 	// new->linked = new_t_map(10);
 	return (new);
@@ -35,7 +35,7 @@ void			free_room(t_room *room)
 	if (room)
 	{
 		ft_memdel((void*)&room->name);
-		ft_memdel((void*)&room->linked.list);
+		ft_memdel((void*)&room->links);
 		//ft_memdel((void*)&room); //unused ?
 	}
 }
@@ -48,7 +48,7 @@ int				cmp_room(t_room *a, t_room *b)
 	return (1);
 }
 
-void			display_room(t_room *room, int map)
+void			display_room(const t_room *room, const t_graph *maybe_graph)
 {
 	if (!room)
 		ft_putendl("romm est null yes");
@@ -57,9 +57,9 @@ void			display_room(t_room *room, int map)
 	ft_putstr("Ants: ");
 	ft_putnbr(room->ants);
 	ft_printf("\nCoord: %d %d\n", room->coords.x, room->coords.y);
-	if (map)
+	if (maybe_graph)
 	{
 		ft_putendl("linked: ");
-		display_map(&room->linked);
+		display_links(room, maybe_graph);
 	}
 }

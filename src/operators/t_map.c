@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:01:35 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/08 17:01:11 by allespag         ###   ########.fr       */
+/*   Updated: 2019/04/09 21:00:37 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ void			free_t_map(t_map *map, int free_sub)
 			free(map->list);
 			map->list = NULL;
 		}
-		free(map);
-		map = NULL;
 	}
 }
 
@@ -80,6 +78,7 @@ int					is_room_here(t_map *map, t_room *room)
 	return (0);
 }
 
+// unused maybe ?
 void			display_map(t_map *map)
 {
 	size_t		i;

@@ -47,9 +47,9 @@ void			parse_input(t_graph *g, t_str **str)
 
 	line = NULL;
 	find_ants(g, str);
-	ret = find_rooms(g, str, &line);
+	ret = read_rooms(g, str, &line);
 	// TOI QUI FAIT LA NORME, N'OUBLIE PAS DE CHANGER LE MESSAGE DU EXIT_LEM_IN SUIVANT APE
-	if (g->start == NULL || g->end == NULL)
+	if (g->start == UINT32_NOT_SET || g->end == UINT32_NOT_SET)
 		exit_lem_in("ERROR (no start or/and no end)");
 	if (ret == 0)
 		return ;
@@ -60,7 +60,6 @@ void			parse_input(t_graph *g, t_str **str)
 			free(line);
 			return ;
 		}
-		ft_printf("{YLW}is link != null\n{eoc}");
 		find_links(g, str);
 	}
 }

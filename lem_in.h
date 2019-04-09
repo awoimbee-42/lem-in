@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:37:38 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/04/08 17:06:51 by allespag         ###   ########.fr       */
+/*   Updated: 2019/04/09 21:15:46 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,17 @@
 # include <stdlib.h>
 
 # include <limits.h>
-# include <x86intrin.h>
-# include <inttypes.h>
+# include <x86intrin.h> //useless ?
+# include <inttypes.h>  //useless ?
+# include <stdint.h>
 
 # include "libft.h"
 
 # define REALLOC_COEFF 2
 # define DEF_MALLOC_MAP 10
 # define DEF_MALLOC_TSTR 10
+
+# define UINT32_NOT_SET 4294967295U
 
 struct					s_str;
 struct					s_map;
@@ -33,8 +36,8 @@ struct					s_graph;
 
 typedef enum	e_command
 {
-	UNKNOWN,  // ca c'est inutile nn ?
-	NONE,     // et avec ca c'est un peu redondant
+	UNKNOWN,
+	NONE,
 	START,
 	END
 }				t_command;
@@ -64,18 +67,19 @@ typedef struct			s_room
 	char			*name;
 	int				ants;
 	t_int2			coords;
-	t_map			linked;
-	//t_map			*links;
-	//uint32_t		nb_link;
-	//uint32_t		mem_link;
+	// t_map			linked;
+
+	uint32_t		*links;
+	uint32_t		nb_link;
+	uint32_t		mem_link;
 }						t_room;
 
 typedef struct			s_graph
 {
-	int				ants;			// ants_nb
-	t_room			*start;
-	t_room			*end;
-	t_map			*map;			// Ca mene a quelle room ca ? ca sert a quoi ?
+	int				ants;
+	uint32_t		start;
+	uint32_t		end;
+	t_map			map;
 }						t_graph;
 
 
@@ -94,21 +98,21 @@ void					parse_input(t_graph *g, t_str **str);
 **	DEAL_WITH_LINE
 */
 long long				ft_atoi_pimp(char *line);
-int						ft_atoi_mv_err(char **nptr, int *err);
+int						ft_atoi_mv_err(const char **nptr, int *err);
 int						is_comment(char *line);
 
 /*
-**	FIND_ROOMS
+**	read_rooms
 */
 t_room					*is_room(char *line, t_graph *g);
-int						find_rooms(t_graph *g, t_str **str, char **tmp);
+int						read_rooms(t_graph *g, t_str **str, char **tmp);
 
 /*
 **	FIND_LINKS
 */
-t_room					*find_room_link(t_graph *g, char *ptr, size_t n);
-t_room					*get_first_link_part(t_graph *g, char *line);
-t_room					*get_second_link_part(t_graph *g, char *line);
+uint32_t					find_room_link(t_graph *g, char *ptr, size_t n);
+uint32_t					get_first_link_part(t_graph *g, char *line);
+uint32_t					get_second_link_part(t_graph *g, char *line);
 int						is_link(t_graph *g, t_str **str, char *line);
 void					find_links(t_graph *g, t_str **str);
 
@@ -116,7 +120,7 @@ void					find_links(t_graph *g, t_str **str);
 **	COMMAND_LINE
 */
 t_command				command_hub(char *line);
-void					exec_command(t_graph *g, int command, t_room *to_set);
+void					exec_command(t_graph *g, t_command command);
 int						is_command(char *line);
 
 /*
@@ -138,6 +142,12 @@ void					add_t_map(t_map *map, t_room *add);
 int						is_room_here(t_map *map, t_room *room);
 
 /*
+**	LINKS
+*/
+void					realloc_links(t_room *hub);
+void					add_link(t_room *hub, const uint32_t linked);
+
+/*
 **	INIT_ROOM
 */
 t_room					*new_room(char *name, int ants, int x, int y);
@@ -153,8 +163,9 @@ void					free_t_graph(t_graph *g);
 /*
 **	DISPLAY_GRAPH_ROOM_MAP (DEBUG)
 */
-void					display_map(t_map *map);
-void					display_room(t_room *room, int map);
+void					display_links(const t_room *hub, const t_graph *g);
+		void					display_map(t_map *map); //unused
+void					display_room(const t_room *room, const t_graph *g);
 void					display_graph(t_graph *g);
 
 #endif

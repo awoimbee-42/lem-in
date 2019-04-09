@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:38:11 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/04/08 16:46:59 by allespag         ###   ########.fr       */
+/*   Updated: 2019/04/09 21:45:44 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 void		exit_lem_in(char *key)
 {
 	ft_putstr_fd(key, 2);
+	get_next_line(STDERR_FILENO, GNL_FLUSH);
 	exit(EXIT_FAILURE);
 }
 
@@ -43,6 +44,7 @@ int			main(int argc, char **argv)
 		// DISPLAY_GRAPH POUR DEBUG
 			//display_graph(map);
 	//edmon karp...
+	get_next_line(STDERR_FILENO, GNL_FLUSH);
 	free_t_str(file);
 	ft_printf("{red}END OF DISPLAY_T_STR\n{eoc}");
 	free_t_graph(map);

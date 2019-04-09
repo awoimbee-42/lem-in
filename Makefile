@@ -6,7 +6,7 @@
 #    By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/26 22:06:19 by marvin            #+#    #+#              #
-#    Updated: 2019/04/08 16:56:39 by allespag         ###   ########.fr        #
+#    Updated: 2019/04/09 19:20:05 by awoimbee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRC_NAME =	main.c					\
 			operators/t_map.c			\
 			operators/t_graph.c			\
 			operators/t_room.c			\
+			operators/links.c			\
 			\
 			parser/get_input.c			\
 			parser/utils.c				\
