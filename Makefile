@@ -6,13 +6,13 @@
 #    By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/26 22:06:19 by marvin            #+#    #+#              #
-#    Updated: 2019/04/09 19:20:05 by awoimbee         ###   ########.fr        #
+#    Updated: 2019/04/10 13:42:25 by awoimbee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	lem-in
 
-CFLAGS	=	-Wall -Wextra -g3 #-fsanitize=address #-Ofast -march=native -ftree-vectorize -fstrict-aliasing
+CFLAGS	=	-Wall -Wextra -g3# -Ofast -march=native -ftree-vectorize -fstrict-aliasing #-fsanitize=address #-Ofast -march=native -ftree-vectorize -fstrict-aliasing
 
 SRC_NAME =	main.c					\
 			\
@@ -46,10 +46,23 @@ LDLIBS = -lft
 LDFLAGS = -Llibft
 CFLAGS += -I./ -I./libft -MMD
 
-ifeq ($(OS),Linux)
-		NUMPROC := $(shell grep -c ^processor /proc/cpuinfo)
-else ifeq ($(OS),Darwin)
-		NUMPROC := $(shell sysctl hw.ncpu | awk '{print $$2}')
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Linux)
+	NUMPROC := $(shell grep -c ^processor /proc/cpuinfo)
+	ifeq ($(PROFILE),gen)
+		CFLAGS += -fprofile-generate #using perf is heaps better (fautoprofile something something)
+	else ifeq ($(PROFILE),use)
+		CFLAGS += -fprofile-use
+	endif
+else ifeq ($(UNAME_S),Darwin)
+	NUMPROC := $(shell sysctl hw.ncpu | awk '{print $$2}')
+	PROCESS_PROFDATA := xcrun llvm-profdata merge -sparse default.profraw -o default.profdata
+	RM_PROFDATA := rm ./default.profraw ./default.profdata
+	ifeq ($(PROFILE),gen)
+		CFLAGS += -fprofile-instr-generate
+	else ifeq ($(PROFILE),use)
+		CFLAGS += -fprofile-instr-use
+	endif
 endif
 
 ################################################################################
@@ -61,9 +74,20 @@ libft/libft.a :
 	@printf "$(YLW)Making libft...$(EOC)\n"
 	@make -s -j$(NUMPROC) -C libft/
 
-$(NAME) : libft/libft.a $(OBJ) lem_in.h
+$(NAME) : libft/libft.a $(OBJ)
 	@printf "$(GRN)Linking $(NAME)...$(EOC)\n"
 	$(CC) $(CFLAGS) $(OBJ) -o $@ $(LDFLAGS) $(LDLIBS)
+
+opti : fclean
+	@printf "Compiling instrumented version...\n"
+	@make $(NAME) PROFILE=gen > /dev/null
+	@printf "Profiling...\n"
+	@./lem-in < ./maps/map-09-big.txt > /dev/null
+	@$(PROCESS_PROFDATA)
+	@printf "Cleaning...\n"
+	@make clean
+	make $(NAME) PROFILE=use
+	$(RM_PROFDATA)
 
 $(OBJ_PATH) :
 	@mkdir -p $(OBJ_PATH) 2> /dev/null

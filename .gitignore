@@ -6,3 +6,5 @@ lem-in
 *.gen
 .DS_Store
 *.dSYM
+*.profdata
+*.rawdata
