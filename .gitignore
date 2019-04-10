@@ -8,3 +8,4 @@ lem-in
 *.dSYM
 *.profdata
 *.rawdata
+*.profraw

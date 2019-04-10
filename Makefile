@@ -6,13 +6,13 @@
 #    By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/26 22:06:19 by marvin            #+#    #+#              #
-#    Updated: 2019/04/10 13:42:25 by awoimbee         ###   ########.fr        #
+#    Updated: 2019/04/10 17:07:00 by awoimbee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	lem-in
 
-CFLAGS	=	-Wall -Wextra -g3# -Ofast -march=native -ftree-vectorize -fstrict-aliasing #-fsanitize=address #-Ofast -march=native -ftree-vectorize -fstrict-aliasing
+CFLAGS	=	-Wall -Wextra -g3# -Ofast -march=native -ftree-vectorize -fstrict-aliasing #-fsanitize=address
 
 SRC_NAME =	main.c					\
 			\
@@ -21,6 +21,7 @@ SRC_NAME =	main.c					\
 			operators/t_graph.c			\
 			operators/t_room.c			\
 			operators/links.c			\
+			operators/t_queue.c			\
 			\
 			parser/get_input.c			\
 			parser/utils.c				\
@@ -28,7 +29,7 @@ SRC_NAME =	main.c					\
 			parser/find_links.c			\
 			parser/command_line.c		\
 			\
-			#pathfinding/find_paths.c
+			pathfinding/find_paths.c
 
 SRC_FOLDERS = parser pathfinding operators
 ################################################################################

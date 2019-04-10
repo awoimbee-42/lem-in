@@ -6,13 +6,13 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:00:08 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/10 13:40:21 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/10 18:33:54 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-t_str			*new_t_str()
+t_str			*new_t_str(void)
 {
 	t_str		*new;
 

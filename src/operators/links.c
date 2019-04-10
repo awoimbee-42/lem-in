@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 19:18:13 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/04/09 21:05:22 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/10 20:45:27 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void		realloc_links(t_room *hub)
 	}
 	else
 	{
-		hub->mem_link = DEF_MALLOC_MAP;
-		if (!(new_list = malloc(sizeof(uint32_t) * DEF_MALLOC_MAP)))
+		hub->mem_link = DEFMALLOCMAP;
+		if (!(new_list = malloc(sizeof(uint32_t) * DEFMALLOCMAP)))
 			exit_lem_in("Error: malloc in realloc_links\n");
 	}
 	hub->links = new_list;
@@ -47,6 +47,7 @@ void		display_links(const t_room *hub, const t_graph *g)
 	i = 0;
 	while (i < hub->nb_link)
 	{
-		display_room(&g->map.list[i], g);
+		display_room(&g->map.list[hub->links[i++]], g);
+		ft_printf("{RED}TAMERE LA PUTEUH %u\n", i);
 	}
 }

@@ -6,21 +6,21 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:01:35 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/09 21:00:37 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/10 20:48:24 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-t_map			*new_t_map()
+t_map			*new_t_map(void)
 {
 	t_map		*new;
 
 	if (!(new = (t_map *)malloc(sizeof(t_map))))
 		exit_lem_in("Error: malloc (1st) failed in new_t_map");
-	if (!(new->list = (t_room *)malloc(sizeof(t_room) * DEF_MALLOC_MAP)))
+	if (!(new->list = (t_room *)malloc(sizeof(t_room) * DEFMALLOCMAP)))
 		exit_lem_in("Error: malloc (2nd) failed in new_t_map");
-	new->size = DEF_MALLOC_MAP;
+	new->size = DEFMALLOCMAP;
 	new->used = 0;
 	return (new);
 }
@@ -64,9 +64,9 @@ void			add_t_map(t_map *map, t_room *add)
 	map->list[map->used++] = *add;
 }
 
-int					is_room_here(t_map *map, t_room *room)
+int				is_room_here(t_map *map, t_room *room)
 {
-	size_t			i;
+	size_t		i;
 
 	i = 0;
 	while (i < map->used)
@@ -78,8 +78,7 @@ int					is_room_here(t_map *map, t_room *room)
 	return (0);
 }
 
-// unused maybe ?
-void			display_map(t_map *map)
+void			display_map(t_map *map, t_graph *maybe_graph)
 {
 	size_t		i;
 
@@ -87,7 +86,7 @@ void			display_map(t_map *map)
 	ft_putstr("---------------------\n");
 	while (i < map->used)
 	{
-		display_room(&map->list[i], 0);
+		display_room(&map->list[i], maybe_graph);
 		i++;
 		ft_putchar('\n');
 	}

@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:00:17 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/09 20:57:20 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/10 20:36:13 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,7 @@ static int		add_new_room(const char *line, t_graph *g)
 		++line_iter;
 	}
 	--line_iter;
-	tmp_room.name = NULL;
-	tmp_room.nb_link = 0;
-	tmp_room.mem_link = 0;
-
-	tmp_room.links = NULL;
+	reset_room(&tmp_room);
 	if (!ft_strncat_join(&tmp_room.name, line, line_iter - line))
 		exit_lem_in("Error: ft_strncat_join failed in is_room");
 	spaces = 0;

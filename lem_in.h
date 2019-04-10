@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:37:38 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/04/09 21:15:46 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/10 20:48:47 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include "libft.h"
 
 # define REALLOC_COEFF 2
-# define DEF_MALLOC_MAP 10
+# define DEFMALLOCMAP 10
 # define DEF_MALLOC_TSTR 10
 
 # define UINT32_NOT_SET 4294967295U
@@ -41,6 +41,21 @@ typedef enum	e_command
 	START,
 	END
 }				t_command;
+
+/*
+**	The type can be changed, it will be a circular queue :)
+**	start and end are inclusive
+*/
+
+typedef uint32_t t_queued;
+
+typedef struct			s_queue
+{
+	int				start;
+	int				end;
+	int				size;
+	t_queued		*arr;
+}						t_queue;
 
 typedef struct			s_int2
 {
@@ -76,12 +91,14 @@ typedef struct			s_room
 
 typedef struct			s_graph
 {
-	int				ants;
+	uint32_t		ants;
 	uint32_t		start;
 	uint32_t		end;
 	t_map			map;
 }						t_graph;
 
+
+void		find_paths(t_graph *graph);
 
 /*
 **	EXIT
@@ -124,6 +141,17 @@ void					exec_command(t_graph *g, t_command command);
 int						is_command(char *line);
 
 /*
+**	t_queue
+*/
+int						que_realloc(t_queue *que);
+int						que_push(t_queue *que, t_queued data);
+t_queued				que_pop(t_queue *que);
+t_queue					*que_new(size_t len);
+void					que_destroy(t_queue *que);
+void					que_disp(const t_queue *que);
+int						que_is_empty(const t_queue *que);
+
+/*
 **	T_STR
 */
 t_str					*new_t_str(void);
@@ -148,11 +176,12 @@ void					realloc_links(t_room *hub);
 void					add_link(t_room *hub, const uint32_t linked);
 
 /*
-**	INIT_ROOM
+**	T_ROOM
 */
 t_room					*new_room(char *name, int ants, int x, int y);
 void					free_room(t_room *room);
 int						cmp_room(t_room *a, t_room *b);
+void					reset_room(t_room *tmp_room);
 
 /*
 **	INIT_GRAPH
@@ -164,8 +193,8 @@ void					free_t_graph(t_graph *g);
 **	DISPLAY_GRAPH_ROOM_MAP (DEBUG)
 */
 void					display_links(const t_room *hub, const t_graph *g);
-		void					display_map(t_map *map); //unused
+void					display_map(t_map *map, t_graph *maybe_graph);
 void					display_room(const t_room *room, const t_graph *g);
-void					display_graph(t_graph *g);
+void					display_graph(t_graph *g, int print_links);
 
 #endif
