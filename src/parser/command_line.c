@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 19:45:11 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/09 20:45:25 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/11 15:35:57 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ t_command		command_hub(char *line)
 void			exec_command(t_graph *g, t_command command)
 {
 	if (command == START)
-		g->start = g->map.size - 1;
+		g->start = g->map.used - 1;
 	else if (command == END)
-		g->end = g->map.size - 1;
+		g->end = g->map.used - 1;
 	// else if command == autre chose, bha on peut set la couleur de la room a command
 }
 

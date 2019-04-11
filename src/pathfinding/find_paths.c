@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 20:42:54 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/04/10 21:34:39 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/11 15:43:36 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,28 +87,27 @@ static void		bfs(t_graph *g, int id, t_path *path)
 	uint32_t	tmp;
 ;
 	if (!(q = que_new(g->end)) || !que_push(q, g->start))
-		ft_printf("YO MAMA SO FAT\n");
-	while (!que_is_empty(q))
+		exit_lem_in("Could not create queue, bfs cannot continue\n");
+	ft_printf("graph start is %s at position %u\n", g->map.list[g->start].name, g->start);
+	while (!que_isempty(q))
 	{
 		if ((node = que_pop(q)) == (t_queued)-1)
-			ft_printf("{PNK}JIUSO:VSVH\v");
+			exit_lem_in("Queue shall not be empty, memory corruption ?");
 		if (node == g->end)
-			ft_printf("end found, well done !\n");
+			ft_printf("{ylw}end (%s) found, well done !{eoc}\n", g->map.list[node].name);
+		ft_printf("{inv}%s<rst> links to :\n", g->map.list[node].name);
 		tmp = -1;
-
 		while (++tmp < g->map.list[node].nb_link)
 		{
 			if (g->map.list[g->map.list[node].links[tmp]].ants != id
 				&& g->map.list[node].links[tmp] != g->start)
 			{
-				ft_printf("Node: %s\n",
-					g->map.list[g->map.list[node].links[tmp]].name);
+				ft_printf("\t-> %s\n", g->map.list[g->map.list[node].links[tmp]].name);
 				if (!que_push(q, g->map.list[node].links[tmp]))
-					ft_printf("{RED}I will gut you\n");
-				g->map.list[g->map.list[node].links[tmp]].ants = id; // check if not visited by other instance
+					exit_lem_in("Could not update queue, memory corruption ?");
+				g->map.list[g->map.list[node].links[tmp]].ants = id; // need to check if not visited by other instance
 			}
 		}
-		ft_printf("--------------------\n");
 	}
 	que_destroy(q);
 }

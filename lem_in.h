@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:37:38 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/04/10 20:48:47 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/11 15:12:52 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,21 +41,6 @@ typedef enum	e_command
 	START,
 	END
 }				t_command;
-
-/*
-**	The type can be changed, it will be a circular queue :)
-**	start and end are inclusive
-*/
-
-typedef uint32_t t_queued;
-
-typedef struct			s_queue
-{
-	int				start;
-	int				end;
-	int				size;
-	t_queued		*arr;
-}						t_queue;
 
 typedef struct			s_int2
 {
@@ -139,17 +124,6 @@ void					find_links(t_graph *g, t_str **str);
 t_command				command_hub(char *line);
 void					exec_command(t_graph *g, t_command command);
 int						is_command(char *line);
-
-/*
-**	t_queue
-*/
-int						que_realloc(t_queue *que);
-int						que_push(t_queue *que, t_queued data);
-t_queued				que_pop(t_queue *que);
-t_queue					*que_new(size_t len);
-void					que_destroy(t_queue *que);
-void					que_disp(const t_queue *que);
-int						que_is_empty(const t_queue *que);
 
 /*
 **	T_STR

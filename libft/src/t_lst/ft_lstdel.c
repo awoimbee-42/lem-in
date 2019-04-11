@@ -6,14 +6,14 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/28 14:55:47 by awoimbee          #+#    #+#             */
-/*   Updated: 2018/11/06 15:20:09 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/11 14:52:38 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libft.h"
 
-void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
+void	ft_lstdel(t_list **alst, void (*del)(t_listed*, size_t))
 {
 	t_list	*next;
 

@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lst_push_back.c                                 :+:      :+:    :+:   */
+/*   create_destroy.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/04 02:37:22 by awoimbee          #+#    #+#             */
-/*   Updated: 2018/11/15 12:02:19 by awoimbee         ###   ########.fr       */
+/*   Created: 2019/04/11 14:40:12 by awoimbee          #+#    #+#             */
+/*   Updated: 2019/04/11 15:11:17 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
 
-t_list		*ft_lst_push_back(t_list **lst, void *content, size_t content_size)
+t_queue		*que_new(size_t len)
 {
-	t_list		*tmp;
+	t_queue		*que;
 
-	if (*lst)
-	{
-		tmp = *lst;
-		while (tmp->next)
-			tmp = tmp->next;
-		if (!(tmp->next = ft_lstnew(content, content_size)))
-			return (NULL);
-		tmp = tmp->next;
-	}
-	else
-	{
-		if (!(*lst = ft_lstnew(content, content_size)))
-			return (NULL);
-		tmp = *lst;
-	}
-	return (tmp);
+	if (!(que = malloc(sizeof(t_queue)))
+		|| !(que->arr = malloc(len * sizeof(t_queued))))
+		return (NULL);
+	que->start = -1;
+	que->end = -1;
+	que->size = len;
+	return (que);
+}
+
+void		que_destroy(t_queue *que)
+{
+	free(que->arr);
+	free(que);
 }
