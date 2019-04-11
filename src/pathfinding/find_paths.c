@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 20:42:54 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/04/11 16:01:42 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/11 17:21:49 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,8 @@
 typedef struct		s_path
 {
 	uint32_t	len;
-	uint32_t	id;
 	char		overlaps[4]; // <- 4 overlaps is already quite a bit
-	uint8_t		*dirs;
+	uint32_t	*dirs;
 }					t_path;
 
 
@@ -80,12 +79,12 @@ typedef struct		s_path
 
 // }
 
-static void		bfs(t_graph *g, int id, t_path *path)
+static void		bfs(t_graph *g, int id, t_path *paths)
 {
 	t_queue		*q;
 	uint32_t	node;
 	uint32_t	tmp;
-;
+
 	if (!(q = que_new(g->map.used)) || !que_push(q, g->start))
 		exit_lem_in("Could not create queue, bfs cannot continue\n");
 	ft_printf("graph start is %s at position %u\n", g->map.list[g->start].name, g->start);
@@ -94,12 +93,19 @@ static void		bfs(t_graph *g, int id, t_path *path)
 		if ((node = que_pop(q)) == (t_queued)-1)
 			exit_lem_in("Queue shall not be empty, memory corruption ?");
 		if (node == g->end)
+		{
 			ft_printf("{ylw}end (%s) found, well done !{eoc}\n", g->map.list[node].name);
+			ft_mempcpy(paths[id + 1].dirs, paths[id].dirs, paths[id].len * sizeof(*paths->dirs));
+			paths[id + 1].len = paths[id].len;
+			// paths[id].overlaps // duno what to do with dis
+			++id;
+			continue ;
+		}
 		ft_printf("{inv}%s<rst> links to :\n", g->map.list[node].name);
 		tmp = -1;
 		while (++tmp < g->map.list[node].nb_link)
 		{
-			if (g->map.list[g->map.list[node].links[tmp]].ants != id
+			if (g->map.list[g->map.list[node].links[tmp]].ants == 0
 				&& g->map.list[node].links[tmp] != g->start)
 			{
 				ft_printf("\t-> %s\n", g->map.list[g->map.list[node].links[tmp]].name);
@@ -116,5 +122,11 @@ void		find_paths(t_graph *graph)
 {
 	t_path		paths[256];
 
+	ft_bzero(paths, sizeof(*paths) * 256);
+	int i = -1;
+	while (++i < 256)
+		paths[i].dirs = malloc(graph->map.used * sizeof(*paths[0].dirs));
 	bfs(graph, 1, paths);
+
+
 }

@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 14:54:42 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/04/11 15:54:14 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/11 16:35:23 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int			que_realloc(t_queue *q)
 {
 	t_queued	*nw_data;
 
-	ft_printf("{RED}Realloc circular queue{eoc}\n"); // TO REMOVE
 	if (!(nw_data = malloc(q->size * 2 * sizeof(t_queued))))
 		return (0);
 	if (q->start != -1 && q->end == -1)

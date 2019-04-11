@@ -6,14 +6,13 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 19:45:11 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/11 15:35:57 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/11 16:31:58 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
 //schema de la gestion des commandes
-//les return sont a ignores (il faut les changer)
 t_command		command_hub(char *line)
 {
 	if (!ft_strcmp(line, "##start"))
@@ -22,7 +21,7 @@ t_command		command_hub(char *line)
 		return (END);
 	else if (!ft_strcmp(line, "##commande inventee dans le cadre des bonus"))
 		return (3);
-	else			// commande inconnue, on ignore (dunno si ont doit l'add dans l'historique des cmd)
+	else
 		return (UNKNOWN);
 }
 

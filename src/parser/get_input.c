@@ -48,9 +48,8 @@ void			parse_input(t_graph *g, t_str **str)
 	line = NULL;
 	find_ants(g, str);
 	ret = read_rooms(g, str, &line);
-	// TOI QUI FAIT LA NORME, N'OUBLIE PAS DE CHANGER LE MESSAGE DU EXIT_LEM_IN SUIVANT APE
 	if (g->start == UINT32_NOT_SET || g->end == UINT32_NOT_SET)
-		exit_lem_in("ERROR (no start or/and no end)");
+		exit_lem_in("ERROR (graph has no start or/and no end)");
 	if (ret == 0)
 		return ;
 	else if (ret == 1)

@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:23:09 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/10 20:35:52 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/11 16:31:20 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,6 @@ void			reset_room(t_room *tmp_room)
 	tmp_room->mem_link = 0;
 	tmp_room->links = NULL;
 }
-
-// t_room			*new_room(char *name, int ants, int x, int y)
-// {
-// 	t_room		*new;
-
-// 	if (!(new = (t_room *)malloc(sizeof(t_room))))
-// 		exit_lem_in("Error: malloc failed in new_room\n");
-// 	new->name = name;
-// 	new->ants = ants;
-// 	new->coords.x = x;
-// 	new->coords.y = y;
-// 	new->nb_link = 0;
-// 	new->mem_link = 10;
-// 	if (!(new->links = malloc(DEFMALLOCMAP * sizeof(*new->links))))
-// 		exit_lem_in("couldnt malloc links in new_room\n");
-// 	return (new);
-// }
 
 void			free_room(t_room *room)
 {

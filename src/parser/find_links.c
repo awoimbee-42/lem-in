@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 21:19:18 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/09 21:04:16 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/11 16:34:40 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ uint32_t		get_first_link_part(t_graph *g, char *line)
 	return (UINT_MAX);
 }
 
-uint32_t			get_second_link_part(t_graph *g, char *line)
+uint32_t		get_second_link_part(t_graph *g, char *line)
 {
 	while (*line)
 	{
@@ -53,8 +53,8 @@ uint32_t			get_second_link_part(t_graph *g, char *line)
 
 int				is_link(t_graph *g, t_str **str, char *line)
 {
-	uint32_t		r1;
-	uint32_t		r2;
+	uint32_t	r1;
+	uint32_t	r2;
 
 	if (is_comment(line) || is_command(line))
 		add_t_str(*str, line);
@@ -76,11 +76,11 @@ void			find_links(t_graph *g, t_str **str)
 	int			ret;
 	char		*line;
 
-	while((ret = get_next_line(STDIN_FILENO, &line)))
+	while ((ret = get_next_line(STDIN_FILENO, &line)))
 	{
 		if (ret == -1)
 			exit_lem_in("Error: get_next_line failed in find_links");
 		if (!is_link(g, str, line))
-				return ;
+			return ;
 	}
 }

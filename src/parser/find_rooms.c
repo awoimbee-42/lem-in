@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:00:17 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/10 20:36:13 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/11 16:34:20 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int				read_rooms(t_graph *g, t_str **str, char **last_line)
 		{
 			if (!add_new_room(*last_line, g))
 				return (1);
-			if (command != NONE && command != UNKNOWN) //why even have an 'unknown'?
+			if (command != NONE && command != UNKNOWN)
 				exec_command(g, command);
 			add_t_str(*str, *last_line);
 			command = NONE;

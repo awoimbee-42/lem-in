@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:38:11 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/04/10 20:40:47 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/11 16:33:31 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,11 @@ void		exit_lem_in(char *key)
 
 int			main(int argc, char **argv)
 {
-	(void)argc;
-	(void)argv;
 	t_graph			*map;
 	t_str			*file;
+
+	(void)argc;
+	(void)argv;
 
 	map = init_graph();
 	file = new_t_str();
