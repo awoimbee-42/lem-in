@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 20:42:54 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/04/11 15:43:36 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/11 16:01:42 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static void		bfs(t_graph *g, int id, t_path *path)
 	uint32_t	node;
 	uint32_t	tmp;
 ;
-	if (!(q = que_new(g->end)) || !que_push(q, g->start))
+	if (!(q = que_new(g->map.used)) || !que_push(q, g->start))
 		exit_lem_in("Could not create queue, bfs cannot continue\n");
 	ft_printf("graph start is %s at position %u\n", g->map.list[g->start].name, g->start);
 	while (!que_isempty(q))
