@@ -6,7 +6,7 @@
 #    By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/26 22:06:19 by marvin            #+#    #+#              #
-#    Updated: 2019/04/11 15:10:55 by awoimbee         ###   ########.fr        #
+#    Updated: 2019/04/12 15:16:22 by awoimbee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,7 +80,7 @@ $(NAME) : libft/libft.a $(OBJ)
 
 opti : fclean
 	@printf "Compiling instrumented version...\n"
-	@make $(NAME) PROFILE=gen > /dev/null
+	@make $(NAME) PROFILE=gen 2>&1 > /dev/null
 	@printf "Profiling...\n"
 	@./lem-in < ./maps/map-09-big.txt > /dev/null
 	@$(PROCESS_PROFDATA)

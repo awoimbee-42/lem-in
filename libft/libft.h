@@ -6,12 +6,13 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/23 20:34:49 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/04/11 15:13:22 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/12 16:07:11 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
+# include "config.h"
 # include <string.h>
 # include <stdint.h>
 # include <inttypes.h>
@@ -20,14 +21,8 @@
 # define GNL_FLUSH (char**)INTPTR_MAX
 
 /*
-**	################################################
-**	################## DATA TYPES ##################
-**	################################################
+**	################ INTRISICS ################
 */
-
-typedef uint32_t	t_queued;
-typedef void		t_listed;
-
 typedef struct	s_list
 {
 	t_listed		*content;
@@ -44,9 +39,7 @@ typedef struct	s_queue
 }				t_queue;
 
 /*
-**	################################################
 **	#################### LIBMEM ####################
-**	################################################
 */
 void			*ft_memset (void *s, int c, size_t len);
 void			ft_bzero(void *s, size_t n);
@@ -63,9 +56,7 @@ void			ft_mem32set(uint32_t *mem, uint32_t data, size_t memlen);
 void			ft_mem16set(uint16_t *mem, uint16_t data, size_t memlen);
 
 /*
-**	################################################
 **	#################### LIBSTR ####################
-**	################################################
 */
 size_t			ft_strlen(const char *s);
 char			*ft_strdup(const char *s1);
@@ -100,9 +91,7 @@ char			*ft_stpcpy(char *dest, const char *src);
 int				ft_strncat_join(char **s1, char const *s2, size_t size);
 
 /*
-**	################################################
 **	##################### LIBNB ####################
-**	################################################
 */
 void			ft_swap_int(int *a, int *b);
 int				ft_atoi(const char *str);
@@ -115,9 +104,7 @@ double			ft_atof_mv(char **nptr);
 int				ft_atoi_mv(char **nptr);
 
 /*
-**	################################################
 **	#################### LIBCHAR ###################
-**	################################################
 */
 int				ft_isalpha(int c);
 int				ft_isdigit(int c);
@@ -128,9 +115,7 @@ int				ft_toupper(int c);
 int				ft_tolower(int c);
 
 /*
-**	################################################
 **	##################### LIBFD ####################
-**	################################################
 */
 void			ft_putchar(char c);
 void			ft_putstr(char const *s);
@@ -143,18 +128,14 @@ void			ft_putnbr_fd(int n, int fd);
 int				get_next_line(const int fd, char **line);
 
 /*
-**	################################################
 **	################### FT_PRINTF ##################
-**	################################################
 */
 int				ft_printf(const char *restrict format, ...);
 int				ft_fprintf(int fd, const char *restrict format, ...);
 int				ft_sprintf(char *str, const char *restrict format, ...);
 
 /*
-**	################################################
 **	##################### T_LST ####################
-**	################################################
 */
 t_list			*ft_lstnew(void const *content, size_t content_size);
 void			ft_lstdelone(t_list **alst, void (*del)(t_listed*, size_t));
@@ -167,9 +148,7 @@ t_list			*ft_list_at(t_list *begin_list, unsigned int nbr);
 int				ft_lst_free_link(t_list **lst, t_list *link);
 
 /*
-**	################################################
-**	##################### T_QUEUE ####################
-**	################################################
+**	##################### T_QUEUE ##################
 */
 int				que_realloc(t_queue *que);
 int				que_push(t_queue *que, t_queued data);
@@ -179,11 +158,8 @@ void			que_destroy(t_queue *que);
 void			que_disp(const t_queue *que);
 int				que_isempty(const t_queue *que);
 
-
 /*
-**	################################################
 **	##################### other ####################
-**	################################################
 */
 void			msg_exit(const char *msg, const void *data);
 
