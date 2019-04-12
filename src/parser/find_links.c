@@ -6,39 +6,45 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 21:19:18 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/12 17:10:35 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/12 17:45:02 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static uint32_t	find_room_link(t_graph *g, char *ptr, size_t n)
+static uint32_t	find_room(t_graph *g, char *name)
 {
 	uint32_t	i;
 
 	i = 0;
 	while (i < g->map.used)
 	{
-		if (!ft_strncmp(ptr, g->map.list[i].name, n))
+		if (!ft_strcmp(name, g->map.list[i].name))
 			return (i);
 		i++;
 	}
-	return (UINT_MAX);
+	return (UINT32_NOT_SET);
 }
+
+/*
+**	We replace '-' with '\0' and use ft_strcmp instead of using ft_strncmp.
+**	That is because ft_strncmp("p", "printf", 1) == 0
+*/
 
 static uint64_t	get_link(t_graph *g, char *line)
 {
-	uint32_t	i;
+	char		*dash;
 	uint32_t	res[2];
 
-	i = 0;
-	while (line[i] && line[i] != '-')
-		++i;
-	if (!line[i])
+	dash = line;
+	while (*dash && *dash != '-')
+		++dash;
+	if (!*dash)
 		return (INT64_MAX);
-	res[0] = find_room_link(g, line, i);
-	++i;
-	res[1] = find_room_link(g, line + i, ft_strlen(line + i));
+	*dash = '\0';
+	res[0] = find_room(g, line);
+	res[1] = find_room(g, dash + 1);
+	*dash = '-';
 	return (*(uint64_t*)res);
 }
 

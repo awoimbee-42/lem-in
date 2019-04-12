@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 14:55:14 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/04/11 15:06:41 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/12 18:13:52 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ t_queued	que_pop(t_queue *que)
 	t_queued	res;
 
 	if (que->start == -1)
-		return ((t_queued)-1);
+	{
+		ft_fprintf(2, "Warning: undefined behavior, reading an empty queue");
+		return (que->arr[0]);
+	}
 	res = que->arr[que->start++];
 	if (que->start == que->size)
 		que->start = 0;

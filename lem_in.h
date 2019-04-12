@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:37:38 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/04/11 15:12:52 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/12 17:32:11 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,6 @@ int						read_rooms(t_graph *g, t_str **str, char **tmp);
 /*
 **	FIND_LINKS
 */
-uint32_t					find_room_link(t_graph *g, char *ptr, size_t n);
-uint32_t					get_first_link_part(t_graph *g, char *line);
-uint32_t					get_second_link_part(t_graph *g, char *line);
 int						is_link(t_graph *g, t_str **str, char *line);
 void					find_links(t_graph *g, t_str **str);
 
