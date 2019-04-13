@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 20:42:54 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/04/12 19:57:40 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/13 02:59:29 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,23 +45,22 @@ static int		cpy_path(t_graph *g, uint32_t *parents, t_path *path, int *id)
 }
 
 //this function is shitty, needs work
-static void		handle_overlap(t_graph *g, t_path *path, int id, uint32_t *lnk_par)
+static void	handle_overlap(int prev_p_id, t_path *path, uint32_t *prev_par)
 {
 	int			i;
-	int			par_id;
 
-	par_id = g->map.list[*lnk_par].ants;
-	if (par_id == id)
-		return ;
 	i = 0;
-	while (path->overlaps[i] != 0 && path->overlaps[i] != par_id)
+	while (path->overlaps[i] != 0)
 	{
-		if (i == 3)
+		if (i == 3 || path->overlaps[i] == prev_p_id) // only 1 overlap is allowed
+		{
+			ft_printf(" i == 3 ");
 			return ;
+		}
 		++i;
 	}
-	path->overlaps[i] = par_id;
-	*lnk_par = UINT32_NOT_SET;
+	path->overlaps[i] = prev_p_id;
+	*prev_par = UINT32_NOT_SET;
 }
 
 // this piece of shit only finds 1 path ffs
@@ -85,21 +84,25 @@ static void		bfs(t_graph *g, int id, t_path *paths)
 			exit_lem_in("Queue shall not be empty, memory corruption ?");
 		if (node == g->end && cpy_path(g, parents, &paths[id], &id) && que_push(q, g->start))
 			continue ;
+		g->map.list[node].ants = id; // need to check if not visited by other instance
 						ft_printf("{inv}%s<rst> links to :\n", g->map.list[node].name);
 		tmp = -1;
 		while (++tmp < g->map.list[node].nb_link)
 		{
 			tmp_lnk = g->map.list[node].links[tmp];
 			ft_printf("\t-> %s\n", g->map.list[tmp_lnk].name);
-			if (parents[tmp_lnk] != UINT32_NOT_SET)
-				handle_overlap(g, &paths[id], id, &parents[tmp_lnk]);
-
-			if (parents[g->map.list[node].links[tmp]] == UINT32_NOT_SET)
+			if (parents[tmp_lnk] != UINT32_NOT_SET && g->map.list[parents[tmp_lnk]].ants != id)
 			{
-				parents[g->map.list[node].links[tmp]] = node;
-				if (!que_push(q, g->map.list[node].links[tmp]))
+				ft_printf("OUGABOUGA %s parents == %u", g->map.list[tmp_lnk].name, parents[tmp_lnk]);
+				handle_overlap(g->map.list[tmp_lnk].ants, &paths[id], &parents[tmp_lnk]);
+				ft_printf(" updated to %u\n", parents[tmp_lnk]);
+			}
+
+			if (parents[tmp_lnk] == UINT32_NOT_SET)
+			{
+				parents[tmp_lnk] = node;
+				if (!que_push(q, tmp_lnk))
 					exit_lem_in("Could not update queue, memory corruption ?");
-				g->map.list[g->map.list[node].links[tmp]].ants = id; // need to check if not visited by other instance
 			}
 
 		}
