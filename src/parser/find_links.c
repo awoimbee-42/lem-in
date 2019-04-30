@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 21:19:18 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/12 17:45:02 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/30 17:59:01 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ int				is_link(t_graph *g, t_str **str, char *line)
 {
 	uint32_t	r[2];
 
-	if (is_comment(line) || is_command(line))
+	if (!ft_strcmp(line, ""))
+		return (0);
+	else if (is_comment(line) || is_command(line))
 		add_t_str(*str, line);
 	else
 	{

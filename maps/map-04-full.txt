@@ -5,5 +5,4 @@
 miguel 0 0
 ##end
 jesus 1 1
-pablo pedro monfort
 miguel-jesus

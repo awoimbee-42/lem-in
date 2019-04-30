@@ -6,7 +6,7 @@
 /*   By: allespag <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 16:11:02 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/30 16:11:42 by allespag         ###   ########.fr       */
+/*   Updated: 2019/04/30 17:55:16 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void			find_ants(t_graph *g, t_str **str)
 	{
 		if (get_next_line(0, &line) == -1)
 			exit_lem_in("Error: get_next_line failed in find_ants\n");
-		if (!line)
+		if (line == NULL || !ft_strcmp("", line))
 			exit_lem_in("ERROR");
 		if (is_comment(line) || is_command(line))
 			add_t_str(*str, line);

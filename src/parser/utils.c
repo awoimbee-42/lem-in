@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 19:10:08 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/30 16:15:50 by allespag         ###   ########.fr       */
+/*   Updated: 2019/04/30 17:54:56 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,13 @@ long long			ft_atoi_pimp(char *line)
 	return (sign * res);
 }
 
+// check ici si la size a du sens
 int					is_comment(char *line)
 {
-	if (!ft_strcmp(line, ""))
-		exit_lem_in("ERROR");
-	else if (line[0] == '#' && line[1] != '#')
+	size_t			size;
+
+	size = ft_strlen(line);
+	if (size >= 2 && line[0] == '#' && line[1] != '#')
 		return (1);
 	return (0);
 }

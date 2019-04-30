@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:00:17 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/30 15:51:57 by allespag         ###   ########.fr       */
+/*   Updated: 2019/04/30 17:59:36 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int		add_new_room(const char *line, t_graph *g)
 	const char	*line_iter;
 
 	if ((spaces = count_spaces(line)) < 2)
-		return (0);
+		return (0);	
 	line_iter = line;
 	while (spaces != 1)
 	{
@@ -65,9 +65,9 @@ static int		add_new_room(const char *line, t_graph *g)
 		ft_printf("{RED}Error majenta -- coordonnes de merde{eoc}\n");
 		return (0);
 	}
-	else if (is_room_here(&g->map, &tmp_room))
-		exit_lem_in("ERROR");                    // je pense qu'il faut juste return null la
-	add_t_map(&g->map, &tmp_room);					// je pense ausi
+	else if (is_room_here(&g->map, &tmp_room) || line[0] == 'L')
+		return (0);
+	add_t_map(&g->map, &tmp_room);
 	return (1);
 }
 
@@ -79,7 +79,9 @@ int				read_rooms(t_graph *g, t_str **str, char **last_line)
 	command = NONE;
 	while ((ret = get_next_line(STDIN_FILENO, last_line)) == 1)
 	{
-		if (is_comment(*last_line))
+		if (!ft_strcmp(*last_line, ""))
+			return (0);
+		else if (is_comment(*last_line))
 			add_t_str(*str, *last_line);
 		else if (is_command(*last_line) && ((command = command_hub(*last_line))))
 			add_t_str(*str, *last_line);
