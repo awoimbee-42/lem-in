@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   vec4_mul.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/26 12:01:44 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/04/28 04:51:37 by awoimbee         ###   ########.fr       */
+/*   Created: 2019/04/13 03:32:58 by awoimbee          #+#    #+#             */
+/*   Updated: 2019/04/30 02:30:18 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strcpy(char *dest, const char *src)
-{
-	char *srccpy;
+#include "libft.h"
 
-	srccpy = dest;
-	while (*src != '\0')
-	{
-		*dest = *src;
-		++dest;
-		++src;
-	}
-	*dest = *src;
-	return (srccpy);
+static inline t_vec4		vec4_mul(const t_vec4 a, const t_vec4 b)
+{
+	return ((t_vec4)_mm_mul_ps(a.sse, b.sse));
+}
+
+static inline t_vec4		vec4_mulf(const t_vec4 a, const float b)
+{
+	return ((t_vec4)_mm_mul_ps(a.sse, vec4_newf(b).sse));
 }

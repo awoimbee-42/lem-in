@@ -6,7 +6,7 @@
 #    By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/16 11:55:20 by awoimbee          #+#    #+#              #
-#    Updated: 2019/04/11 15:10:14 by awoimbee         ###   ########.fr        #
+#    Updated: 2019/04/30 03:26:45 by awoimbee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME	=	libft.a
 
 CC	=	gcc
 
-CFLAGS = -Wall -Wextra -Werror -Ofast -march=native -fno-builtin
+CFLAGS = -march=native -Wall -Wextra -Werror -Ofast -fno-builtin -ftree-vectorize -fstrict-aliasing
 
 SRCS_CHAR =	ft_isalnum.c		ft_isascii.c		ft_isprint.c		\
 			ft_isalpha.c		ft_isdigit.c		ft_tolower.c		\
@@ -56,6 +56,12 @@ SRCS_LST =	ft_lstadd.c			ft_lstdelone.c		ft_lstmap.c			\
 SRCS_QUE =	create_destroy.c	disp.c				isempty.c			\
 			push_pop.c			realloc.c
 
+SRCS_VEC4 =	vec4_new.c			vec4_newa.c			vec4_div.c			\
+			vec4_add_sub.c		vec4_mul.c			vec4_abs_sqr.c		\
+			vec4_dot.c			vec4_mod.c								\
+			vec4_cross.c		vec4_mat.c								\
+
+
 SRCS_OTHER = msg_exit.c
 
 SRCS_NAME =	$(addprefix libchar/, $(SRCS_CHAR))		\
@@ -71,8 +77,9 @@ OBJ_NAME = $(SRCS_NAME:.c=.o)
 
 SRC_PATH = src
 OBJ_PATH = obj
-OBJ_DIRS = libchar libfd libmem libnb libstr ft_prtf t_lst t_queue
+OBJ_DIRS = libchar libfd libmem libnb libstr ft_prtf t_lst t_queue t_vec4
 
+################################################################################
 SRCS = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 OBJS = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 
@@ -81,17 +88,26 @@ CFLAGS += -I./
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
 	CFLAGS += -Wno-unused-result
+	NUMPROC := $(shell grep -c ^processor /proc/cpuinfo)
+else ifeq ($(UNAME_S),Darwin)
+	NUMPROC := $(shell sysctl hw.ncpu | awk '{print $$2}')
 endif
 ################################################################################
 
 all	: $(NAME)
+
+fast :
+	@make -s -j$(NUMPROC)
+
+gen :
+	@printf "$(foreach cfile,$(SRCS_VEC4),$(addprefix \n# include \"src/t_vec4/,$(addsuffix \",$(cfile))))" > libft.gen
 
 $(OBJ_PATH)	:
 	@mkdir -p $(OBJ_PATH) 2> /dev/null
 	@mkdir -p $(addprefix $(OBJ_PATH)/, $(OBJ_DIRS)) 2> /dev/null
 	@printf "$(GRN)Compiling with \"$(CFLAGS)\" :$(EOC)\n"
 
-$(NAME)	: $(OBJS)
+$(NAME)	: gen $(OBJS)
 	@printf "$(GRN)%-50s$(EOC)\n" "Compilation done"
 	@ar -rcs $(NAME) $(OBJS)
 	@printf "$(GRN)%-50s$(EOC)\n" "$(NAME) done"
@@ -109,18 +125,19 @@ clean	:
 	@printf "$(RED)./$(OBJ_PATH) cleaned$(EOC)\n"
 
 fclean	:	clean
+	@rm -f libft.gen
 	@rm -f $(NAME)
 	@rm -f $(NAME:.a=.so)
-	@printf "\033[0;31m$(NAME), $(NAME:.a=.so) removed$(EOC)\n"
+	@printf "\033[0;31m$(NAME), $(NAME:.a=.so) and libft.gen removed$(EOC)\n"
 
 re	:	fclean
-	@make -j -s
-
-.PHONY: all so clean fclean re flowchart
+	@make -s -j$(NUMPROC)
 
 flowchart:
 	@printf "%s\n"	\
 	"drive.google.com/file/d/1WmQpjdGgEPmhxpchUW6tD26C3euBPtcL/view?usp=sharing"
+
+.PHONY: all fast gen so clean fclean re flowchart
 
 GRN =	\033[0;32m
 RED =	\033[0;31m
