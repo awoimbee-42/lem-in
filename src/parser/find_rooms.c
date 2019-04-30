@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:00:17 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/30 17:59:36 by allespag         ###   ########.fr       */
+/*   Updated: 2019/04/30 20:16:48 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int		add_new_room(const char *line, t_graph *g)
 	const char	*line_iter;
 
 	if ((spaces = count_spaces(line)) < 2)
-		return (0);	
+		return (0);
 	line_iter = line;
 	while (spaces != 1)
 	{
@@ -74,25 +74,25 @@ static int		add_new_room(const char *line, t_graph *g)
 int				read_rooms(t_graph *g, t_str **str, char **last_line)
 {
 	int			ret;
-	t_command	command;
+	t_command	cmd;
 
-	command = NONE;
+	cmd = NONE;
 	while ((ret = get_next_line(STDIN_FILENO, last_line)) == 1)
 	{
 		if (!ft_strcmp(*last_line, ""))
 			return (0);
 		else if (is_comment(*last_line))
 			add_t_str(*str, *last_line);
-		else if (is_command(*last_line) && ((command = command_hub(*last_line))))
+		else if (is_command(*last_line) && ((cmd = command_hub(*last_line))))
 			add_t_str(*str, *last_line);
 		else
 		{
 			if (!add_new_room(*last_line, g))
 				return (1);
-			if (command != NONE && command != UNKNOWN)
-				exec_command(g, command);
+			if (cmd != NONE && cmd != UNKNOWN)
+				exec_command(g, cmd);
 			add_t_str(*str, *last_line);
-			command = NONE;
+			cmd = NONE;
 		}
 	}
 	if (ret == -1)

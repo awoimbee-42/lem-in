@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:38:11 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/04/11 16:33:31 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/30 20:24:36 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,28 +24,22 @@ void		exit_lem_in(char *key)
 
 int			main(int argc, char **argv)
 {
-	t_graph			*map;
+	t_graph			*g;
 	t_str			*file;
 
 	(void)argc;
 	(void)argv;
-
-	map = init_graph();
+	g = init_graph();
 	file = new_t_str();
-
-	parse_input(map, &file);
-
-	// display_t_str(file);      // DEBUG
-
-	display_graph(map, 1);
-	find_paths(map);
-
-		// DISPLAY_GRAPH POUR DEBUG
+	parse_input(g, &file);
+	display_t_str(file);      	// A AJOUTER PARCE QUE C'EST LE SUJET QUI DEMANDE :)
+	 ft_printf("{red}END OF DISPLAY_T_STR\n{eoc}");	// A REMOVE
+	display_graph(g, 1);								// A REMOVE PARCE QUE C'EST DU DEBUG
 	//edmon karp...
+	find_paths(g);
 	get_next_line(STDERR_FILENO, GNL_FLUSH);
 	free_t_str(file);
-	ft_printf("{red}END OF DISPLAY_T_STR\n{eoc}");
-	free_t_graph(map);
+	free_t_graph(g);
 	ft_printf("{grn}exit sucess well done\n{eoc}");
 	return (EXIT_SUCCESS);
 }
