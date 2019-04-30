@@ -6,39 +6,32 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 20:42:54 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/04/30 17:32:34 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/30 20:05:29 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-//use ants to signal if already searched
-//cut useless
-//
-
 #define MAX_PATHS 256
 
-typedef struct		s_path
-{
-	uint32_t	len;
-	int			overlaps[2]; // <- 4 overlaps is already quite a bit
-	uint32_t	*dirs;
-}					t_path;
-
-static int		cpy_path(t_graph *g, uint32_t *parents, t_path *path)
+static int		cpy_path(t_graph *g, uint32_t *parents, t_vector *path_vec)
 {
 	uint32_t	node;
+	t_path		p;
 
 				ft_printf("{ylw}end (%s) found, well done !{eoc}\n", g->map.list[g->end].name);
-	path->len = 0;
+	p.len = 0;
+	p.dirs = malloc(sizeof(*p.dirs) * g->map.used);
 	node = parents[g->end];
 	while (node != g->start)
 	{
-		g->map.list[node].ants = 1;      //mark as visited
+		g->map.list[node].ants = 1;     //mark as visited
 				ft_printf("{blu}%s <-- {eoc}", g->map.list[node].name);
-		path->dirs[path->len++] = node; // add to path
+		p.dirs[p.len++] = node;         // add to path
 		node = parents[node];           // go to parent
 	}
+	if (!vector_push(path_vec, p))
+		exit_lem_in("Memory allcation error in cpy_path");
 				ft_printf("{blu}%s{eoc}\n\n\n", g->map.list[g->start].name);
 	return (1);
 }
@@ -60,7 +53,7 @@ static int		bfs(t_graph *g, uint32_t *parents, t_queue *q)
 		while (++tmp < g->map.list[node].nb_link)
 		{
 			tmp_lnk = g->map.list[node].links[tmp];
-			if (parents[tmp_lnk] == -1 && g->map.list[tmp_lnk].ants == 0)
+			if (parents[tmp_lnk] == (uint32_t)-1 && g->map.list[tmp_lnk].ants == 0)
 			{
 				parents[tmp_lnk] = node;
 				if (tmp_lnk == g->end)
@@ -73,7 +66,7 @@ static int		bfs(t_graph *g, uint32_t *parents, t_queue *q)
 	return (0);
 }
 
-void		edmonds_karp(t_graph *g, t_path *paths)
+void		edmonds_karp(t_graph *g, t_vector *paths)
 {
 	t_queue		*q;
 	uint32_t	*parents;
@@ -85,26 +78,25 @@ void		edmonds_karp(t_graph *g, t_path *paths)
 	{
 		ft_bzero(parents, g->map.used * sizeof(uint32_t));
 		que_flush(q);
-		paths[i].dirs = malloc(g->map.used * sizeof(*paths[i].dirs));
+		// paths[i].dirs = malloc(g->map.used * sizeof(*paths[i].dirs));
 		if (!bfs(g, parents, q))
 			break ;
-		cpy_path(g, parents, &paths[i]);
+		cpy_path(g, parents, paths);
 	}
 }
 
 void		find_paths(t_graph *graph)
 {
-	t_path		*paths;
+	t_vector	paths;
 
-	paths = (t_path*)ft_memalloc(sizeof(*paths) * 256); // TO PROTEC
-	edmonds_karp(graph, paths);
+	if (!vector_init(&paths, 10))
+		exit_lem_in("Cannot allocate memory for paths vector");
+	edmonds_karp(graph, &paths);
 	ft_printf("{PNK}END OF BFS, PATHS:{eoc}\n");
-	for (t_path *p = &paths[1]; p->len != 0; ++p)
+	for (size_t i = 0; i < paths.len; ++i)
 	{
-		for (uint32_t xyz = 0; xyz < p->len; ++xyz)
-			ft_printf("-->%s\n", graph->map.list[p->dirs[xyz]].name);
+		for (uint32_t xyz = 0; xyz < paths.arr[i].len; ++xyz)
+			ft_printf("-->%s\n", graph->map.list[paths.arr[i].dirs[xyz]].name);
 		ft_printf("\n\n");
 	}
-
-
 }

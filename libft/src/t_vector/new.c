@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   flush.c                                            :+:      :+:    :+:   */
+/*   new.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/30 17:22:30 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/04/30 19:58:56 by awoimbee         ###   ########.fr       */
+/*   Created: 2019/04/29 01:09:53 by awoimbee          #+#    #+#             */
+/*   Updated: 2019/04/30 20:01:54 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_queue		*que_flush(t_queue *q)
+t_vector	*vector_init(t_vector *vec, const size_t reserved_len)
 {
-	q->start = -1;
-	q->end = -1;
-	return (q);
+	vec->mem = reserved_len;
+	vec->len = 0;
+	if (!(vec->arr = malloc(reserved_len * sizeof(t_vected))))
+		return (NULL);
+	return (vec);
 }

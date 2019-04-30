@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   flush.c                                            :+:      :+:    :+:   */
+/*   send_ants.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/30 17:22:30 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/04/30 19:58:56 by awoimbee         ###   ########.fr       */
+/*   Created: 2019/04/30 20:05:34 by awoimbee          #+#    #+#             */
+/*   Updated: 2019/04/30 20:06:37 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "lem_in.h"
 
-t_queue		*que_flush(t_queue *q)
+void		send_ants(t_graph *g, t_vector *paths)
 {
-	q->start = -1;
-	q->end = -1;
-	return (q);
+
 }

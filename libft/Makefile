@@ -6,7 +6,7 @@
 #    By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/16 11:55:20 by awoimbee          #+#    #+#              #
-#    Updated: 2019/04/30 17:28:57 by awoimbee         ###   ########.fr        #
+#    Updated: 2019/04/30 20:01:04 by awoimbee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,9 @@ SRCS_QUE =	create_destroy.c	disp.c				isempty.c			\
 SRCS_VEC4 =	vec4_new.c			vec4_newa.c			vec4_div.c			\
 			vec4_add_sub.c		vec4_mul.c			vec4_abs_sqr.c		\
 			vec4_dot.c			vec4_mod.c								\
-			vec4_cross.c		vec4_mat.c								\
+			vec4_cross.c		vec4_mat.c
+
+SRCS_VECT =	new.c				push.c				realloc.c
 
 
 SRCS_OTHER = msg_exit.c
@@ -72,12 +74,13 @@ SRCS_NAME =	$(addprefix libchar/, $(SRCS_CHAR))		\
 			$(addprefix ft_prtf/, $(SRCS_PRTF))		\
 			$(addprefix t_lst/,   $(SRCS_LST))		\
 			$(addprefix t_queue/, $(SRCS_QUE))		\
+			$(addprefix t_vector/, $(SRCS_VECT))	\
 			$(SRCS_OTHER)
 OBJ_NAME = $(SRCS_NAME:.c=.o)
 
 SRC_PATH = src
 OBJ_PATH = obj
-OBJ_DIRS = libchar libfd libmem libnb libstr ft_prtf t_lst t_queue t_vec4
+OBJ_DIRS = libchar libfd libmem libnb libstr ft_prtf t_lst t_queue t_vec4 t_vector
 
 ################################################################################
 SRCS = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
