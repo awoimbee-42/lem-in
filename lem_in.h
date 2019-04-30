@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:37:38 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/04/12 17:32:11 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/30 16:23:30 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,18 @@
 
 # define UINT32_NOT_SET 4294967295U
 
-struct					s_str;
-struct					s_map;
-struct					s_room;
-struct					s_graph;
+struct s_str;
+struct s_map;
+struct s_room;
+struct s_graph;
 
-typedef enum	e_command
+typedef enum			e_command
 {
-	UNKNOWN,
 	NONE,
+	UNKNOWN,
 	START,
 	END
-}				t_command;
+}						t_command;
 
 typedef struct			s_int2
 {
@@ -53,7 +53,7 @@ typedef struct			s_str
 	char			**str;
 	uint32_t		size;
 	uint32_t		used;
-}					t_str;
+}						t_str;
 
 typedef struct			s_map // structure pas forcement utile, complexifie le code pour rien
 {
@@ -82,8 +82,10 @@ typedef struct			s_graph
 	t_map			map;
 }						t_graph;
 
-
-void		find_paths(t_graph *graph);
+/*
+**	PATHFINDING
+*/
+void					find_paths(t_graph *graph);
 
 /*
 **	EXIT

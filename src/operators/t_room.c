@@ -6,12 +6,11 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:23:09 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/11 16:31:20 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/30 16:17:18 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
 
 void			reset_room(t_room *tmp_room)
 {
@@ -28,7 +27,6 @@ void			free_room(t_room *room)
 	{
 		ft_memdel((void*)&room->name);
 		ft_memdel((void*)&room->links);
-		//ft_memdel((void*)&room); //unused ?
 	}
 }
 

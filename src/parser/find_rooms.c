@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:00:17 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/11 16:34:20 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/30 15:51:57 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,17 @@ static int		count_spaces(const char *line)
 	}
 	return (count);
 }
+
+/*
+**	NORM:
+**
+**	TO REMOVE / OR MODIFY
+**	if (spaces)
+**	{
+**		ft_printf("...");
+**		return (0);
+**	}
+*/
 
 static int		add_new_room(const char *line, t_graph *g)
 {
@@ -56,7 +67,7 @@ static int		add_new_room(const char *line, t_graph *g)
 	}
 	else if (is_room_here(&g->map, &tmp_room))
 		exit_lem_in("ERROR");                    // je pense qu'il faut juste return null la
-	add_t_map(&g->map, &tmp_room);
+	add_t_map(&g->map, &tmp_room);					// je pense ausi
 	return (1);
 }
 
@@ -70,11 +81,8 @@ int				read_rooms(t_graph *g, t_str **str, char **last_line)
 	{
 		if (is_comment(*last_line))
 			add_t_str(*str, *last_line);
-		else if (is_command(*last_line))
-		{
-			command = command_hub(*last_line);
+		else if (is_command(*last_line) && ((command = command_hub(*last_line))))
 			add_t_str(*str, *last_line);
-		}
 		else
 		{
 			if (!add_new_room(*last_line, g))
@@ -87,6 +95,5 @@ int				read_rooms(t_graph *g, t_str **str, char **last_line)
 	}
 	if (ret == -1)
 		exit_lem_in("Error: get_next_line failed in read_rooms");
-	exit_lem_in("end of input in read_rooms");  // to remove
 	return (0);
 }

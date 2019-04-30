@@ -6,13 +6,13 @@
 #    By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/26 22:06:19 by marvin            #+#    #+#              #
-#    Updated: 2019/04/12 15:16:22 by awoimbee         ###   ########.fr        #
+#    Updated: 2019/04/30 16:46:11 by allespag         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	lem-in
 
-CFLAGS	=	-Wall -Wextra -g3# -Ofast -march=native -ftree-vectorize -fstrict-aliasing #-fsanitize=address
+CFLAGS	=	-Wall -Wextra -g3 #-Ofast -march=native -ftree-vectorize -fstrict-aliasing #-fsanitize=address
 
 SRC_NAME =	main.c					\
 			\

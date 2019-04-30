@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_input.c                                        :+:      :+:    :+:   */
+/*   get_input.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: allespag <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/15 16:06:22 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/08 16:46:20 by allespag         ###   ########.fr       */
+/*   Created: 2019/04/30 16:11:02 by allespag          #+#    #+#             */
+/*   Updated: 2019/04/30 16:11:42 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ void			find_ants(t_graph *g, t_str **str)
 	}
 }
 
-// DANS FIND_* check line == null
-void			parse_input(t_graph *g, t_str **str)
+void			parse_input(t_graph *g, t_str **str)// DANS FIND_* check line == null
 {
 	int			ret;
 	char		*line;
