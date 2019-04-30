@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 20:42:54 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/04/13 02:59:29 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/30 17:32:34 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,100 +25,79 @@ typedef struct		s_path
 	uint32_t	*dirs;
 }					t_path;
 
-
-static int		cpy_path(t_graph *g, uint32_t *parents, t_path *path, int *id)
+static int		cpy_path(t_graph *g, uint32_t *parents, t_path *path)
 {
 	uint32_t	node;
 
 				ft_printf("{ylw}end (%s) found, well done !{eoc}\n", g->map.list[g->end].name);
 	path->len = 0;
-	node = g->end;
+	node = parents[g->end];
 	while (node != g->start)
 	{
+		g->map.list[node].ants = 1;      //mark as visited
 				ft_printf("{blu}%s <-- {eoc}", g->map.list[node].name);
-		path->dirs[path->len++] = node;
-		node = parents[node];
+		path->dirs[path->len++] = node; // add to path
+		node = parents[node];           // go to parent
 	}
 				ft_printf("{blu}%s{eoc}\n\n\n", g->map.list[g->start].name);
-	++*id;
 	return (1);
 }
 
-//this function is shitty, needs work
-static void	handle_overlap(int prev_p_id, t_path *path, uint32_t *prev_par)
+static int		bfs(t_graph *g, uint32_t *parents, t_queue *q)
 {
-	int			i;
-
-	i = 0;
-	while (path->overlaps[i] != 0)
-	{
-		if (i == 3 || path->overlaps[i] == prev_p_id) // only 1 overlap is allowed
-		{
-			ft_printf(" i == 3 ");
-			return ;
-		}
-		++i;
-	}
-	path->overlaps[i] = prev_p_id;
-	*prev_par = UINT32_NOT_SET;
-}
-
-// this piece of shit only finds 1 path ffs
-static void		bfs(t_graph *g, int id, t_path *paths)
-{
-	t_queue		*q;
 	uint32_t	node;
 	uint32_t	tmp;
-	uint32_t	*parents;
 	uint32_t	tmp_lnk;
 
 	if (!(q = que_new(g->map.used)) || !que_push(q, g->start))
 		exit_lem_in("Could not create queue, bfs cannot continue");
-	if (!(parents = ft_memalloc(g->map.used * sizeof(uint32_t))))
-		exit_lem_in("Could not allocate memory in bfs() for parents");
-	ft_mem32set(parents, UINT32_NOT_SET, g->map.used);
-
+	ft_mem32set(parents, -1, g->map.used);
+	parents[g->start] = -2;
 	while (!que_isempty(q))
 	{
-		if ((node = que_pop(q)) == (t_queued)-1)
-			exit_lem_in("Queue shall not be empty, memory corruption ?");
-		if (node == g->end && cpy_path(g, parents, &paths[id], &id) && que_push(q, g->start))
-			continue ;
-		g->map.list[node].ants = id; // need to check if not visited by other instance
-						ft_printf("{inv}%s<rst> links to :\n", g->map.list[node].name);
+		node = que_pop(q);
 		tmp = -1;
 		while (++tmp < g->map.list[node].nb_link)
 		{
 			tmp_lnk = g->map.list[node].links[tmp];
-			ft_printf("\t-> %s\n", g->map.list[tmp_lnk].name);
-			if (parents[tmp_lnk] != UINT32_NOT_SET && g->map.list[parents[tmp_lnk]].ants != id)
-			{
-				ft_printf("OUGABOUGA %s parents == %u", g->map.list[tmp_lnk].name, parents[tmp_lnk]);
-				handle_overlap(g->map.list[tmp_lnk].ants, &paths[id], &parents[tmp_lnk]);
-				ft_printf(" updated to %u\n", parents[tmp_lnk]);
-			}
-
-			if (parents[tmp_lnk] == UINT32_NOT_SET)
+			if (parents[tmp_lnk] == -1 && g->map.list[tmp_lnk].ants == 0)
 			{
 				parents[tmp_lnk] = node;
-				if (!que_push(q, tmp_lnk))
-					exit_lem_in("Could not update queue, memory corruption ?");
+				if (tmp_lnk == g->end)
+					return (1);
+				que_push(q, tmp_lnk);
 			}
-
 		}
 	}
 	que_destroy(q);
+	return (0);
+}
+
+void		edmonds_karp(t_graph *g, t_path *paths)
+{
+	t_queue		*q;
+	uint32_t	*parents;
+
+	q = que_new(g->map.used);
+	parents = ft_memalloc(g->map.used * sizeof(uint32_t));
+	int i = -1;
+	while (++i < MAX_PATHS)
+	{
+		ft_bzero(parents, g->map.used * sizeof(uint32_t));
+		que_flush(q);
+		paths[i].dirs = malloc(g->map.used * sizeof(*paths[i].dirs));
+		if (!bfs(g, parents, q))
+			break ;
+		cpy_path(g, parents, &paths[i]);
+	}
 }
 
 void		find_paths(t_graph *graph)
 {
 	t_path		*paths;
 
-	paths = &((t_path*)ft_memalloc(sizeof(*paths) * 256))[-1];
-	int i = 0;
-	while (++i <= 256)
-		paths[i].dirs = malloc(graph->map.used * sizeof(*paths[i].dirs));
-	bfs(graph, 1, paths);
+	paths = (t_path*)ft_memalloc(sizeof(*paths) * 256); // TO PROTEC
+	edmonds_karp(graph, paths);
 	ft_printf("{PNK}END OF BFS, PATHS:{eoc}\n");
 	for (t_path *p = &paths[1]; p->len != 0; ++p)
 	{

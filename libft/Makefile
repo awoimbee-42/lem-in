@@ -6,7 +6,7 @@
 #    By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/16 11:55:20 by awoimbee          #+#    #+#              #
-#    Updated: 2019/04/30 03:26:45 by awoimbee         ###   ########.fr        #
+#    Updated: 2019/04/30 17:28:57 by awoimbee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ SRCS_LST =	ft_lstadd.c			ft_lstdelone.c		ft_lstmap.c			\
 			ft_lstdel.c			ft_lstiter.c		ft_lst_push_back.c
 
 SRCS_QUE =	create_destroy.c	disp.c				isempty.c			\
-			push_pop.c			realloc.c
+			push_pop.c			realloc.c			flush.c
 
 SRCS_VEC4 =	vec4_new.c			vec4_newa.c			vec4_div.c			\
 			vec4_add_sub.c		vec4_mul.c			vec4_abs_sqr.c		\

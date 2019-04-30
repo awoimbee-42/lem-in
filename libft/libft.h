@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/23 20:34:49 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/04/30 02:11:43 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/04/30 17:24:05 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ t_queue			*que_new(size_t len);
 void			que_destroy(t_queue *que);
 void			que_disp(const t_queue *que);
 int				que_isempty(const t_queue *que);
+t_queue			*que_flush(t_queue *q);
 
 /*
 **	##################### T_VEC4 ##################
