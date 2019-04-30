@@ -6,7 +6,7 @@
 #    By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/26 22:06:19 by marvin            #+#    #+#              #
-#    Updated: 2019/04/30 16:46:11 by allespag         ###   ########.fr        #
+#    Updated: 2019/04/30 16:49:15 by allespag         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,11 +68,11 @@ endif
 ################################################################################
 
 all :
-	@make -j$(NUMPROC) $(NAME) --no-print-directory
+	@$(MAKE) -j$(NUMPROC) $(NAME) --no-print-directory
 
 libft/libft.a :
 	@printf "$(YLW)Making libft...$(EOC)\n"
-	@make -s -j$(NUMPROC) -C libft/
+	@$(MAKE) -C libft/
 
 $(NAME) : libft/libft.a $(OBJ)
 	@printf "$(GRN)Linking $(NAME)...$(EOC)\n"
@@ -80,13 +80,13 @@ $(NAME) : libft/libft.a $(OBJ)
 
 opti : fclean
 	@printf "Compiling instrumented version...\n"
-	@make $(NAME) PROFILE=gen 2>&1 > /dev/null
+	@$(MAKE) $(NAME) PROFILE=gen 2>&1 > /dev/null
 	@printf "Profiling...\n"
 	@./lem-in < ./maps/map-09-big.txt > /dev/null
 	@$(PROCESS_PROFDATA)
 	@printf "Cleaning...\n"
-	@make clean
-	make $(NAME) PROFILE=use
+	@$(MAKE) clean
+	$(MAKE) $(NAME) PROFILE=use
 	$(RM_PROFDATA)
 
 $(OBJ_PATH) :
@@ -104,7 +104,7 @@ $(OBJ_PATH)/%.o : $(SRC_PATH)/%.c | $(OBJ_PATH)
 
 libclean :
 	@printf "$(YLW)Cleaning libft...$(EOC)\n"
-	@make -s fclean -C libft
+	@$(MAKE) fclean -C libft
 
 objclean :
 	@rm -rf $(OBJ_PATH)

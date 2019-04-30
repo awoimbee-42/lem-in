@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   vec4_mod.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/26 12:01:44 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/04/28 04:51:37 by awoimbee         ###   ########.fr       */
+/*   Created: 2019/04/30 02:27:07 by awoimbee          #+#    #+#             */
+/*   Updated: 2019/04/30 02:46:53 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strcpy(char *dest, const char *src)
-{
-	char *srccpy;
+#include "libft.h"
+#include <math.h>
 
-	srccpy = dest;
-	while (*src != '\0')
-	{
-		*dest = *src;
-		++dest;
-		++src;
-	}
-	*dest = *src;
-	return (srccpy);
+static inline float		vec4_mod(const t_vec4 a)
+{
+	return (sqrtf(vec4_dot(a, a)));
+}
+
+static inline float		vec4_mod2(const t_vec4 a)
+{
+	return (vec4_dot(a, a));
 }
