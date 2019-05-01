@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 17:55:10 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/10 21:01:00 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/02 00:11:55 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void			free_t_graph(t_graph *g)
 	}
 }
 
-void			display_graph(t_graph *g, int print_links)
+void			display_graph(t_graph *g)
 {
 	ft_putstr("Ants: ");
 	ft_putnbr(g->ants);

@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:37:38 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/01 19:10:50 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/02 00:12:18 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,6 @@ void					free_t_graph(t_graph *g);
 void					display_links(const t_room *hub, const t_graph *g);
 void					display_map(t_map *map, t_graph *maybe_graph);
 void					display_room(const t_room *room, const t_graph *g);
-void					display_graph(t_graph *g, int print_links);
+void					display_graph(t_graph *g);
 
 #endif
