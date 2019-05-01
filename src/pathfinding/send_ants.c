@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 20:05:34 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/02 00:24:13 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/02 00:54:12 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,18 +74,16 @@ static void		move_ants(t_graph *g, t_vector *paths)
 
 static void		launch_ants(t_graph *g, t_vector *paths)
 {
-	uint32_t	curr_p;
 	int			delta_len;
 	t_path		*path_ptr;
 	t_path		*last_path;
 	t_room		*first_room;
 
-	curr_p = -1;
 	last_path = &paths->arr[paths->len];
 	path_ptr = &paths->arr[-1];
 	while (++path_ptr < last_path && g->map.list[g->start].ants > 0)
 	{
-		if (curr_p == 0
+		if (path_ptr == paths->arr
 			|| (delta_len = path_ptr->len - (path_ptr - 1)->len)
 			<= g->map.list[g->start].ants)
 		{
@@ -110,5 +108,8 @@ void			send_ants(t_graph *g, t_vector *paths)
 		launch_ants(g, paths);
 		write(1, "\n", 1);
 	}
+	tot_ants = -1;
+	while ((size_t)++tot_ants < paths->len)
+		free(paths->arr[tot_ants].dirs);
 	free(paths->arr);
 }

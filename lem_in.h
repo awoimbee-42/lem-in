@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:37:38 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/02 00:12:18 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/02 00:35:00 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void					send_ants(t_graph *g, t_vector *paths);
 **	EXIT
 */
 void					exit_lem_in(char *key);
+void					exit_clean(t_graph *g, int error);
 
 /*
 **	PARSER

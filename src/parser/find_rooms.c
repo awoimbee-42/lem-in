@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:00:17 by allespag          #+#    #+#             */
-/*   Updated: 2019/05/01 18:30:58 by allespag         ###   ########.fr       */
+/*   Updated: 2019/05/02 00:57:08 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,16 @@ static int		count_spaces(const char *line)
 	return (count);
 }
 
-/*
-**	NORM:
-**
-**	TO REMOVE / OR MODIFY
-**	if (spaces)
-**	{
-**		ft_printf("...");
-**		return (0);
-**	}
-*/
+//
+//	NORM:
+//
+//	TO REMOVE / OR MODIFY
+//	if (spaces)
+//	{
+//		ft_printf("...");
+//		return (0);
+//	}
+//
 
 static int		add_new_room(const char *line, t_graph *g)
 {

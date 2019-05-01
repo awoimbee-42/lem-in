@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/23 20:34:49 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/04/30 19:59:26 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/02 00:46:17 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,7 @@ t_queue			*que_flush(t_queue *q);
 t_vector		*vector_init(t_vector *vec, const size_t reserved_len);
 t_vector		*vector_push(t_vector *vec, t_vected d);
 t_vector		*vector_realloc(t_vector *vec);
-
+void			vector_mapvoid(t_vector *v, void (*f)(t_vected*));
 
 /*
 **	##################### other ####################

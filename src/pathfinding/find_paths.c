@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 20:42:54 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/02 00:21:06 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/02 00:35:20 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,7 @@ void		find_paths(t_graph *graph)
 			ft_printf("-->%s\n", graph->map.list[paths.arr[i].dirs[xyz]].name);
 		ft_printf("\n\n");
 	}
+	if (paths.len == 0)
+		exit_clean(graph, 1);
 	send_ants(graph, &paths);
 }
