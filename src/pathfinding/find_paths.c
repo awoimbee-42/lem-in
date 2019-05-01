@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 20:42:54 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/01 20:05:25 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/01 22:50:04 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,26 @@ static int		cpy_path(t_graph *g, uint32_t *parents, t_vector *path_vec)
 	// p.dirs[p.len++] = g->end;
 	while (node != g->start)
 	{
-		if (node != g->end)
-			g->map.list[node].ants = 1;     //mark as visited
-				// ft_printf("{blu}%s <-- {eoc}", g->map.list[node].name);
+		{
+			uint32_t *lnkptr;
+			lnkptr = g->map.list[parents[node]].links;
+			while (*lnkptr != node)
+				++lnkptr;
+			*lnkptr |= LNK_VISITED;
+			lnkptr = g->map.list[node].links;
+			while (*lnkptr != parents[node])
+				++lnkptr;
+			*lnkptr |= LNK_VISITED;
+		}
+		// if (node != g->end)
+			// g->map.list[node].ants = 1;     //mark as visited
+				ft_printf("{blu}%s <-- {eoc}", g->map.list[node].name);
 		p.dirs[p.len++] = node;         // add to path
 		node = parents[node];
 	}
 	if (!vector_push(path_vec, p))
 		exit_lem_in("Memory allcation error in cpy_path");
-				// ft_printf("{blu}%s{eoc}\n\n\n", g->map.list[g->start].name);
+				ft_printf("{blu}%s{eoc}\n\n\n", g->map.list[g->start].name);
 	return (1);
 }
 
@@ -57,8 +68,10 @@ static int		bfs(t_graph *g, uint32_t *parents, t_queue *q)
 		while (++tmp < g->map.list[node].nb_link)
 		{
 			tmp_lnk = g->map.list[node].links[tmp];
-			if (parents[tmp_lnk] == (uint32_t)-1 && g->map.list[tmp_lnk].ants == 0)
+			if (!(tmp_lnk & LNK_VISITED) && parents[tmp_lnk] == (uint32_t)-1)
 			{
+				if (g->map.list[tmp_lnk].ants != 0)
+					; // overlap
 				parents[tmp_lnk] = node;
 				if (tmp_lnk == g->end)
 					return (1);

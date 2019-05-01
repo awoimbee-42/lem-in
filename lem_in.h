@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:37:38 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/01 19:10:50 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/01 22:21:55 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define DEF_MALLOC_TSTR 10
 
 # define UINT32_NOT_SET 4294967295U
+# define LNK_VISITED 0x80000000
 
 struct s_str;
 struct s_map;
