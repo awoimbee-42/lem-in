@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 20:42:54 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/01 18:22:08 by allespag         ###   ########.fr       */
+/*   Updated: 2019/05/01 19:11:40 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static int		cpy_path(t_graph *g, uint32_t *parents, t_vector *path_vec)
 	// p.dirs[p.len++] = g->end;
 	while (node != g->start)
 	{
-		g->map.list[node].ants = 1;     //mark as visited
+		if (node != g->end)
+			g->map.list[node].ants = 1;     //mark as visited
 				ft_printf("{blu}%s <-- {eoc}", g->map.list[node].name);
 		p.dirs[p.len++] = node;         // add to path
 		node = parents[node];
@@ -48,7 +49,7 @@ static int		bfs(t_graph *g, uint32_t *parents, t_queue *q)
 	if (!que_push(q, g->start))
 		exit_lem_in("Could not create queue, bfs cannot continue");
 	ft_mem32set(parents, -1, g->map.used);
-	// parents[g->start] = -2;
+	parents[g->start] = -2;
 	while (!que_isempty(q))
 	{
 		node = que_pop(q);
