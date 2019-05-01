@@ -2,7 +2,7 @@
 55
 #ROOM
 ##start
-pedro                 5 5
+pedro				 5 5
 ##end
 pablo 4 4
-pedro-pablo
+pedro				-pablo
