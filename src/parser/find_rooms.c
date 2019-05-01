@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:00:17 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/30 20:16:48 by allespag         ###   ########.fr       */
+/*   Updated: 2019/05/01 18:30:58 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,11 @@ static int		add_new_room(const char *line, t_graph *g)
 	const char	*line_iter;
 
 	if ((spaces = count_spaces(line)) < 2)
+	{
+		ft_printf("line = '%s'\n", line);
+		ft_printf("{GRN}Error green -- spaces == %d < 2{eoc}\n", spaces);
 		return (0);
+	}
 	line_iter = line;
 	while (spaces != 1)
 	{
@@ -62,11 +66,15 @@ static int		add_new_room(const char *line, t_graph *g)
 	tmp_room.coords.y = ft_atoi_mv_err(&line_iter, &spaces);
 	if (spaces)
 	{
-		ft_printf("{RED}Error majenta -- coordonnes de merde{eoc}\n");
+		ft_printf("{RED}Error majenta -- coordonnes de merde >> JE FREE UN TRUC ICI{eoc}\n");
+		free(tmp_room.name);
 		return (0);
 	}
 	else if (is_room_here(&g->map, &tmp_room) || line[0] == 'L')
+	{
+		ft_printf("{CYN}Error cyan -- room_is_here OR line[0] == 'L'\n{eoc}");
 		return (0);
+	}
 	add_t_map(&g->map, &tmp_room);
 	return (1);
 }

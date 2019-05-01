@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 20:42:54 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/01 18:08:28 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/01 18:22:08 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int		bfs(t_graph *g, uint32_t *parents, t_queue *q)
 	uint32_t	tmp;
 	uint32_t	tmp_lnk;
 
-	if (!(q = que_new(g->map.used)) || !que_push(q, g->start))
+	if (!que_push(q, g->start))
 		exit_lem_in("Could not create queue, bfs cannot continue");
 	ft_mem32set(parents, -1, g->map.used);
 	// parents[g->start] = -2;
@@ -65,7 +65,6 @@ static int		bfs(t_graph *g, uint32_t *parents, t_queue *q)
 			}
 		}
 	}
-	que_destroy(q);
 	return (0);
 }
 
@@ -84,6 +83,8 @@ void		edmonds_karp(t_graph *g, t_vector *paths)
 			break ;
 		cpy_path(g, parents, paths);
 	}
+	que_destroy(q);
+	free(parents);
 }
 
 void		find_paths(t_graph *graph)

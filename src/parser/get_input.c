@@ -6,7 +6,7 @@
 /*   By: allespag <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 16:11:02 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/30 17:55:16 by allespag         ###   ########.fr       */
+/*   Updated: 2019/05/01 18:03:23 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ void			parse_input(t_graph *g, t_str **str)// DANS FIND_* check line == null
 	if (g->start == UINT32_NOT_SET || g->end == UINT32_NOT_SET)
 		exit_lem_in("ERROR (graph has no start or/and no end)");
 	if (ret == 0)
-		return ;
+		exit_lem_in("ERROR (ret == 0)");
 	else if (ret == 1)
 	{
 		if (!is_link(g, str, line))
 		{
 			free(line);
-			return ;
+			exit_lem_in("ERROR (ret == 1)");
 		}
 		find_links(g, str);
 	}
