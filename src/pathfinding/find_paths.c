@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 20:42:54 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/01 18:00:04 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/01 18:08:28 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,13 @@ static int		cpy_path(t_graph *g, uint32_t *parents, t_vector *path_vec)
 	p.len = 0;
 	p.dirs = malloc(sizeof(*p.dirs) * g->map.used);
 	node = g->end;
-	p.dirs[p.len++] = g->end;
+	// p.dirs[p.len++] = g->end;
 	while (node != g->start)
 	{
-		node = parents[node];
-		if (node != g->start)
-			g->map.list[node].ants = 1;     //mark as visited
+		g->map.list[node].ants = 1;     //mark as visited
 				ft_printf("{blu}%s <-- {eoc}", g->map.list[node].name);
 		p.dirs[p.len++] = node;         // add to path
+		node = parents[node];
 	}
 	if (!vector_push(path_vec, p))
 		exit_lem_in("Memory allcation error in cpy_path");
