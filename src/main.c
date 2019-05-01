@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:38:11 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/04/30 20:24:36 by allespag         ###   ########.fr       */
+/*   Updated: 2019/05/01 19:56:44 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int			main(int argc, char **argv)
 	parse_input(g, &file);
 	display_t_str(file);      	// A AJOUTER PARCE QUE C'EST LE SUJET QUI DEMANDE :)
 	 ft_printf("{red}END OF DISPLAY_T_STR\n{eoc}");	// A REMOVE
-	display_graph(g, 1);								// A REMOVE PARCE QUE C'EST DU DEBUG
+	// display_graph(g, 1);								// A REMOVE PARCE QUE C'EST DU DEBUG
 	//edmon karp...
 	find_paths(g);
 	get_next_line(STDERR_FILENO, GNL_FLUSH);

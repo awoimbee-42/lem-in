@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 20:42:54 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/01 19:06:33 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/01 20:01:22 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ static int		cpy_path(t_graph *g, uint32_t *parents, t_vector *path_vec)
 	{
 		if (node != g->end)
 			g->map.list[node].ants = 1;     //mark as visited
-				ft_printf("{blu}%s <-- {eoc}", g->map.list[node].name);
+				// ft_printf("{blu}%s <-- {eoc}", g->map.list[node].name);
 		p.dirs[p.len++] = node;         // add to path
 		node = parents[node];
 	}
 	if (!vector_push(path_vec, p))
 		exit_lem_in("Memory allcation error in cpy_path");
-				ft_printf("{blu}%s{eoc}\n\n\n", g->map.list[g->start].name);
+				// ft_printf("{blu}%s{eoc}\n\n\n", g->map.list[g->start].name);
 	return (1);
 }
 
@@ -94,11 +94,12 @@ void		find_paths(t_graph *graph)
 	if (!vector_init(&paths, 10))
 		exit_lem_in("Cannot allocate memory for paths vector");
 	edmonds_karp(graph, &paths);
-	ft_printf("{PNK}END OF BFS, PATHS:{eoc}\n");
-	for (size_t i = 0; i < paths.len; ++i)
-	{
-		for (uint32_t xyz = 0; xyz < paths.arr[i].len; ++xyz)
-			ft_printf("-->%s\n", graph->map.list[paths.arr[i].dirs[xyz]].name);
-		ft_printf("\n\n");
-	}
+	// ft_printf("{PNK}END OF BFS, PATHS:{eoc}\n");
+	// for (size_t i = 0; i < paths.len; ++i)
+	// {
+		// for (uint32_t xyz = 0; xyz < paths.arr[i].len; ++xyz)
+			// ft_printf("-->%s\n", graph->map.list[paths.arr[i].dirs[xyz]].name);
+		// ft_printf("\n\n");
+	// }
+	send_ants(graph, &paths);
 }
