@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 20:05:34 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/02 16:08:38 by allespag         ###   ########.fr       */
+/*   Updated: 2019/05/02 18:12:32 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,15 +80,15 @@ static void		launch_ants(t_graph *g, t_vector *paths)
 
 	last_path = &paths->arr[paths->len];
 	path_ptr = &paths->arr[-1];
-	while (++path_ptr < last_path && g->map.list[g->start].ants > 0)
-	{
-		if (path_ptr == paths->arr
+	while (++path_ptr < last_path && g->map.list[g->start].ants > 0
+		&& (path_ptr == paths->arr
 			|| (delta_len = path_ptr->len - (path_ptr - 1)->len)
-			<= g->map.list[g->start].ants)
+			<= g->map.list[g->start].ants))
+	{
 		{
 			first_room = &g->map.list[path_ptr->dirs[path_ptr->len - 1]];
-			first_room->ants = g->map.list[g->start].ants--;
-			print_ant(&g->ants, first_room->ants, first_room->name);
+			first_room->ants = g->ants - --g->map.list[g->start].ants;
+			print_ant(&g->tmp, first_room->ants, first_room->name);
 		}
 	}
 }
@@ -102,7 +102,7 @@ void			send_ants(t_graph *g, t_vector *paths)
 	g->map.list[g->start].ants = tot_ants;
 	while (g->map.list[g->end].ants != tot_ants)
 	{
-		g->ants = 0;
+		g->tmp = 0;
 		move_ants(g, paths);
 		launch_ants(g, paths);
 		write(1, "\n", 1);

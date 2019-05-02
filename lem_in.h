@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:37:38 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/02 17:21:24 by allespag         ###   ########.fr       */
+/*   Updated: 2019/05/02 18:11:34 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct			s_room
 
 typedef struct			s_graph
 {
+	uint32_t		tmp;
 	uint32_t		ants;
 	uint32_t		start;
 	uint32_t		end;
