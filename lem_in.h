@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:37:38 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/02 00:35:00 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/02 17:21:24 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct			s_str
 	uint32_t		used;
 }						t_str;
 
-typedef struct			s_map // structure pas forcement utile, complexifie le code pour rien
+typedef struct			s_map
 {
 	struct s_room	*list;
 	uint32_t		size;

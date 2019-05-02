@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 20:05:34 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/02 00:54:12 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/02 16:08:38 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 static void		print_ant(uint32_t *is_first_out, int id, const char *room_name)
 {
 	char	*s;
-
 
 	s = " L%d-%s";
 	if (!*is_first_out && ++s)
@@ -45,7 +44,6 @@ static void		weird_reset_rooms(t_map *m)
 	}
 }
 
-
 static void		move_ants(t_graph *g, t_vector *paths)
 {
 	uint32_t	curr_p;
@@ -59,13 +57,14 @@ static void		move_ants(t_graph *g, t_vector *paths)
 		p_start = &paths->arr[curr_p].dirs[paths->arr[curr_p].len];
 		while (++p_ptr < p_start)
 		{
-			if (g->map.list[*p_ptr].ants != 0) // if there is an ant
+			if (g->map.list[*p_ptr].ants != 0)
 			{
 				if (*(p_ptr - 1) == g->end)
 					g->map.list[*(p_ptr - 1)].ants += 1;
 				else
 					g->map.list[*(p_ptr - 1)].ants = g->map.list[*p_ptr].ants;
-				print_ant(&g->ants, g->map.list[*p_ptr].ants, g->map.list[*(p_ptr - 1)].name);
+				print_ant(&g->ants, g->map.list[*p_ptr].ants,
+						g->map.list[*(p_ptr - 1)].name);
 				g->map.list[*p_ptr].ants = 0;
 			}
 		}
