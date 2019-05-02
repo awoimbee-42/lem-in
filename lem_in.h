@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:37:38 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/01 22:21:55 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/02 18:29:39 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct			s_str
 	uint32_t		used;
 }						t_str;
 
-typedef struct			s_map // structure pas forcement utile, complexifie le code pour rien
+typedef struct			s_map
 {
 	struct s_room	*list;
 	uint32_t		size;
@@ -75,6 +75,7 @@ typedef struct			s_room
 
 typedef struct			s_graph
 {
+	uint32_t		tmp;
 	uint32_t		ants;
 	uint32_t		start;
 	uint32_t		end;
@@ -91,6 +92,7 @@ void					send_ants(t_graph *g, t_vector *paths);
 **	EXIT
 */
 void					exit_lem_in(char *key);
+void					exit_clean(t_graph *g, int error);
 
 /*
 **	PARSER
@@ -168,6 +170,6 @@ void					free_t_graph(t_graph *g);
 void					display_links(const t_room *hub, const t_graph *g);
 void					display_map(t_map *map, t_graph *maybe_graph);
 void					display_room(const t_room *room, const t_graph *g);
-void					display_graph(t_graph *g, int print_links);
+void					display_graph(t_graph *g);
 
 #endif
