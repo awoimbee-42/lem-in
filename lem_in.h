@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:37:38 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/03 16:13:56 by allespag         ###   ########.fr       */
+/*   Updated: 2019/05/03 16:35:24 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void					find_links(t_graph *g, t_str **str);
 /*
 **	COMMAND_LINE
 */
-t_command				command_hub(char *line);
+t_command				command_hub(t_graph *g, char *line);
 void					exec_command(t_graph *g, t_command command);
 void					exec_room_command(t_room *room, t_command color);
 int						is_command(char *line);

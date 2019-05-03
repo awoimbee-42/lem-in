@@ -6,13 +6,13 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 19:45:11 by allespag          #+#    #+#             */
-/*   Updated: 2019/05/03 16:17:43 by allespag         ###   ########.fr       */
+/*   Updated: 2019/05/03 16:41:34 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-t_command		command_hub(char *line)
+t_command		command_hub(t_graph *g, char *line)
 {
 	if (!ft_strcmp(line, "##start"))
 		return (START);
@@ -31,7 +31,10 @@ t_command		command_hub(char *line)
 	else if (!ft_strcmp(line, "##yellow"))
 		return (YELLOW);
 	else if (!ft_strcmp(line, "##print"))
+	{
+		g->print = 1;
 		return (PRINT);
+	}
 	else
 		return (UNKNOWN);
 }
@@ -42,8 +45,6 @@ void			exec_command(t_graph *g, t_command command)
 		g->start = g->map.used - 1;
 	else if (command == END)
 		g->end = g->map.used - 1;
-	else if (command == PRINT)
-		g->print = 1;
 }
 
 void			exec_room_command(t_room *room, t_command color)
