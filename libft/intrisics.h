@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 23:27:57 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/04/30 20:01:31 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/03 15:50:37 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 typedef struct		s_path
 {
 	uint32_t	len;
-	int			overlaps[2];
+	uint32_t	ants_to_lanch;
 	uint32_t	*dirs;
 }					t_path;
 

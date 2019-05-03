@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:37:38 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/02 18:29:39 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/03 15:14:15 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ typedef struct			s_graph
 /*
 **	PATHFINDING
 */
-void					find_paths(t_graph *graph);
+void					find_paths(t_graph *graph, t_str *str);
 void					send_ants(t_graph *g, t_vector *paths);
 
 /*
