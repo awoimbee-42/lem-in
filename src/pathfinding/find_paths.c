@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 20:42:54 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/03 19:11:50 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/03 19:21:38 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,7 +208,6 @@ void		remove_overlapping_paths(t_graph *g, t_vector *vec)
 				--i;
 				break ;
 			}
-			g->map.list[vec->arr[i].dirs[j]].ants = 1;
 		}
 	}
 }

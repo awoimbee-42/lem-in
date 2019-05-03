@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:00:17 by allespag          #+#    #+#             */
-/*   Updated: 2019/05/03 16:37:58 by allespag         ###   ########.fr       */
+/*   Updated: 2019/05/03 18:20:28 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int				read_rooms(t_graph *g, t_str **str, char **last_line)
 			return (0);
 		else if (is_comment(*last_line))
 			add_t_str(*str, *last_line);
-		else if (is_command(*last_line) && ((cmd = command_hub(g, *last_line))))
+		else if (is_command(*last_line) && ((cmd = command_hub(*last_line))))
 			add_t_str(*str, *last_line);
 		else
 		{

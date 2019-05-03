@@ -15,11 +15,14 @@ Piscine_CPP 2400 4039
 Nm_otool 3000 1600
 Philosophers 3100 1750
 ft_script 2900 1750
+##green
 RT 3000 3900
+##yellow
 42sh 3000 2100
 21sh 3000 2300
 Matcha 2500 2500
 Piscine_OCaml 1872 3410
+##red
 Corewar 3900 3000
 Piscine_PHP 2600 2745
 Piscine_Ruby_on_Rails 1850 2750

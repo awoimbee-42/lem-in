@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:37:38 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/03 17:40:35 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/03 18:22:00 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ typedef enum			e_command
 	GREEN,
 	CYAN,
 	PINK,
-	YELLOW,
-	PRINT
+	YELLOW
 }						t_command;
 
 typedef struct			s_int2
@@ -84,7 +83,7 @@ typedef struct			s_room
 typedef struct			s_graph
 {
 	uint32_t		tmp;
-	uint32_t		print;		// ne pas oublier de le set a 0 a l'init
+	uint32_t		print;
 	uint32_t		ants;
 	uint32_t		start;
 	uint32_t		end;
@@ -119,7 +118,7 @@ int						ft_atoi_mv_err(const char **nptr, int *err);
 int						is_comment(char *line);
 
 /*
-**	read_rooms
+**	READ_ROOMS
 */
 t_room					*is_room(char *line, t_graph *g);
 int						read_rooms(t_graph *g, t_str **str, char **tmp);
@@ -133,7 +132,7 @@ void					find_links(t_graph *g, t_str **str);
 /*
 **	COMMAND_LINE
 */
-t_command				command_hub(t_graph *g, char *line);
+t_command				command_hub(char *line);
 void					exec_command(t_graph *g, t_command command);
 void					exec_room_command(t_room *room, t_command color);
 int						is_command(char *line);

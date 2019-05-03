@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:23:09 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/30 16:17:18 by allespag         ###   ########.fr       */
+/*   Updated: 2019/05/03 18:37:33 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 void			reset_room(t_room *tmp_room)
 {
-	tmp_room->ants = 0;
 	tmp_room->name = NULL;
+	tmp_room->ants = 0;
+	tmp_room->color = "";
+	tmp_room->links = NULL;
 	tmp_room->nb_link = 0;
 	tmp_room->mem_link = 0;
-	tmp_room->links = NULL;
 }
 
 void			free_room(t_room *room)
