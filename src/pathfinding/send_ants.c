@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 20:05:34 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/02 18:12:32 by allespag         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:00:54 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,18 +53,18 @@ static void		move_ants(t_graph *g, t_vector *paths)
 	curr_p = -1;
 	while (++curr_p < paths->len)
 	{
-		p_ptr = paths->arr[curr_p].dirs;
-		p_start = &paths->arr[curr_p].dirs[paths->arr[curr_p].len];
-		while (++p_ptr < p_start)
+		p_ptr = &paths->arr[curr_p].dirs[paths->arr[curr_p].len - 1];
+		p_start = &paths->arr[curr_p].dirs[0];
+		while (--p_ptr >= p_start)
 		{
 			if (g->map.list[*p_ptr].ants != 0)
 			{
-				if (*(p_ptr - 1) == g->end)
-					g->map.list[*(p_ptr - 1)].ants += 1;
+				if (*(p_ptr + 1) == g->end) //sdsdsdsd
+					g->map.list[*(p_ptr + 1)].ants += 1;
 				else
-					g->map.list[*(p_ptr - 1)].ants = g->map.list[*p_ptr].ants;
-				print_ant(&g->ants, g->map.list[*p_ptr].ants,
-						g->map.list[*(p_ptr - 1)].name);
+					g->map.list[*(p_ptr + 1)].ants = g->map.list[*p_ptr].ants; //sdsdsds
+				print_ant(&g->tmp, g->map.list[*p_ptr].ants,
+						g->map.list[*(p_ptr + 1)].name); //sdsdsdsddsd
 				g->map.list[*p_ptr].ants = 0;
 			}
 		}
@@ -85,18 +85,18 @@ static void		launch_ants(t_graph *g, t_vector *paths)
 			|| (delta_len = path_ptr->len - (path_ptr - 1)->len)
 			<= g->map.list[g->start].ants))
 	{
-		{
-			first_room = &g->map.list[path_ptr->dirs[path_ptr->len - 1]];
-			first_room->ants = g->ants - --g->map.list[g->start].ants;
-			print_ant(&g->tmp, first_room->ants, first_room->name);
-		}
+		first_room = &g->map.list[path_ptr->dirs[0]];
+		first_room->ants = g->ants - --g->map.list[g->start].ants;
+		print_ant(&g->tmp, first_room->ants, first_room->name);
 	}
 }
 
 void			send_ants(t_graph *g, t_vector *paths)
 {
 	int			tot_ants;
+	uint32_t	line_nb;
 
+	line_nb = 0;
 	tot_ants = g->ants;
 	weird_reset_rooms(&g->map);
 	g->map.list[g->start].ants = tot_ants;
@@ -106,9 +106,11 @@ void			send_ants(t_graph *g, t_vector *paths)
 		move_ants(g, paths);
 		launch_ants(g, paths);
 		write(1, "\n", 1);
+		++line_nb;
 	}
 	tot_ants = -1;
 	while ((size_t)++tot_ants < paths->len)
 		free(paths->arr[tot_ants].dirs);
 	free(paths->arr);
+	ft_printf("<bold>{RED}%d lines<rst>\n", line_nb);
 }

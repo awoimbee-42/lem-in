@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:38:11 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/02 00:55:58 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/03 15:06:37 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ int			main(int argc, char **argv)
 	g = init_graph();
 	file = new_t_str();
 	parse_input(g, &file);
-	display_t_str(file);
-	free_t_str(file);
+	// display_t_str(file);
 	ft_printf("{red}END OF DISPLAY_T_STR\n{eoc}");
-	find_paths(g);
+	find_paths(g, file);
 	get_next_line(STDERR_FILENO, GNL_FLUSH);
+	free_t_str(file);
 	free_t_graph(g);
 	ft_printf("{grn}exit sucess well done\n{eoc}");
 	return (EXIT_SUCCESS);

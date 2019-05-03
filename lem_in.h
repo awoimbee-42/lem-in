@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:37:38 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/03 16:35:24 by allespag         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:40:35 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define DEF_MALLOC_TSTR 10
 
 # define UINT32_NOT_SET 4294967295U
+# define LNK_VISITED 0x80000000
 
 struct s_str;
 struct s_map;
@@ -93,8 +94,10 @@ typedef struct			s_graph
 /*
 **	PATHFINDING
 */
-void					find_paths(t_graph *graph);
+void					find_paths(t_graph *graph, t_str *str);
 void					send_ants(t_graph *g, t_vector *paths);
+void					edmonds_karp(t_graph *g, t_vector *paths,
+	uint32_t max_paths);
 
 /*
 **	EXIT
