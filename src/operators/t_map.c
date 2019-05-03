@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:01:35 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/10 20:48:24 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/03 20:08:59 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_map			*new_t_map(void)
 
 	if (!(new = (t_map *)malloc(sizeof(t_map))))
 		exit_lem_in("Error: malloc (1st) failed in new_t_map");
-	if (!(new->list = (t_room *)malloc(sizeof(t_room) * DEFMALLOCMAP)))
+	if (!(new->list = (t_room *)ft_memalloc(sizeof(t_room) * DEFMALLOCMAP)))
 		exit_lem_in("Error: malloc (2nd) failed in new_t_map");
 	new->size = DEFMALLOCMAP;
 	new->used = 0;

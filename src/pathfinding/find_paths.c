@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 20:42:54 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/03 19:21:38 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/03 20:07:19 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,11 +186,13 @@ void		clean_links(t_graph *g)
 	}
 }
 
-void		remove_overlapping_paths(t_graph *g, t_vector *vec)
+uint32_t	count_overlapping_paths(t_graph *g, t_vector *vec)
 {
 	uint32_t	i;
-	uint32_t	j;
+	int			j;
+	uint32_t	nb_overlaps;
 
+	nb_overlaps = 0;
 	i = -1;
 	while (++i < g->map.used)
 		if (i != g->start)
@@ -199,17 +201,20 @@ void		remove_overlapping_paths(t_graph *g, t_vector *vec)
 	while (++i < vec->len)
 	{
 		j = -1;
-		while (vec->arr[i].dirs[++j] != g->end)
+		while (vec->arr[i].dirs[++j] != g->end) //invalid read ??
 		{
 			if (g->map.list[vec->arr[i].dirs[j]].ants)
 			{
+				while (--j != -1)
+					g->map.list[vec->arr[i].dirs[j]].ants = 0;
 				ft_printf("\n\nOVERLAP\n\n");
-				vector_del_at(vec, i);
-				--i;
+				++nb_overlaps;
 				break ;
 			}
+			g->map.list[vec->arr[i].dirs[j]].ants = 1;
 		}
 	}
+	return (nb_overlaps);
 }
 
 
@@ -218,13 +223,16 @@ void		compute_paths(t_graph *g, t_vector *vec, int max_p, int nb_p)
 	uint32_t	nb_paths_over;
 	uint32_t	i;
 
-
+	nb_paths_over = 0;
 	graph_to_paths(g, vec);
 	sort_paths(vec);
-	remove_overlapping_paths(g, vec);
-	if ((nb_paths_over = calc_ants_to_launch(g, vec)))
+	if ((nb_paths_over = count_overlapping_paths(g, vec))
+		|| (nb_paths_over = calc_ants_to_launch(g, vec)))
 	{
 		clean_links(g);
+		i = -1;
+		while (++i < vec->len)
+			free(vec->arr[i].dirs);
 		vec->len = 0;
 		edmonds_karp(g, vec, nb_p - nb_paths_over);
 	}
