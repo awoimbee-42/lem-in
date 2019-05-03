@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 20:05:34 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/03 16:21:46 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:00:54 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,30 +91,6 @@ static void		launch_ants(t_graph *g, t_vector *paths)
 	}
 }
 
-void			calc_ants_to_launch(t_graph *g, t_vector *vec)
-{
-	uint32_t	i;
-	uint32_t	paths_len_sum;
-	int			ants_launched;
-
-	ants_launched = 0;
-	paths_len_sum = 0;
-	i = -1;
-	while (++i < vec->len)
-		paths_len_sum += vec->arr[i].len;
-
-	i = -1;
-	while (++i < vec->len)
-	{
-		ft_printf("vec->arr[i].ants_to_lanch = (%u - ((%u - 1) * %u - (%u - %u))) / %u;\n", g->ants, vec->len - 1, vec->arr[i].len, paths_len_sum, vec->arr[i].len, vec->len);
-		vec->arr[i].ants_to_lanch = ((int)g->ants - (((int)vec->len - 1) * (int)vec->arr[i].len - ((int)paths_len_sum - (int)vec->arr[i].len))) / (int)vec->len;
-		ants_launched += vec->arr[i].ants_to_lanch;
-		ft_printf("{PNK}paths %u, len %u, ants to launch %d{eoc}\n", i, vec->arr[i].len, vec->arr[i].ants_to_lanch);
-	}
-	if (ants_launched != (int)g->ants)
-		ft_printf("FUUUUUUCK %d\n", ants_launched - (int)g->ants);
-}
-
 void			send_ants(t_graph *g, t_vector *paths)
 {
 	int			tot_ants;
@@ -123,7 +99,6 @@ void			send_ants(t_graph *g, t_vector *paths)
 	line_nb = 0;
 	tot_ants = g->ants;
 	weird_reset_rooms(&g->map);
-	calc_ants_to_launch(g, paths);
 	g->map.list[g->start].ants = tot_ants;
 	while (g->map.list[g->end].ants != tot_ants)
 	{

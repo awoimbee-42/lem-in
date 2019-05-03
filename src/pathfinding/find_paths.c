@@ -6,11 +6,37 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 20:42:54 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/03 16:33:56 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:22:23 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+int				calc_ants_to_launch(t_graph *g, t_vector *vec)
+{
+	uint32_t	i;
+	uint32_t	paths_len_sum;
+	int			ants_launched;
+
+	ants_launched = 0;
+	paths_len_sum = 0;
+	i = -1;
+	while (++i < vec->len)
+		paths_len_sum += vec->arr[i].len;
+	i = -1;
+	while (++i < vec->len)
+	{
+		ft_printf("vec->arr[i].ants_to_lanch = (%u - ((%u - 1) * %u - (%u - %u))) / %u;\n", g->ants, vec->len - 1, vec->arr[i].len, paths_len_sum, vec->arr[i].len, vec->len);
+		vec->arr[i].ants_to_lanch = ((int)g->ants - (((int)vec->len - 1) * (int)vec->arr[i].len - ((int)paths_len_sum - (int)vec->arr[i].len))) / (int)vec->len;
+		ants_launched += vec->arr[i].ants_to_lanch;
+		if (vec->arr[i].ants_to_lanch < 0)
+			return (vec->len - i); // too many paths !!!
+		ft_printf("{PNK}paths %u, len %u, ants to launch %d{eoc}\n", i, vec->arr[i].len, vec->arr[i].ants_to_lanch);
+	}
+	if (ants_launched != (int)g->ants)
+		ft_printf("FUUUUUUCK %d\n", ants_launched - (int)g->ants);
+	return (0);
+}
 
 void			sort_paths(t_vector *p)
 {
@@ -78,16 +104,12 @@ static int		write_path(t_graph *g, uint32_t *parents, t_vector *path_vec)
 {
 	uint32_t	node;
 	t_path		p;
+	uint32_t	*lnkptr;
 
 	ft_printf("{ylw}end (%s) found, well done !{eoc}\n", g->map.list[g->end].name);
-	// p.len = 0;
-	// p.dirs = malloc(sizeof(*p.dirs) * g->map.used);
 	node = g->end;
 	while (node != g->start)
 	{
-		{
-			uint32_t *lnkptr;
-
 			lnkptr = g->map.list[node].links;
 			while ((*lnkptr & ~LNK_VISITED) != parents[node])
 				++lnkptr;
@@ -100,15 +122,9 @@ static int		write_path(t_graph *g, uint32_t *parents, t_vector *path_vec)
 					++lnkptr;
 				*lnkptr |= LNK_VISITED;
 			}
-		}
-		// if (node != g->end)
-			// g->map.list[node].ants = 1;     //mark as visited
 		ft_printf("{blu}%s <-- {eoc}", g->map.list[node].name);
-		// p.dirs[p.len++] = node;         // add to path
 		node = parents[node];
 	}
-	// if (!vector_push(path_vec, p))
-		// exit_lem_in("Memory allcation error in cpy_path");
 	ft_printf("{blu}%s{eoc}\n\n\n", g->map.list[g->start].name);
 	return (1);
 }
@@ -144,16 +160,45 @@ static int		bfs(t_graph *g, uint32_t *parents, t_queue *q)
 	return (0);
 }
 
-void		edmonds_karp(t_graph *g, t_vector *paths)
+void		clean_links(t_graph *g)
+{
+	uint32_t	i[2];
+
+	i[0] = -1;
+	while (++i[0] < g->map.size)
+	{
+		i[1] = -1;
+		while (++i[1] < g->map.list[i[0]].nb_link)
+		{
+			g->map.list[i[0]].links[i[1]] &= ~LNK_VISITED;
+		}
+	}
+}
+
+void		compute_paths(t_graph *g, t_vector *vec, int max_p, int nb_p)
+{
+	uint32_t	nb_paths_over;
+
+	graph_to_paths(g, vec);
+	sort_paths(vec);
+	if ((nb_paths_over = calc_ants_to_launch(g, vec)))
+	{
+		clean_links(g);
+		vec->len = 0;
+		edmonds_karp(g, vec, nb_p - nb_paths_over);
+	}
+}
+
+void		edmonds_karp(t_graph *g, t_vector *paths, uint32_t max_paths)
 {
 	t_queue		*q;
 	uint32_t	*parents;
-	uint32_t	i;
+	uint32_t	nb_paths;
 
 	q = que_new(g->map.used);
 	parents = ft_memalloc(g->map.used * sizeof(uint32_t));
-	i = -1;
-	while (++i < g->ants)
+	nb_paths = -1;
+	while (++nb_paths < max_paths)
 	{
 		ft_bzero(parents, g->map.used * sizeof(uint32_t));
 		que_flush(q);
@@ -163,8 +208,7 @@ void		edmonds_karp(t_graph *g, t_vector *paths)
 	}
 	que_destroy(q);
 	free(parents);
-	graph_to_paths(g, paths);
-	sort_paths(paths);
+	compute_paths(g, paths, max_paths, nb_paths);
 }
 
 void		find_paths(t_graph *graph, t_str *str)
@@ -173,7 +217,7 @@ void		find_paths(t_graph *graph, t_str *str)
 
 	if (!vector_init(&paths, 10))
 		exit_lem_in("Cannot allocate memory for paths vector");
-	edmonds_karp(graph, &paths);
+	edmonds_karp(graph, &paths, 99999);
 	ft_printf("{PNK}END OF BFS, PATHS:{eoc}\n");
 	for (size_t i = 0; i < paths.len; ++i)
 	{
