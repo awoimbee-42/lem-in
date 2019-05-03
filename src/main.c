@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:38:11 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/03 18:27:50 by allespag         ###   ########.fr       */
+/*   Updated: 2019/05/03 18:50:50 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int			main(int argc, char **argv)
 		return (EXIT_SUCCESS);
 	}
 	g = init_graph();
-	if (argc > 1 && (!ft_strcmp(argv[1], "-print") || !ft_strcmp(argv[1], "-p")))
+	if (argc > 1 && (!ft_strcmp(argv[1], "--print") || !ft_strcmp(argv[1], "--p")))
 		g->print = 1;
 	file = new_t_str();
 	parse_input(g, &file);
@@ -48,6 +48,6 @@ int			main(int argc, char **argv)
 	get_next_line(STDERR_FILENO, GNL_FLUSH);
 	free_t_str(file);
 	free_t_graph(g);
-	ft_printf("{grn}exit sucess well done\n{eoc}");
+	ft_printf("{grn}exit sucess well done\n{eoc}"); // A DEGAGER APE
 	return (EXIT_SUCCESS);
 }
