@@ -6,7 +6,7 @@
 /*   By: allespag <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 16:11:02 by allespag          #+#    #+#             */
-/*   Updated: 2019/05/03 16:42:30 by allespag         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:50:45 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void			find_ants(t_graph *g, t_str **str)
 			exit_lem_in("Error: get_next_line failed in find_ants\n");
 		if (line == NULL || !ft_strcmp("", line))
 			exit_lem_in("ERROR");
-		if (is_comment(line) || (is_command(line) && command_hub(g, line)))
+		if (is_comment(line) || is_command(line))
 			add_t_str(*str, line);
 		else
 		{
@@ -39,7 +39,8 @@ void			find_ants(t_graph *g, t_str **str)
 	}
 }
 
-void			parse_input(t_graph *g, t_str **str)// DANS FIND_* check line == null
+// DANS FIND_* CHECK LINE == NULL
+void			parse_input(t_graph *g, t_str **str)
 {
 	int			ret;
 	char		*line;

@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 21:19:18 by allespag          #+#    #+#             */
-/*   Updated: 2019/05/03 16:44:37 by allespag         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:49:49 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int				is_link(t_graph *g, t_str **str, char *line)
 		ft_printf("{PNK}IS-LINK, VOID VOID VOID{eoc}\n");
 		return (0);
 	}
-	else if (is_comment(line) || (is_command(line) && command_hub(g, line)))
+	else if (is_comment(line) || is_command(line))
 		add_t_str(*str, line);
 	else
 	{

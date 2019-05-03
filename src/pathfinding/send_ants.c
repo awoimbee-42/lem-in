@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 20:05:34 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/03 17:00:54 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/03 18:40:03 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@
 **	And tht's it because we didn't have time to work out overlapping paths
 */
 
-static void		print_ant(uint32_t *is_first_out, int id, const char *room_name)
+static void		print_ant(uint32_t *is_first_out, int id, const t_room *room)
 {
 	char	*s;
 
-	s = " L%d-%s";
+	s = " %sL%d-%s%s";
 	if (!*is_first_out && ++s)
 		*is_first_out = 1;
-	ft_printf(s, id, room_name);
+	ft_printf(s, room->color, id, room->name, (!ft_strcmp(room->color, "")) ? "" : "{eoc}");
 }
 
 static void		weird_reset_rooms(t_map *m)
@@ -59,12 +59,11 @@ static void		move_ants(t_graph *g, t_vector *paths)
 		{
 			if (g->map.list[*p_ptr].ants != 0)
 			{
-				if (*(p_ptr + 1) == g->end) //sdsdsdsd
+				if (*(p_ptr + 1) == g->end)
 					g->map.list[*(p_ptr + 1)].ants += 1;
 				else
-					g->map.list[*(p_ptr + 1)].ants = g->map.list[*p_ptr].ants; //sdsdsds
-				print_ant(&g->tmp, g->map.list[*p_ptr].ants,
-						g->map.list[*(p_ptr + 1)].name); //sdsdsdsddsd
+					g->map.list[*(p_ptr + 1)].ants = g->map.list[*p_ptr].ants;
+				print_ant(&g->tmp, g->map.list[*p_ptr].ants, &g->map.list[*(p_ptr + 1)]);
 				g->map.list[*p_ptr].ants = 0;
 			}
 		}
@@ -87,7 +86,7 @@ static void		launch_ants(t_graph *g, t_vector *paths)
 	{
 		first_room = &g->map.list[path_ptr->dirs[0]];
 		first_room->ants = g->ants - --g->map.list[g->start].ants;
-		print_ant(&g->tmp, first_room->ants, first_room->name);
+		print_ant(&g->tmp, first_room->ants, first_room);
 	}
 }
 
