@@ -6,7 +6,7 @@
 #    By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/16 11:55:20 by awoimbee          #+#    #+#              #
-#    Updated: 2019/05/02 18:29:26 by awoimbee         ###   ########.fr        #
+#    Updated: 2019/05/03 19:09:55 by awoimbee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,7 @@ SRCS_VEC4 =	vec4_new.c			vec4_newa.c			vec4_div.c			\
 			vec4_cross.c		vec4_mat.c
 
 SRCS_VECT =	new.c				push.c				realloc.c			\
-			vector_map.c
+			vector_map.c		vector_del_at.c
 
 
 SRCS_OTHER = msg_exit.c

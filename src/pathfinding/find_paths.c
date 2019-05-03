@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 20:42:54 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/03 17:40:26 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/03 19:11:50 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int				calc_ants_to_launch(t_graph *g, t_vector *vec)
 	uint32_t	i;
 	uint32_t	paths_len_sum;
 	int			ants_launched;
+	int			delta_ants;
 
 	ants_launched = 0;
 	paths_len_sum = 0;
@@ -26,15 +27,21 @@ int				calc_ants_to_launch(t_graph *g, t_vector *vec)
 	i = -1;
 	while (++i < vec->len)
 	{
-		ft_printf("vec->arr[i].ants_to_lanch = (%u - ((%u - 1) * %u - (%u - %u))) / %u;\n", g->ants, vec->len - 1, vec->arr[i].len, paths_len_sum, vec->arr[i].len, vec->len);
+		// ft_printf("vec->arr[i].ants_to_lanch = (%u - ((%u - 1) * %u - (%u - %u))) / %u;\n", g->ants, vec->len - 1, vec->arr[i].len, paths_len_sum, vec->arr[i].len, vec->len);
 		vec->arr[i].ants_to_lanch = ((int)g->ants - (((int)vec->len - 1) * (int)vec->arr[i].len - ((int)paths_len_sum - (int)vec->arr[i].len))) / (int)vec->len;
 		ants_launched += vec->arr[i].ants_to_lanch;
 		if (vec->arr[i].ants_to_lanch < 0)
 			return (vec->len - i); // too many paths !!!
-		ft_printf("{PNK}paths %u, len %u, ants to launch %d{eoc}\n", i, vec->arr[i].len, vec->arr[i].ants_to_lanch);
+		// ft_printf("{PNK}paths %u, len %u, ants to launch %d{eoc}\n", i, vec->arr[i].len, vec->arr[i].ants_to_lanch);
 	}
-	if (ants_launched != (int)g->ants)
-		ft_printf("FUUUUUUCK %d\n", ants_launched - (int)g->ants);
+	delta_ants = (int)g->ants - ants_launched;
+	ants_launched = delta_ants > 0 ? 1 : -1;
+	i = -1;
+	while (++i < vec->len && delta_ants != 0)
+	{
+		vec->arr[i].ants_to_lanch += ants_launched;
+		delta_ants -= ants_launched;
+	}
 	return (0);
 }
 
@@ -43,6 +50,8 @@ void			sort_paths(t_vector *p)
 	t_path		buff;
 	uint32_t	i;
 
+	if (p->len == 0)
+		return ;
 	i = -1;
 	while (++i < p->len - 1)
 	{
@@ -51,12 +60,12 @@ void			sort_paths(t_vector *p)
 			buff = p->arr[i];
 			p->arr[i] = p->arr[i + 1];
 			p->arr[i + 1] = buff;
-			i = -1;
+			i = i < 2 ? -1 : i - 2;
 		}
 	}
 }
 
-static void		cpy_path2(t_graph *g, uint32_t node, t_path *p)
+static int		cpy_path2(t_graph *g, uint32_t node, t_path *p)
 {
 	uint32_t	i;
 
@@ -65,6 +74,7 @@ static void		cpy_path2(t_graph *g, uint32_t node, t_path *p)
 	while (node != g->end)
 	{
 		ft_printf("%s --> ", g->map.list[node].name);
+		g->map.list[node].ants = 1;
 		p->dirs[p->len++] = node;
 		i = -1;
 		while (++i < g->map.list[node].nb_link && !(g->map.list[node].links[i] & LNK_VISITED))
@@ -75,6 +85,7 @@ static void		cpy_path2(t_graph *g, uint32_t node, t_path *p)
 	}
 	p->dirs[p->len++] = node;
 	ft_printf("\n");
+	return (1);
 }
 
 void			graph_to_paths(t_graph *g, t_vector *paths)
@@ -89,8 +100,8 @@ void			graph_to_paths(t_graph *g, t_vector *paths)
 	{
 		if (g->map.list[g->start].links[i] & LNK_VISITED)
 		{
-			cpy_path2(g, g->map.list[g->start].links[i] & ~LNK_VISITED, &p);
-			vector_push(paths, p);
+			if (cpy_path2(g, g->map.list[g->start].links[i] & ~LNK_VISITED, &p))
+				vector_push(paths, p);
 		}
 	}
 }
@@ -175,12 +186,43 @@ void		clean_links(t_graph *g)
 	}
 }
 
+void		remove_overlapping_paths(t_graph *g, t_vector *vec)
+{
+	uint32_t	i;
+	uint32_t	j;
+
+	i = -1;
+	while (++i < g->map.used)
+		if (i != g->start)
+			g->map.list[i].ants = 0;
+	i = -1;
+	while (++i < vec->len)
+	{
+		j = -1;
+		while (vec->arr[i].dirs[++j] != g->end)
+		{
+			if (g->map.list[vec->arr[i].dirs[j]].ants)
+			{
+				ft_printf("\n\nOVERLAP\n\n");
+				vector_del_at(vec, i);
+				--i;
+				break ;
+			}
+			g->map.list[vec->arr[i].dirs[j]].ants = 1;
+		}
+	}
+}
+
+
 void		compute_paths(t_graph *g, t_vector *vec, int max_p, int nb_p)
 {
 	uint32_t	nb_paths_over;
+	uint32_t	i;
+
 
 	graph_to_paths(g, vec);
 	sort_paths(vec);
+	remove_overlapping_paths(g, vec);
 	if ((nb_paths_over = calc_ants_to_launch(g, vec)))
 	{
 		clean_links(g);
@@ -218,12 +260,13 @@ void		find_paths(t_graph *graph, t_str *str)
 	if (!vector_init(&paths, 10))
 		exit_lem_in("Cannot allocate memory for paths vector");
 	edmonds_karp(graph, &paths, 99999);
-	ft_printf("{PNK}END OF BFS, PATHS:{eoc}\n");
-	for (size_t i = 0; i < paths.len; ++i)
 	{
-		for (uint32_t xyz = 0; xyz < paths.arr[i].len; ++xyz)
-			ft_printf("-->%s\n", graph->map.list[paths.arr[i].dirs[xyz]].name);
-		ft_printf("\n\n");
+		for (size_t i = 0; i < paths.len; ++i)
+		{
+			for (uint32_t xyz = 0; xyz < paths.arr[i].len; ++xyz)
+				ft_printf("-->%s\n", graph->map.list[paths.arr[i].dirs[xyz]].name);
+			ft_printf("\n\n");
+		}
 	}
 	if (paths.len == 0)
 		exit_clean(graph, 1);

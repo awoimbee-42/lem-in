@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 20:05:34 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/03 17:00:54 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:53:37 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,9 @@ static void		launch_ants(t_graph *g, t_vector *paths)
 
 	last_path = &paths->arr[paths->len];
 	path_ptr = &paths->arr[-1];
-	while (++path_ptr < last_path && g->map.list[g->start].ants > 0
-		&& (path_ptr == paths->arr
-			|| (delta_len = path_ptr->len - (path_ptr - 1)->len)
-			<= g->map.list[g->start].ants))
+	while (++path_ptr < last_path && path_ptr->ants_to_lanch)
 	{
+		--path_ptr->ants_to_lanch;
 		first_room = &g->map.list[path_ptr->dirs[0]];
 		first_room->ants = g->ants - --g->map.list[g->start].ants;
 		print_ant(&g->tmp, first_room->ants, first_room->name);
