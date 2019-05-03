@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:37:38 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/02 18:11:34 by allespag         ###   ########.fr       */
+/*   Updated: 2019/05/03 16:13:56 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,14 @@ typedef enum			e_command
 	NONE,
 	UNKNOWN,
 	START,
-	END
+	END,
+	RED,
+	BLUE,
+	GREEN,
+	CYAN,
+	PINK,
+	YELLOW,
+	PRINT
 }						t_command;
 
 typedef struct			s_int2
@@ -67,6 +74,7 @@ typedef struct			s_room
 	char			*name;
 	int				ants;
 	t_int2			coords;
+	char			*color;
 	uint32_t		*links;
 	uint32_t		nb_link;
 	uint32_t		mem_link;
@@ -75,6 +83,7 @@ typedef struct			s_room
 typedef struct			s_graph
 {
 	uint32_t		tmp;
+	uint32_t		print;		// ne pas oublier de le set a 0 a l'init
 	uint32_t		ants;
 	uint32_t		start;
 	uint32_t		end;
@@ -123,6 +132,7 @@ void					find_links(t_graph *g, t_str **str);
 */
 t_command				command_hub(char *line);
 void					exec_command(t_graph *g, t_command command);
+void					exec_room_command(t_room *room, t_command color);
 int						is_command(char *line);
 
 /*

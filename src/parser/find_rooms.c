@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:00:17 by allespag          #+#    #+#             */
-/*   Updated: 2019/05/02 00:57:08 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/03 16:17:30 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int		count_spaces(const char *line)
 //	}
 //
 
-static int		add_new_room(const char *line, t_graph *g)
+static int		add_new_room(const char *line, t_graph *g, t_command color)
 {
 	int			spaces;
 	t_room		tmp_room;
@@ -75,6 +75,7 @@ static int		add_new_room(const char *line, t_graph *g)
 		ft_printf("{CYN}Error cyan -- room_is_here OR line[0] == 'L'\n{eoc}");
 		return (0);
 	}
+	exec_room_command(&tmp_room, color);
 	add_t_map(&g->map, &tmp_room);
 	return (1);
 }
@@ -95,7 +96,7 @@ int				read_rooms(t_graph *g, t_str **str, char **last_line)
 			add_t_str(*str, *last_line);
 		else
 		{
-			if (!add_new_room(*last_line, g))
+			if (!add_new_room(*last_line, g, cmd))
 				return (1);
 			if (cmd != NONE && cmd != UNKNOWN)
 				exec_command(g, cmd);

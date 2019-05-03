@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 17:55:10 by allespag          #+#    #+#             */
-/*   Updated: 2019/05/02 00:41:02 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/03 16:13:15 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_graph			*init_graph(void)
 	new->start = UINT32_NOT_SET;
 	new->end = UINT32_NOT_SET;
 	new->map.size = DEFMALLOCMAP;
+	new->print = 0;
 	if (!(new->map.list = malloc(sizeof(t_room) * new->map.size)))
 		exit_lem_in("Error: map malloc failed in init_graph\n");
 	new->map.used = 0;
