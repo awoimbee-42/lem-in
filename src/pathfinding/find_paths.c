@@ -6,11 +6,17 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 20:42:54 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/03 20:07:19 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/04 03:33:54 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+/*
+**	Calculates, for each path, the ideal number of ants to launch.
+**	If the mathematiccal function says that we should send a negative number of
+**		ants it means that we have too many paths.
+*/
 
 int				calc_ants_to_launch(t_graph *g, t_vector *vec)
 {
@@ -107,8 +113,13 @@ void			graph_to_paths(t_graph *g, t_vector *paths)
 }
 
 /*
-**	This is the function called at the end of BFS, it cpoies the path but also
-**		marks nodes as visited
+**	This is the function called at the end of BFS, it writes down the final path
+**		into the graph, marking links as visited and writing in 'ants' the
+**		parent of each node.
+**	One problem we have is ithat wwhen going upstream (deactivating paths),
+**		which node should we strip of it's parents ?
+**	Right now we are being too nazi:
+**		on the youtube map we go from 14 to 19 steps.
 */
 
 static int		write_path(t_graph *g, uint32_t *parents, t_vector *path_vec)
@@ -121,17 +132,19 @@ static int		write_path(t_graph *g, uint32_t *parents, t_vector *path_vec)
 	node = g->end;
 	while (node != g->start)
 	{
+		g->map.list[node].ants = parents[node];
 			lnkptr = g->map.list[node].links;
-			while ((*lnkptr & ~LNK_VISITED) != parents[node])
+			while ((*lnkptr & ~LNK_VISITED) != parents[node])  // if inverse link exists, i remove it
 				++lnkptr;
 			if (*lnkptr & LNK_VISITED)
 				*lnkptr &= ~LNK_VISITED;
-			else
+			else    // else i write the path as normal
 			{
 				lnkptr = g->map.list[parents[node]].links;
 				while (*lnkptr != node)
 					++lnkptr;
 				*lnkptr |= LNK_VISITED;
+				// g->map.list[node].ants = 0;
 			}
 		ft_printf("{blu}%s <-- {eoc}", g->map.list[node].name);
 		node = parents[node];
@@ -157,10 +170,8 @@ static int		bfs(t_graph *g, uint32_t *parents, t_queue *q)
 		while (++tmp < g->map.list[node].nb_link)
 		{
 			tmp_lnk = g->map.list[node].links[tmp];
-			if (!(tmp_lnk & LNK_VISITED) && parents[tmp_lnk] == (uint32_t)-1)
+			if (!(tmp_lnk & LNK_VISITED) && parents[tmp_lnk] == (uint32_t)-1 && (!g->map.list[node].ants || tmp_lnk == g->map.list[node].ants))
 			{
-				if (g->map.list[tmp_lnk].ants != 0)
-					; // overlap
 				parents[tmp_lnk] = node;
 				if (tmp_lnk == g->end)
 					return (1);
@@ -171,13 +182,14 @@ static int		bfs(t_graph *g, uint32_t *parents, t_queue *q)
 	return (0);
 }
 
-void		clean_links(t_graph *g)
+void		clean_graph(t_graph *g)
 {
 	uint32_t	i[2];
 
 	i[0] = -1;
 	while (++i[0] < g->map.size)
 	{
+		g->map.list[i[0]].ants = 0;
 		i[1] = -1;
 		while (++i[1] < g->map.list[i[0]].nb_link)
 		{
@@ -185,6 +197,10 @@ void		clean_links(t_graph *g)
 		}
 	}
 }
+
+/*
+**	Hopefuly useless.
+*/
 
 uint32_t	count_overlapping_paths(t_graph *g, t_vector *vec)
 {
@@ -217,7 +233,6 @@ uint32_t	count_overlapping_paths(t_graph *g, t_vector *vec)
 	return (nb_overlaps);
 }
 
-
 void		compute_paths(t_graph *g, t_vector *vec, int max_p, int nb_p)
 {
 	uint32_t	nb_paths_over;
@@ -229,7 +244,7 @@ void		compute_paths(t_graph *g, t_vector *vec, int max_p, int nb_p)
 	if ((nb_paths_over = count_overlapping_paths(g, vec))
 		|| (nb_paths_over = calc_ants_to_launch(g, vec)))
 	{
-		clean_links(g);
+		clean_graph(g);
 		i = -1;
 		while (++i < vec->len)
 			free(vec->arr[i].dirs);
@@ -247,6 +262,7 @@ void		edmonds_karp(t_graph *g, t_vector *paths, uint32_t max_paths)
 	q = que_new(g->map.used);
 	parents = ft_memalloc(g->map.used * sizeof(uint32_t));
 	nb_paths = -1;
+	// clean_graph(g);
 	while (++nb_paths < max_paths)
 	{
 		ft_bzero(parents, g->map.used * sizeof(uint32_t));
@@ -257,6 +273,9 @@ void		edmonds_karp(t_graph *g, t_vector *paths, uint32_t max_paths)
 	}
 	que_destroy(q);
 	free(parents);
+	parents = -1;
+	while (++parents < g->map.used)
+		g->map.list[(size_t)parents].ants = 0;
 	compute_paths(g, paths, max_paths, nb_paths);
 }
 
