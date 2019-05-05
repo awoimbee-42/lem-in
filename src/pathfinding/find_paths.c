@@ -6,50 +6,11 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 20:42:54 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/04 13:19:50 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/05 19:22:14 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-/*
-**	Calculates, for each path, the ideal number of ants to launch.
-**	If the mathematiccal function says that we should send a negative number of
-**		ants it means that we have too many paths.
-*/
-
-int				calc_ants_to_launch(t_graph *g, t_vector *vec)
-{
-	uint32_t	i;
-	uint32_t	paths_len_sum;
-	int			ants_launched;
-	int			delta_ants;
-
-	ants_launched = 0;
-	paths_len_sum = 0;
-	i = -1;
-	while (++i < vec->len)
-		paths_len_sum += vec->arr[i].len;
-	i = -1;
-	while (++i < vec->len)
-	{
-		// ft_printf("vec->arr[i].ants_to_lanch = (%u - ((%u - 1) * %u - (%u - %u))) / %u;\n", g->ants, vec->len - 1, vec->arr[i].len, paths_len_sum, vec->arr[i].len, vec->len);
-		vec->arr[i].ants_to_lanch = ((int)g->ants - (((int)vec->len - 1) * (int)vec->arr[i].len - ((int)paths_len_sum - (int)vec->arr[i].len))) / (int)vec->len;
-		ants_launched += vec->arr[i].ants_to_lanch;
-		if (vec->arr[i].ants_to_lanch < 0)
-			return (vec->len - i); // too many paths !!!
-		// ft_printf("{PNK}paths %u, len %u, ants to launch %d{eoc}\n", i, vec->arr[i].len, vec->arr[i].ants_to_lanch);
-	}
-	delta_ants = (int)g->ants - ants_launched;
-	ants_launched = delta_ants > 0 ? 1 : -1;
-	i = -1;
-	while (++i < vec->len && delta_ants != 0)
-	{
-		vec->arr[i].ants_to_lanch += ants_launched;
-		delta_ants -= ants_launched;
-	}
-	return (0);
-}
 
 void			sort_paths(t_vector *p)
 {
@@ -83,7 +44,8 @@ static int		cpy_path2(t_graph *g, uint32_t node, t_path *p)
 		g->map.list[node].ants = 1;
 		p->dirs[p->len++] = node;
 		i = -1;
-		while (++i < g->map.list[node].nb_link && !(g->map.list[node].links[i] & LNK_VISITED))
+		while (++i < g->map.list[node].nb_link
+			&& !(g->map.list[node].links[i] & LNK_VISITED))
 			;
 		if (i == g->map.list[node].nb_link)
 			ft_printf(" Fuck me "); // /!\ l
@@ -122,21 +84,20 @@ void			graph_to_paths(t_graph *g, t_vector *paths)
 **		on the youtube map we go from 14 to 19 steps.
 */
 
-static int		write_path(t_graph *g, uint32_t *parents, t_vector *path_vec)
+static int		write_path(t_graph *g, uint32_t *parents)
 {
 	uint32_t	node;
-	t_path		p;
 	uint32_t	*lnkptr;
 
 	ft_printf("{ylw}end (%s) found, well done !{eoc}\n", g->map.list[g->end].name);
 	node = g->end;
 	while (node != g->start)
 	{
-		g->map.list[node].ants = 0;
+			g->map.list[node].ants = 0;
 			lnkptr = g->map.list[node].links;
-			while ((*lnkptr & ~LNK_VISITED) != parents[node])  // if inverse link exists, i remove it
+			while ((*lnkptr & ~LNK_VISITED) != parents[node])
 				++lnkptr;
-			if (*lnkptr & LNK_VISITED)
+			if (*lnkptr & LNK_VISITED) // if inverse link exists, i remove it
 				*lnkptr &= ~LNK_VISITED;
 			else    // else i write the path as normal
 			{
@@ -144,8 +105,7 @@ static int		write_path(t_graph *g, uint32_t *parents, t_vector *path_vec)
 				while (*lnkptr != node)
 					++lnkptr;
 				*lnkptr |= LNK_VISITED;
-	g->map.list[node].ants = parents[node];
-				// g->map.list[node].ants = 0;
+				g->map.list[node].ants = parents[node];
 			}
 		ft_printf("{blu}%s <-- {eoc}", g->map.list[node].name);
 		node = parents[node];
@@ -171,7 +131,7 @@ static int		bfs(t_graph *g, uint32_t *parents, t_queue *q)
 		while (++tmp < g->map.list[node].nb_link)
 		{
 			tmp_lnk = g->map.list[node].links[tmp];
-			if (!(tmp_lnk & LNK_VISITED) && parents[tmp_lnk] == (uint32_t)-1 && (!g->map.list[node].ants || tmp_lnk == g->map.list[node].ants))
+			if (!(tmp_lnk & LNK_VISITED) && parents[tmp_lnk] == (uint32_t)-1 && (!g->map.list[node].ants || (int)tmp_lnk == g->map.list[node].ants))
 			{
 				parents[tmp_lnk] = node;
 				if (tmp_lnk == g->end)
@@ -234,7 +194,7 @@ uint32_t	count_overlapping_paths(t_graph *g, t_vector *vec)
 	return (nb_overlaps);
 }
 
-void		compute_paths(t_graph *g, t_vector *vec, int max_p, int nb_p)
+void		compute_paths(t_graph *g, t_vector *vec, int nb_p)
 {
 	uint32_t	nb_paths_over;
 	uint32_t	i;
@@ -259,25 +219,25 @@ void		edmonds_karp(t_graph *g, t_vector *paths, uint32_t max_paths)
 	t_queue		*q;
 	uint32_t	*parents;
 	uint32_t	nb_paths;
+	uint32_t	i;
 
 	q = que_new(g->map.used);
 	parents = ft_memalloc(g->map.used * sizeof(uint32_t));
 	nb_paths = -1;
-	// clean_graph(g);
 	while (++nb_paths < max_paths)
 	{
 		ft_bzero(parents, g->map.used * sizeof(uint32_t));
 		que_flush(q);
 		if (!bfs(g, parents, q))
 			break ;
-		write_path(g, parents, paths);
+		write_path(g, parents);
 	}
 	que_destroy(q);
 	free(parents);
-	parents = -1;
-	while (++parents < g->map.used)
-		g->map.list[(size_t)parents].ants = 0;
-	compute_paths(g, paths, max_paths, nb_paths);
+	i = -1;
+	while (++i < g->map.used)
+		g->map.list[i].ants = 0;
+	compute_paths(g, paths, nb_paths);
 }
 
 void		find_paths(t_graph *graph, t_str *str)

@@ -6,7 +6,7 @@
 #    By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/26 22:06:19 by marvin            #+#    #+#              #
-#    Updated: 2019/05/01 19:11:27 by awoimbee         ###   ########.fr        #
+#    Updated: 2019/05/05 19:17:10 by awoimbee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ SRC_NAME =	main.c					\
 			parser/command_line.c		\
 			\
 			pathfinding/find_paths.c	\
-			pathfinding/send_ants.c
+			pathfinding/send_ants.c		\
+			pathfinding/calc_ants_to_launch.c
 
 SRC_FOLDERS = parser pathfinding operators
 ################################################################################
