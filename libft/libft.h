@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/23 20:34:49 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/03 19:09:07 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/05 18:57:26 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,18 @@ t_vector		*vector_push(t_vector *vec, t_vected d);
 t_vector		*vector_realloc(t_vector *vec);
 void			vector_mapvoid(t_vector *v, void (*f)(t_vected*));
 t_vector		*vector_del_at(t_vector *v, size_t at);
+
+/*
+**	T_GARBAGE (sortof garbage collector)
+*/
+t_garbage		gb_init(void);
+void			intrin__gb_fail(t_garbage *gb);
+void			gb_freeall(t_garbage *gb);
+void			gb_free(t_garbage *gb, void *ptr);
+void			gb_remove(t_garbage *gb, void *freed);
+void			*gb_malloc(t_garbage *gb, size_t size);
+void			*gb_add(t_garbage *gb, void *malloced);
+void			gb_defrag(t_garbage *gb);
 
 /*
 **	##################### other ####################

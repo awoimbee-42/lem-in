@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector_del_at.c                                    :+:      :+:    :+:   */
+/*   gb_freeall.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/03 19:05:48 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/05 17:45:13 by awoimbee         ###   ########.fr       */
+/*   Created: 2019/05/04 20:56:41 by awoimbee          #+#    #+#             */
+/*   Updated: 2019/05/04 21:22:52 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_vector		*vector_del_at(t_vector *v, size_t at)
+void		gb_freeall(t_garbage *gb)
 {
-	if (at >= v->len)
-		return (NULL);
-	--v->len;
-	ft_memcpy(&v->arr[at], &v->arr[at + 1], v->len - at);
-	return (v);
+	size_t		i;
+
+	i = 0;
+	while (i < gb->arr_len)
+	{
+		free(gb->pointers[i]);
+		++i;
+	}
+	free(gb->pointers);
+	gb->arr_len = 0;
+	gb->mem_len = 0;
 }

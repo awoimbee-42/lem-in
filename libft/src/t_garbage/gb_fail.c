@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector_del_at.c                                    :+:      :+:    :+:   */
+/*   gb_fail.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/03 19:05:48 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/05 17:45:13 by awoimbee         ###   ########.fr       */
+/*   Created: 2019/05/04 21:08:41 by awoimbee          #+#    #+#             */
+/*   Updated: 2019/05/05 17:34:53 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <unistd.h>
 
-t_vector		*vector_del_at(t_vector *v, size_t at)
+void		intrin__gb_fail(t_garbage *gb)
 {
-	if (at >= v->len)
-		return (NULL);
-	--v->len;
-	ft_memcpy(&v->arr[at], &v->arr[at + 1], v->len - at);
-	return (v);
+	write(STDERR_FILENO, "Memory allocation error, terminating cleanly.\n", 46);
+	gb_freeall(gb);
+	exit(EXIT_FAILURE);
 }

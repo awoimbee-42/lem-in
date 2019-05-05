@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector_del_at.c                                    :+:      :+:    :+:   */
+/*   gb_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/03 19:05:48 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/05 17:45:13 by awoimbee         ###   ########.fr       */
+/*   Created: 2019/05/04 20:45:31 by awoimbee          #+#    #+#             */
+/*   Updated: 2019/05/05 03:20:50 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_vector		*vector_del_at(t_vector *v, size_t at)
+t_garbage		gb_init(void)
 {
-	if (at >= v->len)
-		return (NULL);
-	--v->len;
-	ft_memcpy(&v->arr[at], &v->arr[at + 1], v->len - at);
-	return (v);
+	t_garbage	gbc;
+
+	gbc.pointers = ft_memalloc(10);
+	gbc.arr_len = 0;
+	if (__builtin_expect((long)gbc.pointers, 1))
+		gbc.mem_len = 10;
+	else
+		gbc.mem_len = 0;
+	return (gbc);
 }
