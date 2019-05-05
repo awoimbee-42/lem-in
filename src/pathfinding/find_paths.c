@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 20:42:54 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/04 03:33:54 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/04 13:19:50 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ static int		write_path(t_graph *g, uint32_t *parents, t_vector *path_vec)
 	node = g->end;
 	while (node != g->start)
 	{
-		g->map.list[node].ants = parents[node];
+		g->map.list[node].ants = 0;
 			lnkptr = g->map.list[node].links;
 			while ((*lnkptr & ~LNK_VISITED) != parents[node])  // if inverse link exists, i remove it
 				++lnkptr;
@@ -144,6 +144,7 @@ static int		write_path(t_graph *g, uint32_t *parents, t_vector *path_vec)
 				while (*lnkptr != node)
 					++lnkptr;
 				*lnkptr |= LNK_VISITED;
+	g->map.list[node].ants = parents[node];
 				// g->map.list[node].ants = 0;
 			}
 		ft_printf("{blu}%s <-- {eoc}", g->map.list[node].name);
