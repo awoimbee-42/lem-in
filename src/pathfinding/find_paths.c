@@ -6,113 +6,11 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 20:42:54 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/05 19:22:14 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/05 20:14:28 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-void			sort_paths(t_vector *p)
-{
-	t_path		buff;
-	uint32_t	i;
-
-	if (p->len == 0)
-		return ;
-	i = -1;
-	while (++i < p->len - 1)
-	{
-		if (p->arr[i].len > p->arr[i + 1].len)
-		{
-			buff = p->arr[i];
-			p->arr[i] = p->arr[i + 1];
-			p->arr[i + 1] = buff;
-			i = i < 2 ? -1 : i - 2;
-		}
-	}
-}
-
-static int		cpy_path2(t_graph *g, uint32_t node, t_path *p)
-{
-	uint32_t	i;
-
-	p->len = 0;
-	p->dirs = malloc(sizeof(*p->dirs) * g->map.used);
-	while (node != g->end)
-	{
-		ft_printf("%s --> ", g->map.list[node].name);
-		g->map.list[node].ants = 1;
-		p->dirs[p->len++] = node;
-		i = -1;
-		while (++i < g->map.list[node].nb_link
-			&& !(g->map.list[node].links[i] & LNK_VISITED))
-			;
-		if (i == g->map.list[node].nb_link)
-			ft_printf(" Fuck me "); // /!\ l
-		node = g->map.list[node].links[i] & ~LNK_VISITED;
-	}
-	p->dirs[p->len++] = node;
-	ft_printf("\n");
-	return (1);
-}
-
-void			graph_to_paths(t_graph *g, t_vector *paths)
-{
-	uint32_t	node;
-	t_path		p;
-	uint32_t	i;
-
-	node = g->start;
-	i = -1;
-	while (++i < g->map.list[g->start].nb_link)
-	{
-		if (g->map.list[g->start].links[i] & LNK_VISITED)
-		{
-			if (cpy_path2(g, g->map.list[g->start].links[i] & ~LNK_VISITED, &p))
-				vector_push(paths, p);
-		}
-	}
-}
-
-/*
-**	This is the function called at the end of BFS, it writes down the final path
-**		into the graph, marking links as visited and writing in 'ants' the
-**		parent of each node.
-**	One problem we have is ithat wwhen going upstream (deactivating paths),
-**		which node should we strip of it's parents ?
-**	Right now we are being too nazi:
-**		on the youtube map we go from 14 to 19 steps.
-*/
-
-static int		write_path(t_graph *g, uint32_t *parents)
-{
-	uint32_t	node;
-	uint32_t	*lnkptr;
-
-	ft_printf("{ylw}end (%s) found, well done !{eoc}\n", g->map.list[g->end].name);
-	node = g->end;
-	while (node != g->start)
-	{
-			g->map.list[node].ants = 0;
-			lnkptr = g->map.list[node].links;
-			while ((*lnkptr & ~LNK_VISITED) != parents[node])
-				++lnkptr;
-			if (*lnkptr & LNK_VISITED) // if inverse link exists, i remove it
-				*lnkptr &= ~LNK_VISITED;
-			else    // else i write the path as normal
-			{
-				lnkptr = g->map.list[parents[node]].links;
-				while (*lnkptr != node)
-					++lnkptr;
-				*lnkptr |= LNK_VISITED;
-				g->map.list[node].ants = parents[node];
-			}
-		ft_printf("{blu}%s <-- {eoc}", g->map.list[node].name);
-		node = parents[node];
-	}
-	ft_printf("{blu}%s{eoc}\n\n\n", g->map.list[g->start].name);
-	return (1);
-}
 
 static int		bfs(t_graph *g, uint32_t *parents, t_queue *q)
 {
@@ -122,8 +20,6 @@ static int		bfs(t_graph *g, uint32_t *parents, t_queue *q)
 
 	if (!que_push(q, g->start))
 		exit_lem_in("Could not create queue, bfs cannot continue");
-	ft_mem32set(parents, -1, g->map.used);
-	parents[g->start] = -2;
 	while (!que_isempty(q))
 	{
 		node = que_pop(q);
@@ -131,7 +27,9 @@ static int		bfs(t_graph *g, uint32_t *parents, t_queue *q)
 		while (++tmp < g->map.list[node].nb_link)
 		{
 			tmp_lnk = g->map.list[node].links[tmp];
-			if (!(tmp_lnk & LNK_VISITED) && parents[tmp_lnk] == (uint32_t)-1 && (!g->map.list[node].ants || (int)tmp_lnk == g->map.list[node].ants))
+			if (!(tmp_lnk & LNK_VISITED) && parents[tmp_lnk] == (uint32_t)-1
+				&& (!g->map.list[node].ants
+					|| (int)tmp_lnk == g->map.list[node].ants))
 			{
 				parents[tmp_lnk] = node;
 				if (tmp_lnk == g->end)
@@ -143,78 +41,7 @@ static int		bfs(t_graph *g, uint32_t *parents, t_queue *q)
 	return (0);
 }
 
-void		clean_graph(t_graph *g)
-{
-	uint32_t	i[2];
-
-	i[0] = -1;
-	while (++i[0] < g->map.size)
-	{
-		g->map.list[i[0]].ants = 0;
-		i[1] = -1;
-		while (++i[1] < g->map.list[i[0]].nb_link)
-		{
-			g->map.list[i[0]].links[i[1]] &= ~LNK_VISITED;
-		}
-	}
-}
-
-/*
-**	Hopefuly useless.
-*/
-
-uint32_t	count_overlapping_paths(t_graph *g, t_vector *vec)
-{
-	uint32_t	i;
-	int			j;
-	uint32_t	nb_overlaps;
-
-	nb_overlaps = 0;
-	i = -1;
-	while (++i < g->map.used)
-		if (i != g->start)
-			g->map.list[i].ants = 0;
-	i = -1;
-	while (++i < vec->len)
-	{
-		j = -1;
-		while (vec->arr[i].dirs[++j] != g->end) //invalid read ??
-		{
-			if (g->map.list[vec->arr[i].dirs[j]].ants)
-			{
-				while (--j != -1)
-					g->map.list[vec->arr[i].dirs[j]].ants = 0;
-				ft_printf("\n\nOVERLAP\n\n");
-				++nb_overlaps;
-				break ;
-			}
-			g->map.list[vec->arr[i].dirs[j]].ants = 1;
-		}
-	}
-	return (nb_overlaps);
-}
-
-void		compute_paths(t_graph *g, t_vector *vec, int nb_p)
-{
-	uint32_t	nb_paths_over;
-	uint32_t	i;
-
-	nb_paths_over = 0;
-	graph_to_paths(g, vec);
-	sort_paths(vec);
-	if ((nb_paths_over = count_overlapping_paths(g, vec))
-		|| (nb_paths_over = calc_ants_to_launch(g, vec)))
-	{
-		clean_graph(g);
-		i = -1;
-		while (++i < vec->len)
-			free(vec->arr[i].dirs);
-		vec->len = 0;
-		edmonds_karp(g, vec, nb_p - nb_paths_over);
-	}
-}
-
-void		edmonds_karp(t_graph *g, t_vector *paths, uint32_t max_paths)
+void			edmonds_karp(t_graph *g, t_vector *paths, uint32_t max_paths)
 {
 	t_queue		*q;
 	uint32_t	*parents;
@@ -222,11 +49,11 @@ void		edmonds_karp(t_graph *g, t_vector *paths, uint32_t max_paths)
 	uint32_t	i;
 
 	q = que_new(g->map.used);
-	parents = ft_memalloc(g->map.used * sizeof(uint32_t));
+	parents = malloc(g->map.used * sizeof(uint32_t));
 	nb_paths = -1;
 	while (++nb_paths < max_paths)
 	{
-		ft_bzero(parents, g->map.used * sizeof(uint32_t));
+		ft_mem32set(parents, -1, g->map.used);
 		que_flush(q);
 		if (!bfs(g, parents, q))
 			break ;
@@ -240,7 +67,7 @@ void		edmonds_karp(t_graph *g, t_vector *paths, uint32_t max_paths)
 	compute_paths(g, paths, nb_paths);
 }
 
-void		find_paths(t_graph *graph, t_str *str)
+void			find_paths(t_graph *graph, t_str *str)
 {
 	t_vector	paths;
 

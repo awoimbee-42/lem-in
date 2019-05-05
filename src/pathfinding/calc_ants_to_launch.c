@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 19:11:16 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/05 19:19:42 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/05 19:58:41 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 **		ants it means that we have too many paths.
 */
 
-static uint32_t	get_paths_len_sum(t_vector	*paths)
+static uint32_t	get_paths_len_sum(t_vector *paths)
 {
 	size_t		i;
 	uint32_t	paths_len;
@@ -57,7 +57,10 @@ int				calc_ants_to_launch(t_graph *g, t_vector *vec)
 	i = -1;
 	while (++i < vec->len)
 	{
-		vec->arr[i].ants_to_lanch = ((int)g->ants - (((int)vec->len - 1) * (int)vec->arr[i].len - ((int)paths_len_sum - (int)vec->arr[i].len))) / (int)vec->len;
+		vec->arr[i].ants_to_lanch = ((int)g->ants
+				- (((int)vec->len - 1) * (int)vec->arr[i].len
+					- ((int)paths_len_sum - (int)vec->arr[i].len)))
+			/ (int)vec->len;
 		ants_launched += vec->arr[i].ants_to_lanch;
 		if (vec->arr[i].ants_to_lanch < 0)
 			return (vec->len - i);
