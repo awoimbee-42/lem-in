@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:38:11 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/06 16:00:50 by allespag         ###   ########.fr       */
+/*   Updated: 2019/05/06 16:12:51 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void		exit_lem_in(char *key)
 void		exit_clean(t_graph *g, int error)
 {
 	free_t_graph(g);
+	get_next_line(STDERR_FILENO, GNL_FLUSH);
 	if (error)
 		write(1, "ERROR\n", 6);
 	exit(error);

@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 21:19:18 by allespag          #+#    #+#             */
-/*   Updated: 2019/05/06 15:27:32 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/06 16:08:09 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,5 @@ void			find_links(t_graph *g, t_str **str)
 			return ;
 	}
 	if (ret == -1)
-		exit_lem_in("Error: get_next_line failed in find_links");
+		exit_clean(g, 1);
 }
