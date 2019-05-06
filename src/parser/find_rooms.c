@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:00:17 by allespag          #+#    #+#             */
-/*   Updated: 2019/05/06 16:07:39 by allespag         ###   ########.fr       */
+/*   Updated: 2019/05/06 17:00:04 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int		is_ok(t_graph *g, t_room room, const char *line, int spaces)
 {
 	if (spaces || is_room_here(&g->map, &room) || line[0] == 'L')
 	{
-		free(room.name);
+		ft_memdel((void**)&room.name);
 		return (0);
 	}
 	return (1);

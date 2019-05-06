@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 20:42:54 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/06 15:28:26 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/06 17:11:47 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void			edmonds_karp(t_graph *g, t_vector *paths, uint32_t max_paths)
 	uint32_t	i;
 
 	q = que_new(g->map.used);
-	parents = malloc(g->map.used * sizeof(uint32_t));
+	if (!(parents = malloc(g->map.used * sizeof(uint32_t))))
+		exit_clean(g, 1);
 	nb_paths = -1;
 	while (++nb_paths < max_paths)
 	{
@@ -72,7 +73,7 @@ void			find_paths(t_graph *graph, t_str *str)
 	t_vector	paths;
 
 	if (!vector_init(&paths, 10))
-		exit_lem_in("Cannot allocate memory for paths vector");
+		exit_clean(graph, 1);
 	edmonds_karp(graph, &paths, 99999);
 	if (paths.len == 0)
 		exit_clean(graph, 1);

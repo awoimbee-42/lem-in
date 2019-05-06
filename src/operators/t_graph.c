@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 17:55:10 by allespag          #+#    #+#             */
-/*   Updated: 2019/05/06 15:21:08 by allespag         ###   ########.fr       */
+/*   Updated: 2019/05/06 16:59:54 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ void			free_t_graph(t_graph *g)
 		i = -1;
 		while (++i < g->map.used)
 		{
-			free(g->map.list[i].name);
-			free(g->map.list[i].links);
+			ft_memdel((void**)&g->map.list[i].name);
+			ft_memdel((void**)&g->map.list[i].links);
 		}
-		free(g->map.list);
-		free(g);
+		ft_memdel((void**)&g->map.list);
+		ft_memdel((void**)&g);
 	}
 }
 
