@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:00:08 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/10 18:33:54 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/06 17:47:37 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,5 @@ void			display_t_str(t_str *string)
 	i = 0;
 	while (i < string->used)
 		ft_putendl(string->str[i++]);
+	ft_putchar('\n');
 }
