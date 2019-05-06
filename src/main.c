@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:38:11 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/06 15:02:23 by allespag         ###   ########.fr       */
+/*   Updated: 2019/05/06 15:32:40 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int			main(int argc, char **argv)
 
 	if (argc > 1 && !ft_strcmp(argv[1], "--help"))
 	{
-		ft_printf("help me pls :)\n");
+		ft_printf("Usage: ./lem-in [--p] [--help] < <map_file>\n");
 		return (EXIT_SUCCESS);
 	}
 	g = init_graph();

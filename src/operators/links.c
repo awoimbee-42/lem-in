@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 19:18:13 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/04/10 20:45:27 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/06 15:26:37 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,5 @@ void		display_links(const t_room *hub, const t_graph *g)
 	while (i < hub->nb_link)
 	{
 		display_room(&g->map.list[hub->links[i++]], g);
-		ft_printf("{RED}TAMERE LA PUTEUH %u\n", i);
 	}
 }

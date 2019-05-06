@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 20:42:54 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/06 14:18:28 by allespag         ###   ########.fr       */
+/*   Updated: 2019/05/06 15:28:26 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,6 @@ void			find_paths(t_graph *graph, t_str *str)
 	if (!vector_init(&paths, 10))
 		exit_lem_in("Cannot allocate memory for paths vector");
 	edmonds_karp(graph, &paths, 99999);
-	{
-		for (size_t i = 0; i < paths.len; ++i)
-		{
-			for (uint32_t xyz = 0; xyz < paths.arr[i].len; ++xyz)
-				ft_printf("-->%s\n", graph->map.list[paths.arr[i].dirs[xyz]].name);
-			ft_printf("\n\n");
-		}
-	}
 	if (paths.len == 0)
 		exit_clean(graph, 1);
 	display_t_str(str);

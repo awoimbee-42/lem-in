@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 21:19:18 by allespag          #+#    #+#             */
-/*   Updated: 2019/05/03 17:49:49 by allespag         ###   ########.fr       */
+/*   Updated: 2019/05/06 15:27:32 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,21 +53,14 @@ int				is_link(t_graph *g, t_str **str, char *line)
 	uint32_t	r[2];
 
 	if (!ft_strcmp(line, ""))
-	{
-		ft_printf("{PNK}IS-LINK, VOID VOID VOID{eoc}\n");
 		return (0);
-	}
 	else if (is_comment(line) || is_command(line))
 		add_t_str(*str, line);
 	else
 	{
 		*(uint64_t*)r = get_link(g, line);
 		if (r[0] == UINT_MAX || r[1] == UINT_MAX)
-		{
-			ft_printf("{pnk}UINT_MAX = %d\n{eoc}", UINT_MAX);
-			ft_printf("{PNK}r[0] = UINT_MAX OR r[1] = UINT_MAX{eoc}\n");
 			return (0);
-		}
 		add_link(&g->map.list[r[0]], r[1]);
 		add_link(&g->map.list[r[1]], r[0]);
 		add_t_str(*str, line);
