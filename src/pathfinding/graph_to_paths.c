@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 20:03:32 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/06 15:29:38 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/06 15:49:05 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int		cpy_path2(t_graph *g, uint32_t node, t_path *p)
 	uint32_t	i;
 
 	p->len = 0;
-	p->dirs = malloc(sizeof(*p->dirs) * g->map.used); // /!\ EKLFEF
+	p->dirs = malloc(sizeof(*p->dirs) * g->map.used);
 	if (!p->dirs)
 		exit_lem_in("Memory allocation error: could not allocate path");
 	while (node != g->end)
