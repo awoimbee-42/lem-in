@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:37:38 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/05 20:08:01 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/06 15:15:51 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 # include <stdlib.h>
 
 # include <limits.h>
-# include <x86intrin.h> //useless ?
-# include <inttypes.h>  //useless ?
 # include <stdint.h>
 
 # include "libft.h"
@@ -60,14 +58,14 @@ typedef struct	s_str
 	char			**str;
 	uint32_t		size;
 	uint32_t		used;
-}						t_str;
+}				t_str;
 
 typedef struct	s_map
 {
 	struct s_room	*list;
 	uint32_t		size;
 	uint32_t		used;
-}						t_map;
+}				t_map;
 
 typedef struct	s_room
 {
@@ -182,7 +180,6 @@ void			free_t_graph(t_graph *g);
 **	DISPLAY_GRAPH_ROOM_MAP (DEBUG)
 */
 void			display_links(const t_room *hub, const t_graph *g);
-void			display_map(t_map *map, t_graph *maybe_graph);
 void			display_room(const t_room *room, const t_graph *g);
 void			display_graph(t_graph *g);
 

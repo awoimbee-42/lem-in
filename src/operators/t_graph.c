@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 17:55:10 by allespag          #+#    #+#             */
-/*   Updated: 2019/05/03 16:13:15 by allespag         ###   ########.fr       */
+/*   Updated: 2019/05/06 15:21:08 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,4 @@ void			display_graph(t_graph *g)
 	display_room(&g->map.list[g->start], 0);
 	ft_putstr("End: ");
 	display_room(&g->map.list[g->end], 0);
-	ft_putendl("Map: ");
-	display_map(&g->map, 0);
 }

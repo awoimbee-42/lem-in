@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:38:11 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/06 14:51:17 by allespag         ###   ########.fr       */
+/*   Updated: 2019/05/06 15:02:23 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ int			main(int argc, char **argv)
 		return (EXIT_SUCCESS);
 	}
 	g = init_graph();
-	if (argc > 1 && (!ft_strcmp(argv[1], "--print") || !ft_strcmp(argv[1], "--p")))
+	if (argc > 1 && (!ft_strcmp(argv[1], "--print")
+		|| !ft_strcmp(argv[1], "--p")))
 		g->print = 1;
 	file = new_t_str();
 	parse_input(g, &file);
