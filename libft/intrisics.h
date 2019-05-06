@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 23:27:57 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/06 14:24:12 by allespag         ###   ########.fr       */
+/*   Updated: 2019/05/06 14:57:10 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@
 # else
 #  define LFT_AVX 0
 # endif
+# ifdef __SSE2__
+#  define LFT_SSE2 1
+# else
+#  define LFT_SSE2 0
+# endif
 
 # define GNL_BUFF_SIZE 300
 # define GNL_FLUSH (char**)INTPTR_MAX
@@ -31,9 +36,9 @@
 
 typedef struct	s_path
 {
-	uint32_t			len;
-	int					ants_to_lanch;
-	uint32_t			*dirs;
+	uint32_t		len;
+	int				ants_to_lanch;
+	uint32_t		*dirs;
 }				t_path;
 
 typedef uint32_t	t_queued;
