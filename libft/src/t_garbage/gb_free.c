@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector_del_at.c                                    :+:      :+:    :+:   */
+/*   gb_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/03 19:05:48 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/05 17:45:13 by awoimbee         ###   ########.fr       */
+/*   Created: 2019/05/04 20:50:39 by awoimbee          #+#    #+#             */
+/*   Updated: 2019/05/05 02:17:52 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_vector		*vector_del_at(t_vector *v, size_t at)
+/*
+**	Segfault if ptr was not allocated through gb_malloc
+*/
+
+void		gb_free(t_garbage *gb, void *ptr)
 {
-	if (at >= v->len)
-		return (NULL);
-	--v->len;
-	ft_memcpy(&v->arr[at], &v->arr[at + 1], v->len - at);
-	return (v);
+	void	**i;
+
+	i = gb->pointers;
+	while (*i != ptr)
+		++i;
+	free(*i);
+	*i = NULL;
 }

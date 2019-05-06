@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 20:05:34 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/03 19:39:44 by allespag         ###   ########.fr       */
+/*   Updated: 2019/05/06 13:57:20 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,14 @@
 
 static void		print_ant(uint32_t *is_first_out, int id, const t_room *room)
 {
-	char	*s;
+	const char	*s;
+	const char	*eoc;
 
 	s = " %sL%d-%s%s";
+	eoc = *room->color ? "{eoc}" : "";
 	if (!*is_first_out && ++s)
 		*is_first_out = 1;
-	ft_printf(s, room->color, id, room->name, (!ft_strcmp(room->color, "")) ? "" : "{eoc}");
+	ft_printf(s, room->color, id, room->name, eoc);
 }
 
 static void		weird_reset_rooms(t_map *m)
@@ -63,7 +65,9 @@ static void		move_ants(t_graph *g, t_vector *paths)
 					g->map.list[*(p_ptr + 1)].ants += 1;
 				else
 					g->map.list[*(p_ptr + 1)].ants = g->map.list[*p_ptr].ants;
-				print_ant(&g->tmp, g->map.list[*p_ptr].ants, &g->map.list[*(p_ptr + 1)]);
+				print_ant(&g->tmp,
+					g->map.list[*p_ptr].ants,
+					&g->map.list[*(p_ptr + 1)]);
 				g->map.list[*p_ptr].ants = 0;
 			}
 		}
@@ -72,7 +76,6 @@ static void		move_ants(t_graph *g, t_vector *paths)
 
 static void		launch_ants(t_graph *g, t_vector *paths)
 {
-	int			delta_len;
 	t_path		*path_ptr;
 	t_path		*last_path;
 	t_room		*first_room;

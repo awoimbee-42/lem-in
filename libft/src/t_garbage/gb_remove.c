@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector_del_at.c                                    :+:      :+:    :+:   */
+/*   gb_remove.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/03 19:05:48 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/05 17:45:13 by awoimbee         ###   ########.fr       */
+/*   Created: 2019/05/04 21:19:19 by awoimbee          #+#    #+#             */
+/*   Updated: 2019/05/04 21:23:02 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_vector		*vector_del_at(t_vector *v, size_t at)
+/*
+**	Used to remove a pointer malloced through gb_malloc but freed elsewhere.
+*/
+
+void		gb_remove(t_garbage *gb, void *freed)
 {
-	if (at >= v->len)
-		return (NULL);
-	--v->len;
-	ft_memcpy(&v->arr[at], &v->arr[at + 1], v->len - at);
-	return (v);
+	void	**i;
+
+	i = gb->pointers;
+	while (*i != freed)
+		++i;
+	*i = NULL;
 }

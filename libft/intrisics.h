@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 23:27:57 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/03 17:22:45 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/05 18:57:04 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 # ifdef __AVX__
 #  define LFT_AVX 1
-#  else
+# else
 #  define LFT_AVX 0
 # endif
 
@@ -29,12 +29,12 @@
 **	lem-in specific struct
 */
 
-typedef struct		s_path
+typedef struct	s_path
 {
-	uint32_t	len;
-	int			ants_to_lanch;
-	uint32_t	*dirs;
-}					t_path;
+	uint32_t			len;
+	int					ants_to_lanch;
+	uint32_t			*dirs;
+}				t_path;
 
 typedef uint32_t	t_queued;
 typedef void		t_listed;
@@ -73,5 +73,12 @@ typedef struct	s_vector
 	size_t			len;
 	size_t			mem;
 }				t_vector;
+
+typedef struct	s_garbage
+{
+	void			**pointers;
+	size_t			arr_len;
+	size_t			mem_len;
+}				t_garbage;
 
 #endif

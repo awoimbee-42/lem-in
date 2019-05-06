@@ -6,7 +6,7 @@
 #    By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/16 11:55:20 by awoimbee          #+#    #+#              #
-#    Updated: 2019/05/03 19:09:55 by awoimbee         ###   ########.fr        #
+#    Updated: 2019/05/05 18:34:42 by awoimbee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,6 +64,9 @@ SRCS_VEC4 =	vec4_new.c			vec4_newa.c			vec4_div.c			\
 SRCS_VECT =	new.c				push.c				realloc.c			\
 			vector_map.c		vector_del_at.c
 
+SRCS_GARB =	gb_fail.c			gb_add.c			gb_defrag.c			\
+			gb_free.c			gb_freeall.c		gb_init.c			\
+			gb_malloc.c			gb_remove.c
 
 SRCS_OTHER = msg_exit.c
 
@@ -76,12 +79,13 @@ SRCS_NAME =	$(addprefix libchar/, $(SRCS_CHAR))		\
 			$(addprefix t_lst/,   $(SRCS_LST))		\
 			$(addprefix t_queue/, $(SRCS_QUE))		\
 			$(addprefix t_vector/, $(SRCS_VECT))	\
+			$(addprefix t_garbage/, $(SRCS_GARB))	\
 			$(SRCS_OTHER)
 OBJ_NAME = $(SRCS_NAME:.c=.o)
 
 SRC_PATH = src
 OBJ_PATH = obj
-OBJ_DIRS = libchar libfd libmem libnb libstr ft_prtf t_lst t_queue t_vec4 t_vector
+OBJ_DIRS = libchar libfd libmem libnb libstr ft_prtf t_lst t_queue t_vec4 t_vector t_garbage
 
 ################################################################################
 SRCS = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
@@ -103,7 +107,7 @@ all	: $(NAME)
 fast :
 	@make -s -j$(NUMPROC)
 
-gen :
+libft.gen :
 	@printf "$(foreach cfile,$(SRCS_VEC4),$(addprefix \n# include \"src/t_vec4/,$(addsuffix \",$(cfile))))" > libft.gen
 
 $(OBJ_PATH)	:
@@ -111,7 +115,7 @@ $(OBJ_PATH)	:
 	@mkdir -p $(addprefix $(OBJ_PATH)/, $(OBJ_DIRS)) 2> /dev/null
 	@printf "$(GRN)Compiling with \"$(CFLAGS)\" :$(EOC)\n"
 
-$(NAME)	: gen $(OBJS)
+$(NAME)	: libft.gen $(OBJS)
 	@printf "$(GRN)%-50s$(EOC)\n" "Compilation done"
 	@ar -rcs $(NAME) $(OBJS)
 	@printf "$(GRN)%-50s$(EOC)\n" "$(NAME) done"
@@ -141,7 +145,7 @@ flowchart:
 	@printf "%s\n"	\
 	"drive.google.com/file/d/1WmQpjdGgEPmhxpchUW6tD26C3euBPtcL/view?usp=sharing"
 
-.PHONY: all fast gen so clean fclean re flowchart
+.PHONY: all fast so clean fclean re flowchart
 
 GRN =	\033[0;32m
 RED =	\033[0;31m
