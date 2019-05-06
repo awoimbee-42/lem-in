@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:38:11 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/06 15:32:40 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/06 16:00:50 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void		exit_lem_in(char *key)
 {
-	ft_putstr_fd(key, 2);
+	(void)key;
+	ft_putstr_fd("ERROR\n", 2);
 	get_next_line(STDERR_FILENO, GNL_FLUSH);
 	exit(EXIT_FAILURE);
 }
