@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 13:36:47 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/04/11 14:59:23 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/06 16:05:46 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,15 +116,17 @@ int				get_next_line(const int fd, char **line)
 	if (!line || (link = check_lst(&lst, fd)) == NULL)
 		return (-1);
 	if (line == GNL_FLUSH)
-		return (ft_lst_free_link(&lst, link));
+	{
+		ft_lstdel(&lst, (void (*)(t_listed *, size_t))&free);
+		return (0);
+	}
 	*line = NULL;
 	if ((i = read_buff(link, line)) != 0)
 		return (i);
 	while ((cread = read(fd, link->content + 4, GNL_BUFF_SIZE)) > 0)
 	{
 		link->content_size = cread;
-		i = read_buff(link, line);
-		if (i != 0)
+		if ((i = read_buff(link, line)) != 0)
 			return (i);
 	}
 	if (cread > 0 || (*line && **line))
