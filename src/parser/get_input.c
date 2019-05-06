@@ -6,7 +6,7 @@
 /*   By: allespag <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 16:11:02 by allespag          #+#    #+#             */
-/*   Updated: 2019/05/03 17:50:45 by allespag         ###   ########.fr       */
+/*   Updated: 2019/05/06 14:49:47 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void			find_ants(t_graph *g, t_str **str)
 	}
 }
 
-// DANS FIND_* CHECK LINE == NULL
 void			parse_input(t_graph *g, t_str **str)
 {
 	int			ret;

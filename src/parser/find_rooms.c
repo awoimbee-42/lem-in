@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:00:17 by allespag          #+#    #+#             */
-/*   Updated: 2019/05/03 18:20:28 by allespag         ###   ########.fr       */
+/*   Updated: 2019/05/06 14:54:07 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,6 @@ static int		count_spaces(const char *line)
 	return (count);
 }
 
-//
-//	NORM:
-//
-//	TO REMOVE / OR MODIFY
-//	if (spaces)
-//	{
-//		ft_printf("...");
-//		return (0);
-//	}
-//
-
 static int		add_new_room(const char *line, t_graph *g, t_command color)
 {
 	int			spaces;
@@ -45,11 +34,7 @@ static int		add_new_room(const char *line, t_graph *g, t_command color)
 	const char	*line_iter;
 
 	if ((spaces = count_spaces(line)) < 2)
-	{
-		ft_printf("line = '%s'\n", line);
-		ft_printf("{GRN}Error green -- spaces == %d < 2{eoc}\n", spaces);
 		return (0);
-	}
 	line_iter = line;
 	while (spaces != 1)
 	{
@@ -64,15 +49,9 @@ static int		add_new_room(const char *line, t_graph *g, t_command color)
 	spaces = 0;
 	tmp_room.coords.x = ft_atoi_mv_err(&line_iter, &spaces);
 	tmp_room.coords.y = ft_atoi_mv_err(&line_iter, &spaces);
-	if (spaces)
+	if (spaces || is_room_here(&g->map, &tmp_room) || line[0] == 'L')
 	{
-		ft_printf("{RED}Error majenta -- coordonnes de merde >> JE FREE UN TRUC ICI{eoc}\n");
 		free(tmp_room.name);
-		return (0);
-	}
-	else if (is_room_here(&g->map, &tmp_room) || line[0] == 'L')
-	{
-		ft_printf("{CYN}Error cyan -- room_is_here OR line[0] == 'L'\n{eoc}");
 		return (0);
 	}
 	exec_room_command(&tmp_room, color);

@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 19:10:08 by allespag          #+#    #+#             */
-/*   Updated: 2019/04/30 17:54:56 by allespag         ###   ########.fr       */
+/*   Updated: 2019/05/06 14:35:14 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,8 @@ long long			ft_atoi_pimp(char *line)
 	i = 0;
 	sign = 1;
 	res = 0;
-	// NORM NORM NORM : mbenjell serait content de ca ou pas ?
 	if ((line[i] < '0' || line[i] > '9')
-			&& ((line[i] != '-') && line[i] != '+'))
+		&& ((line[i] != '-') && line[i] != '+'))
 		exit_lem_in("ERROR");
 	if (line[i] == '-' || line[i] == '+')
 	{
@@ -40,15 +39,9 @@ long long			ft_atoi_pimp(char *line)
 	return (sign * res);
 }
 
-// check ici si la size a du sens
 int					is_comment(char *line)
 {
-	size_t			size;
-
-	size = ft_strlen(line);
-	if (size >= 2 && line[0] == '#' && line[1] != '#')
-		return (1);
-	return (0);
+	return (line[0] == '#' && line[1] != '#');
 }
 
 int					ft_atoi_mv_err(const char **nptr, int *err)
