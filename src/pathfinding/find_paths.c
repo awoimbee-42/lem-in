@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 20:42:54 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/07 17:50:03 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/08 00:51:53 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int		bfs(t_graph *g, uint32_t *parents, t_queue *q)
 		tmp = -1;
 		if (g->map.list[node].ants >= 0)
 		{
-			if (node != g->start && !g->map.list[parents[node]].mem_link)
+			if (node != g->start && !g->map.list[parents[node]].mem_link && parents[g->map.list[node].ants] == (uint32_t)-1)
 			{
 				ft_printf("{ylw}screw your optics, \"%s\" (node: %s){eoc}\n", g->map.list[g->map.list[node].ants].name, g->map.list[node].name);
 				g->map.list[node].mem_link = 1;

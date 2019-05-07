@@ -6,7 +6,7 @@
 #    By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/16 11:55:20 by awoimbee          #+#    #+#              #
-#    Updated: 2019/05/06 23:55:06 by awoimbee         ###   ########.fr        #
+#    Updated: 2019/05/07 23:02:29 by awoimbee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,6 @@ NAME	=	libft.a
 
 CC	=	gcc
 
-# CFLAGS = -Wall -Wextra -Werror
 CFLAGS = -march=native -Wall -Wextra -Werror -Ofast -fno-builtin -ftree-vectorize -fstrict-aliasing
 
 SRCS_CHAR =	ft_isalnum.c		ft_isascii.c		ft_isprint.c		\
@@ -58,12 +57,18 @@ SRCS_LST =	ft_lstadd.c			ft_lstdelone.c		ft_lstmap.c			\
 SRCS_QUE =	create_destroy.c	disp.c				isempty.c			\
 			push_pop.c			realloc.c			flush.c
 
+SRCS_VEC4 =	vec4_new.c			vec4_newa.c			vec4_div.c			\
+			vec4_add_sub.c		vec4_mul.c			vec4_abs_sqr.c		\
+			vec4_dot.c			vec4_mod.c								\
+			vec4_cross.c		vec4_mat.c
+
 SRCS_VECT =	new.c				push.c				realloc.c			\
 			vector_map.c		vector_del_at.c
 
 SRCS_GARB =	gb_fail.c			gb_add.c			gb_defrag.c			\
 			gb_free.c			gb_freeall.c		gb_init.c			\
-			gb_malloc.c			gb_remove.c			gb_memalloc.c
+			gb_malloc.c			gb_remove.c			gb_memalloc.c		\
+			gb_init_existing.c	gb_realloc.c		intrin_gb_extend.c
 
 SRCS_OTHER = msg_exit.c
 
@@ -104,12 +109,15 @@ all	: $(NAME)
 fast :
 	@make -s -j$(NUMPROC)
 
+libft.gen :
+	@printf "$(foreach cfile,$(SRCS_VEC4),$(addprefix \n# include \"src/t_vec4/,$(addsuffix \",$(cfile))))" > libft.gen
+
 $(OBJ_PATH)	:
 	@mkdir -p $(OBJ_PATH) 2> /dev/null
 	@mkdir -p $(addprefix $(OBJ_PATH)/, $(OBJ_DIRS)) 2> /dev/null
 	@printf "$(GRN)Compiling with \"$(CFLAGS)\" :$(EOC)\n"
 
-$(NAME)	: $(OBJS)
+$(NAME)	: libft.gen $(OBJS)
 	@printf "$(GRN)%-50s$(EOC)\n" "Compilation done"
 	@ar -rcs $(NAME) $(OBJS)
 	@printf "$(GRN)%-50s$(EOC)\n" "$(NAME) done"
@@ -127,9 +135,10 @@ clean	:
 	@printf "$(RED)./$(OBJ_PATH) cleaned$(EOC)\n"
 
 fclean	:	clean
+	@rm -f libft.gen
 	@rm -f $(NAME)
 	@rm -f $(NAME:.a=.so)
-	@printf "\033[0;31m$(NAME), $(NAME:.a=.so) removed$(EOC)\n"
+	@printf "\033[0;31m$(NAME), $(NAME:.a=.so) and libft.gen removed$(EOC)\n"
 
 re	:	fclean
 	@make -s -j$(NUMPROC)

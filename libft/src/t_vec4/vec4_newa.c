@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gb_init.c                                          :+:      :+:    :+:   */
+/*   newa.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/04 20:45:31 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/07 22:29:27 by awoimbee         ###   ########.fr       */
+/*   Created: 2019/04/19 12:07:38 by awoimbee          #+#    #+#             */
+/*   Updated: 2019/04/30 02:28:04 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <unistd.h>
 
-t_garbage		gb_init(void)
+static inline t_vec4		vec4_newa(const float f[4])
 {
-	t_garbage	gbc;
+	return ((t_vec4)_mm_load_ps(f));
+}
 
-	gbc.arr_len = 0;
-	gbc.mem_len = 10;
-	gbc.pointers = ft_memalloc(gbc.mem_len * sizeof(*gbc.pointers));
-	if (!__builtin_expect((long)gbc.pointers, 1))
-	{
-		write(STDERR_FILENO,
-			"Memory allocation error, terminating cleanly.\n",
-			46);
-		exit(EXIT_FAILURE);
-	}
-	return (gbc);
+static inline t_vec4		vec4_newa3(const float f[3], float w)
+{
+	return (vec4_newv(f[0], f[1], f[2], w));
 }

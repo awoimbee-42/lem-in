@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 20:05:34 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/07 00:26:06 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/08 01:23:41 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static void		launch_ants(t_graph *g, t_vector *paths)
 
 	last_path = &paths->arr[paths->len];
 	path_ptr = &paths->arr[-1];
-	while (++path_ptr < last_path && path_ptr->ants_to_lanch)
+	while (++path_ptr < last_path && path_ptr->ants_to_lanch && g->map.list[g->start].ants)
 	{
 		--path_ptr->ants_to_lanch;
 		first_room = &g->map.list[path_ptr->dirs[0]];
@@ -98,6 +98,7 @@ void			send_ants(t_graph *g, t_vector *paths)
 
 	line_nb = 0;
 	tot_ants = g->ants;
+	ft_printf("tot_ants == %d\n", tot_ants);
 	weird_reset_rooms(&g->map);
 	g->map.list[g->start].ants = tot_ants;
 	while (g->map.list[g->end].ants != tot_ants)

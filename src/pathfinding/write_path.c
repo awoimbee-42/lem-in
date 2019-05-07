@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 19:38:04 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/07 00:19:13 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/08 01:11:42 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,14 @@ static void	write_flow(t_graph *g, uint32_t *parents)
 	{
 		g->map.list[node].ants = -1;
 		lnkptr = g->map.list[node].links;
+		ft_printf("searching %s (%u) in %u links\n", g->map.list[parents[node]].name, parents[node], g->map.list[node].nb_link);
 		while ((*lnkptr & ~LNK_VISITED) != parents[node])
+		{
+			ft_printf("-");
 			++lnkptr;
+		}
+		ft_printf("lnkptr found: %u", *lnkptr& ~LNK_VISITED);
+		ft_printf("(%s)\n", g->map.list[*lnkptr& ~LNK_VISITED].name);
 		if (*lnkptr & LNK_VISITED)
 			*lnkptr &= ~LNK_VISITED;
 		else
@@ -59,10 +65,10 @@ static void	write_parents(t_graph *g)
 	uint32_t	node;
 	uint32_t	parent;
 
-	parent = g->start;
 	i = -1;
 	while (++i < g->map.list[g->start].nb_link)
 	{
+		parent = g->start;
 		if (g->map.list[g->start].links[i] & LNK_VISITED)
 		{
 			node = g->map.list[g->start].links[i] & ~LNK_VISITED;

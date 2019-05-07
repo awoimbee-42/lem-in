@@ -1,31 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gb_init.c                                          :+:      :+:    :+:   */
+/*   vec4_mod.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/04 20:45:31 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/07 22:29:27 by awoimbee         ###   ########.fr       */
+/*   Created: 2019/04/30 02:27:07 by awoimbee          #+#    #+#             */
+/*   Updated: 2019/05/05 17:44:56 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <unistd.h>
+#include <math.h>
 
-t_garbage		gb_init(void)
+static inline float		vec4_mod(const t_vec4 a)
 {
-	t_garbage	gbc;
+	return (sqrtf(vec4_dot(a, a)));
+}
 
-	gbc.arr_len = 0;
-	gbc.mem_len = 10;
-	gbc.pointers = ft_memalloc(gbc.mem_len * sizeof(*gbc.pointers));
-	if (!__builtin_expect((long)gbc.pointers, 1))
-	{
-		write(STDERR_FILENO,
-			"Memory allocation error, terminating cleanly.\n",
-			46);
-		exit(EXIT_FAILURE);
-	}
-	return (gbc);
+static inline float		vec4_mod2(const t_vec4 a)
+{
+	return (vec4_dot(a, a));
 }
