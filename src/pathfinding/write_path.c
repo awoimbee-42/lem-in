@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 19:38:04 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/05 20:00:44 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/07 00:19:13 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	write_flow(t_graph *g, uint32_t *parents)
 	node = g->end;
 	while (node != g->start)
 	{
-		g->map.list[node].ants = 0;
+		g->map.list[node].ants = -1;
 		lnkptr = g->map.list[node].links;
 		while ((*lnkptr & ~LNK_VISITED) != parents[node])
 			++lnkptr;

@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 20:42:54 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/06 17:11:47 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/07 00:21:36 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int		bfs(t_graph *g, uint32_t *parents, t_queue *q)
 		{
 			tmp_lnk = g->map.list[node].links[tmp];
 			if (!(tmp_lnk & LNK_VISITED) && parents[tmp_lnk] == (uint32_t)-1
-				&& (!g->map.list[node].ants
+				&& (g->map.list[node].ants == (uint32_t)-1
 					|| (int)tmp_lnk == g->map.list[node].ants))
 			{
 				parents[tmp_lnk] = node;
@@ -71,9 +71,13 @@ void			edmonds_karp(t_graph *g, t_vector *paths, uint32_t max_paths)
 void			find_paths(t_graph *graph, t_str *str)
 {
 	t_vector	paths;
+	uint32_t	i;
 
 	if (!vector_init(&paths, 10))
 		exit_clean(graph, 1);
+	i = -1;
+	while (++i < graph->map.used)
+		graph->map.list[i].ants = -1;
 	edmonds_karp(graph, &paths, 99999);
 	if (paths.len == 0)
 		exit_clean(graph, 1);

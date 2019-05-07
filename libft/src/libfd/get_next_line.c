@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 13:36:47 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/06 16:05:46 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/06 23:53:17 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int				get_next_line(const int fd, char **line)
 		return (-1);
 	if (line == GNL_FLUSH)
 	{
-		ft_lstdel(&lst, (void (*)(t_listed *, size_t))&free);
+		ft_lstdel(&lst, (void (*)(t_listed *, size_t))(void (*)(void))free);
 		return (0);
 	}
 	*line = NULL;

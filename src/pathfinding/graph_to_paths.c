@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 20:03:32 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/06 15:49:05 by allespag         ###   ########.fr       */
+/*   Updated: 2019/05/07 00:13:43 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void		sort_paths(t_vector *p)
 			buff = p->arr[i];
 			p->arr[i] = p->arr[i + 1];
 			p->arr[i + 1] = buff;
-			i = i < 2 ? -1 : i - 2;
+			i = i < 2 ? (uint32_t)-1 : i - 2;
 		}
 	}
 }
@@ -37,8 +37,7 @@ static int		cpy_path2(t_graph *g, uint32_t node, t_path *p)
 	uint32_t	i;
 
 	p->len = 0;
-	p->dirs = malloc(sizeof(*p->dirs) * g->map.used);
-	if (!p->dirs)
+	if (!(p->dirs = malloc(sizeof(*p->dirs) * g->map.used)))
 		exit_lem_in("Memory allocation error: could not allocate path");
 	while (node != g->end)
 	{
@@ -56,11 +55,9 @@ static int		cpy_path2(t_graph *g, uint32_t node, t_path *p)
 
 void			graph_to_paths(t_graph *g, t_vector *paths)
 {
-	uint32_t	node;
 	t_path		p;
 	uint32_t	i;
 
-	node = g->start;
 	i = -1;
 	while (++i < g->map.list[g->start].nb_link)
 	{
