@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:37:38 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/06 17:06:52 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/07 17:01:59 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,14 @@ int				calc_ants_to_launch(t_graph *g, t_vector *vec);
 void			write_path(t_graph *g, uint32_t *parents);
 void			graph_to_paths(t_graph *g, t_vector *paths);
 void			compute_paths(t_graph *g, t_vector *vec, int nb_p);
+
+/*
+**		/clean_graph.c
+*/
+void			clean_graph_ants_mem(t_graph *g);
+void			clean_graph_links(t_graph *g);
+void			clean_graph_everything(t_graph *g);
+void			clean_graph_memlnk(t_graph *g);
 
 /*
 **	EXIT

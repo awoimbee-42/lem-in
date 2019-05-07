@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 20:03:32 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/07 00:13:43 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/07 14:37:30 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static int		cpy_path2(t_graph *g, uint32_t node, t_path *p)
 		exit_lem_in("Memory allocation error: could not allocate path");
 	while (node != g->end)
 	{
+		ft_printf("%s --> ", g->map.list[node].name);
 		g->map.list[node].ants = 1;
 		p->dirs[p->len++] = node;
 		i = -1;
@@ -49,6 +50,7 @@ static int		cpy_path2(t_graph *g, uint32_t node, t_path *p)
 			;
 		node = g->map.list[node].links[i] & ~LNK_VISITED;
 	}
+	ft_printf("%s\n", g->map.list[g->end].name);
 	p->dirs[p->len++] = node;
 	return (1);
 }
