@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 20:07:33 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/08 01:18:41 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/09 16:03:30 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,24 @@ static uint32_t	count_overlapping_paths(t_graph *g, t_vector *vec)
 		{
 			if (g->map.list[vec->arr[i].dirs[j]].ants != -1)
 			{
-				ft_printf("\nOVERLAP room %s\n", g->map.list[vec->arr[i].dirs[j]].name);
-				// return (1);
 				while (--j != -1)
 					g->map.list[vec->arr[i].dirs[j]].ants = 0;
+				free(vec->arr[i].dirs);
+				vector_del_at(vec, i);
+				--i;
 				++nb_overlaps;
+				ft_printf("\nOVERLAP room %s\n", g->map.list[vec->arr[i].dirs[j]].name);
+				// return (1);
+
+				// ++nb_overlaps;
 				break ;
 			}
 			g->map.list[vec->arr[i].dirs[j]].ants = 1;
 		}
 	}
+	if (nb_overlaps)
+		calc_ants_to_launch(g, vec);
+	return (0);
 	ft_printf("%u overlaps\n", nb_overlaps);
 	return (nb_overlaps);
 }
