@@ -6,13 +6,17 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 20:42:54 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/08 00:51:53 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/10 21:57:19 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static int		bfs(t_graph *g, uint32_t *parents, t_queue *q)
+//	What is mem_link, an investigation by allespag and awoimbee :
+//		we set mem_link when we enter another path and start breaking it by going 'upstream'
+//
+
+static int		bfs(t_graph *g, uint32_t *parents, t_queue *q, int no_superpo)
 {
 	uint32_t	node;
 	uint32_t	tmp;
@@ -24,7 +28,6 @@ static int		bfs(t_graph *g, uint32_t *parents, t_queue *q)
 	while (!que_isempty(q))
 	{
 		node = que_pop(q);
-		tmp = -1;
 		if (g->map.list[node].ants >= 0)
 		{
 			if (node != g->start && !g->map.list[parents[node]].mem_link && parents[g->map.list[node].ants] == (uint32_t)-1)
@@ -35,18 +38,15 @@ static int		bfs(t_graph *g, uint32_t *parents, t_queue *q)
 				que_push(q, g->map.list[node].ants);
 				continue ;
 			}
-			else ft_printf("PUTE %u\n", g->map.list[parents[node]].mem_link);
-			// g->map.list[node].ants = -1;
+			else if (no_superpo)
+				continue ; 														// This piece of shit here fixes --big but destroys --big-superposition
 		}
+		tmp = -1;
 		while (++tmp < g->map.list[node].nb_link)
 		{
 			tmp_lnk = g->map.list[node].links[tmp];
-
 			if (!(tmp_lnk & LNK_VISITED) && parents[tmp_lnk] == (uint32_t)-1)
-				// && (g->map.list[tmp_lnks].ants < 0 || g->map.list[parents[node]].mem_link))
-					// || (int)(tmp_lnk & ~LNK_VISITED) == g->map.list[node].ants ) )
 			{
-				// ft_printf("{grn}yass \"%s\" (node: %s){eoc}\n", g->map.list[tmp_lnk & ~LNK_VISITED].name, g->map.list[node].name);
 				parents[tmp_lnk & ~LNK_VISITED] = node;
 				if ((tmp_lnk & ~LNK_VISITED) == g->end)
 					return (1);
@@ -54,17 +54,13 @@ static int		bfs(t_graph *g, uint32_t *parents, t_queue *q)
 					g->map.list[tmp_lnk & ~LNK_VISITED].mem_link = 1;
 				que_push(q, tmp_lnk & ~LNK_VISITED);
 			}
-			else
-			{
-				// ft_printf("{red}fuck you \"%s\" (node: %s) tmp_lnk: %u parents[tmp_lnk]: %u{eoc}\n", g->map.list[tmp_lnk & ~LNK_VISITED].name, g->map.list[node].name, tmp_lnk, parents[tmp_lnk & ~LNK_VISITED]);
-			}
-
 		}
 	}
 	return (0);
 }
 
-void			edmonds_karp(t_graph *g, t_vector *paths, uint32_t max_paths)
+void			edmonds_karp(t_graph *g, t_vector *path, int mx_pths,
+	int super_po)
 {
 	t_queue		*q;
 	uint32_t	*parents;
@@ -76,14 +72,13 @@ void			edmonds_karp(t_graph *g, t_vector *paths, uint32_t max_paths)
 		exit_clean(g, 1);
 	nb_paths = 0;
 	clean_graph_everything(g);
-	while (++nb_paths < max_paths)
+	while (++nb_paths < mx_pths)
 	{
 		ft_mem32set(parents, -1, g->map.used);
 		que_flush(q);
 		clean_graph_memlnk(g);
-		if (!bfs(g, parents, q))
+		if (!bfs(g, parents, q, super_po))
 			break ;
-		ft_printf("############  write path  ############\n");
 		write_path(g, parents);
 	}
 	que_destroy(q);
@@ -91,19 +86,25 @@ void			edmonds_karp(t_graph *g, t_vector *paths, uint32_t max_paths)
 	i = -1;
 	while (++i < g->map.used)
 		g->map.list[i].ants = 0;
-	compute_paths(g, paths, nb_paths);
+	compute_paths(g, path, nb_paths, super_po);
 }
 
 void			find_paths(t_graph *graph, t_str *str)
 {
-	t_vector	paths;
+	t_vector	paths[2];
+	int			which_one_do_we_use;
 
-	if (!vector_init(&paths, 10))
+	if (!vector_init(&paths[0], 10) || !vector_init(&paths[1], 10))
 		exit_clean(graph, 1);
-	edmonds_karp(graph, &paths, 99999);
-	if (paths.len == 0)
+	edmonds_karp(graph, &paths[0], 99999, 0);
+	clean_graph_everything(graph);
+	edmonds_karp(graph, &paths[1], 99999, 1);
+	clean_graph_everything(graph);
+	which_one_do_we_use = (paths[0].arr->len + paths[0].arr->ants_to_lanch)
+		< (paths[1].arr->len + paths[1].arr->ants_to_lanch) ? 0 : 1;
+	destroy_paths(&paths[!which_one_do_we_use]);
+	if (paths[which_one_do_we_use].len == 0)
 		exit_clean(graph, 1);
 	display_t_str(str);
-	clean_graph_everything(graph);
-	send_ants(graph, &paths);
+	send_ants(graph, &paths[which_one_do_we_use]);
 }

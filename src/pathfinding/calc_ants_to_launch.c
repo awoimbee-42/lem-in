@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 19:11:16 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/10 18:43:21 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/10 22:09:48 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,6 @@ static int		superfluous_paths(t_vector *vec)
 	{
 		if (vec->arr[i].ants_to_lanch < 0)
 			return (vec->len - i);
-
-		// if (vec->arr[i].ants_to_lanch <= 0)
-		// {
-		// 	tmp = i;
-		// 	while (++i < vec->len)
-		// 		free(vec->arr[i].dirs);
-		// 	vec->len = tmp;
-		// 	return (0);
-		// }
 	}
 	return (0);
 }

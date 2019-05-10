@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:37:38 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/07 17:01:59 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/10 21:56:15 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,14 @@ typedef struct	s_graph
 */
 void			find_paths(t_graph *graph, t_str *str);
 void			send_ants(t_graph *g, t_vector *paths);
-void			edmonds_karp(t_graph *g, t_vector *paths, uint32_t max_paths);
+void			edmonds_karp(t_graph *g, t_vector *path, int mx_pths,
+	int super_po);
 int				calc_ants_to_launch(t_graph *g, t_vector *vec);
 void			write_path(t_graph *g, uint32_t *parents);
 void			graph_to_paths(t_graph *g, t_vector *paths);
-void			compute_paths(t_graph *g, t_vector *vec, int nb_p);
+void			compute_paths(t_graph *g, t_vector *vec, int nb_p, int sup_po);
+
+void			destroy_paths(t_vector *paths);
 
 /*
 **		/clean_graph.c
