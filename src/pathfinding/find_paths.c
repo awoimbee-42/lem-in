@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 20:42:54 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/10 21:57:19 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/10 23:23:50 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 //		we set mem_link when we enter another path and start breaking it by going 'upstream'
 //
 
-static int		bfs(t_graph *g, uint32_t *parents, t_queue *q, int no_superpo)
+static int		bfs(t_graph *g, uint32_t *parents, t_queue *q, int superpo)
 {
 	uint32_t	node;
 	uint32_t	tmp;
@@ -34,11 +34,12 @@ static int		bfs(t_graph *g, uint32_t *parents, t_queue *q, int no_superpo)
 			{
 				ft_printf("{ylw}screw your optics, \"%s\" (node: %s){eoc}\n", g->map.list[g->map.list[node].ants].name, g->map.list[node].name);
 				g->map.list[node].mem_link = 1;
+				g->map.list[g->map.list[node].ants].mem_link = 1;
 				parents[g->map.list[node].ants] = node;
 				que_push(q, g->map.list[node].ants);
 				continue ;
 			}
-			else if (no_superpo)
+			else if (!superpo)
 				continue ; 														// This piece of shit here fixes --big but destroys --big-superposition
 		}
 		tmp = -1;
@@ -47,12 +48,12 @@ static int		bfs(t_graph *g, uint32_t *parents, t_queue *q, int no_superpo)
 			tmp_lnk = g->map.list[node].links[tmp];
 			if (!(tmp_lnk & LNK_VISITED) && parents[tmp_lnk] == (uint32_t)-1)
 			{
-				parents[tmp_lnk & ~LNK_VISITED] = node;
-				if ((tmp_lnk & ~LNK_VISITED) == g->end)
+				parents[tmp_lnk] = node;
+				if (tmp_lnk == g->end)
 					return (1);
 				if (g->map.list[node].mem_link && g->map.list[node].ants >= 0)
-					g->map.list[tmp_lnk & ~LNK_VISITED].mem_link = 1;
-				que_push(q, tmp_lnk & ~LNK_VISITED);
+					g->map.list[tmp_lnk].mem_link = 1;
+				que_push(q, tmp_lnk);
 			}
 		}
 	}
@@ -98,6 +99,7 @@ void			find_paths(t_graph *graph, t_str *str)
 		exit_clean(graph, 1);
 	edmonds_karp(graph, &paths[0], 99999, 0);
 	clean_graph_everything(graph);
+	ft_printf("###############################   BFS 2   ###########################\n");
 	edmonds_karp(graph, &paths[1], 99999, 1);
 	clean_graph_everything(graph);
 	which_one_do_we_use = (paths[0].arr->len + paths[0].arr->ants_to_lanch)
