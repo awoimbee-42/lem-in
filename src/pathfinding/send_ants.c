@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 20:05:34 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/08 01:23:41 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/10 18:47:39 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void			send_ants(t_graph *g, t_vector *paths)
 		g->tmp = 0;
 		move_ants(g, paths);
 		launch_ants(g, paths);
-		write(1, "\n", 1);
+		// write(1, "\n", 1);
 		++line_nb;
 	}
 	tot_ants = -1;
@@ -114,5 +114,5 @@ void			send_ants(t_graph *g, t_vector *paths)
 		free(paths->arr[tot_ants].dirs);
 	free(paths->arr);
 	if (g->print == 1)
-		ft_printf("<bold>{RED}%d lines<rst>\n", line_nb);
+		ft_printf("\n<bold>{RED}%d lines<rst>\n", line_nb);
 }

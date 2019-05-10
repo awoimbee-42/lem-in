@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 19:11:16 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/08 01:27:01 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/10 18:43:21 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +54,17 @@ static int		superfluous_paths(t_vector *vec)
 	i = -1;
 	while (++i < vec->len)
 	{
-		// if (vec->arr[i].ants_to_lanch < 0)
-			// return (vec->len - i);
+		if (vec->arr[i].ants_to_lanch < 0)
+			return (vec->len - i);
 
-		if (vec->arr[i].ants_to_lanch <= 0)
-		{
-			tmp = i;
-			while (++i < vec->len)
-				free(vec->arr[i].dirs);
-			vec->len = tmp;
-			return (0);
-		}
+		// if (vec->arr[i].ants_to_lanch <= 0)
+		// {
+		// 	tmp = i;
+		// 	while (++i < vec->len)
+		// 		free(vec->arr[i].dirs);
+		// 	vec->len = tmp;
+		// 	return (0);
+		// }
 	}
 	return (0);
 }
@@ -87,7 +87,6 @@ int				calc_ants_to_launch(t_graph *g, t_vector *vec)
 		ants_launched += vec->arr[i].ants_to_lanch;
 		ft_printf("{PNK}path %u: %d ants (len: %u){eoc}\n", i, vec->arr[i].ants_to_lanch, vec->arr[i].len);
 	}
-	superfluous_paths(vec);
 	dispatch_remaining_ants((int)g->ants, ants_launched, vec);
-	return (0);
+	return (superfluous_paths(vec));
 }

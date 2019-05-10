@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 20:07:33 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/09 16:03:30 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/10 18:22:14 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,22 @@ static uint32_t	count_overlapping_paths(t_graph *g, t_vector *vec)
 	while (++i < vec->len)
 	{
 		j = -1;
+		ft_printf("{BLU}vec->arr[%u].dirs[0]: %s{eoc}\n", i, g->map.list[vec->arr[i].dirs[0]].name);
 		while (vec->arr[i].dirs[++j] != g->end)
 		{
 			if (g->map.list[vec->arr[i].dirs[j]].ants != -1)
 			{
+				ft_printf("\nOVERLAP room %s\n", g->map.list[vec->arr[i].dirs[j]].name);
 				while (--j != -1)
 					g->map.list[vec->arr[i].dirs[j]].ants = 0;
+				ft_printf("{red}before vector_del_at: %s\n", g->map.list[vec->arr[i].dirs[0]].name);
 				free(vec->arr[i].dirs);
 				vector_del_at(vec, i);
+				ft_printf("{red}after vector_del_at: %s\n", g->map.list[vec->arr[i].dirs[0]].name);
 				--i;
 				++nb_overlaps;
-				ft_printf("\nOVERLAP room %s\n", g->map.list[vec->arr[i].dirs[j]].name);
+
+
 				// return (1);
 
 				// ++nb_overlaps;
