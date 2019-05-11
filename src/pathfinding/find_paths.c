@@ -6,11 +6,13 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 20:42:54 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/11 14:48:00 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/11 15:53:03 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+// static void		push_node(t_graph *g, uint node, uint lnk, uint *parents, t_queue *q)
 
 /*
 **	mem_link is used as an indicator that we are 'going upstream',
@@ -25,16 +27,15 @@ static int		bfs(t_graph *g, uint *parents, t_queue *q, int superpo)
 
 	if (!que_push(q, g->start))
 		exit_lem_in("Could not create queue, bfs cannot continue");
-	parents[g->start] = -2;
 	while (!que_isempty(q))
 	{
-		node = que_pop(q);
+		if ((node = que_pop(q)) == g->end)
+			return (1);
 		if (g->map.list[node].ants >= 0)
 		{
 			if (node != g->start && !g->map.list[parents[node]].mem_link
 				&& parents[g->map.list[node].ants] == (uint)-1)
 			{
-				g->map.list[node].mem_link = 1;
 				g->map.list[g->map.list[node].ants].mem_link = 1;
 				parents[g->map.list[node].ants] = node;
 				que_push(q, g->map.list[node].ants);
@@ -50,8 +51,6 @@ static int		bfs(t_graph *g, uint *parents, t_queue *q, int superpo)
 			if (!(tmp_lnk & LNK_VISITED) && parents[tmp_lnk] == (uint)-1)
 			{
 				parents[tmp_lnk] = node;
-				if (tmp_lnk == g->end)
-					return (1);
 				if (g->map.list[node].mem_link && g->map.list[node].ants >= 0)
 					g->map.list[tmp_lnk].mem_link = 1;
 				que_push(q, tmp_lnk);
