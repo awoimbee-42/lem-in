@@ -6,15 +6,15 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 21:19:18 by allespag          #+#    #+#             */
-/*   Updated: 2019/05/06 16:08:09 by allespag         ###   ########.fr       */
+/*   Updated: 2019/05/11 14:47:48 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static uint32_t	find_room(t_graph *g, char *name)
+static uint		find_room(t_graph *g, char *name)
 {
-	uint32_t	i;
+	uint		i;
 
 	i = 0;
 	while (i < g->map.used)
@@ -34,7 +34,7 @@ static uint32_t	find_room(t_graph *g, char *name)
 static uint64_t	get_link(t_graph *g, char *line)
 {
 	char		*dash;
-	uint32_t	res[2];
+	uint		res[2];
 
 	dash = line;
 	while (*dash && *dash != '-')
@@ -50,7 +50,7 @@ static uint64_t	get_link(t_graph *g, char *line)
 
 int				is_link(t_graph *g, t_str **str, char *line)
 {
-	uint32_t	r[2];
+	uint		r[2];
 
 	if (!ft_strcmp(line, ""))
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:37:38 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/11 14:41:26 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/11 15:00:20 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,15 @@ typedef struct	s_int2
 typedef struct	s_str
 {
 	char			**str;
-	uint32_t		size;
-	uint32_t		used;
+	uint			size;
+	uint			used;
 }				t_str;
 
 typedef struct	s_map
 {
 	struct s_room	*list;
-	uint32_t		size;
-	uint32_t		used;
+	uint			size;
+	uint			used;
 }				t_map;
 
 typedef struct	s_room
@@ -74,18 +74,18 @@ typedef struct	s_room
 	int				ants;
 	t_int2			coords;
 	char			*color;
-	uint32_t		*links;
-	uint32_t		nb_link;
-	uint32_t		mem_link;
+	uint			*links;
+	uint			nb_link;
+	uint			mem_link;
 }				t_room;
 
 typedef struct	s_graph
 {
-	uint32_t		tmp;
-	uint32_t		print;
-	uint32_t		ants;
-	uint32_t		start;
-	uint32_t		end;
+	uint			tmp;
+	uint			print;
+	uint			ants;
+	uint			start;
+	uint			end;
 	t_map			map;
 }				t_graph;
 
@@ -97,7 +97,7 @@ void			send_ants(t_graph *g, t_vector *paths);
 void			edmonds_karp(t_graph *g, t_vector *path, int mx_pths,
 	int super_po);
 int				calc_ants_to_launch(t_graph *g, t_vector *vec);
-void			write_path(t_graph *g, uint32_t *parents);
+void			write_path(t_graph *g, uint *parents);
 void			graph_to_paths(t_graph *g, t_vector *paths);
 void			compute_paths(t_graph *g, t_vector *vec, int nb_p, int sup_po);
 
@@ -172,7 +172,7 @@ int				is_room_here(t_map *map, t_room *room);
 **	LINKS
 */
 void			realloc_links(t_room *hub);
-void			add_link(t_room *hub, const uint32_t linked);
+void			add_link(t_room *hub, const uint linked);
 
 /*
 **	T_ROOM

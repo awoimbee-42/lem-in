@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 16:54:15 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/07 17:01:49 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/11 14:46:15 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void		clean_graph_ants_mem(t_graph *g)
 {
-	uint32_t	i;
+	uint	i;
 
 	i = -1;
 	while (++i < g->map.used)
@@ -26,7 +26,7 @@ void		clean_graph_ants_mem(t_graph *g)
 
 void		clean_graph_links(t_graph *g)
 {
-	uint32_t	i[2];
+	uint	i[2];
 
 	i[0] = -1;
 	while (++i[0] < g->map.size)
@@ -41,7 +41,7 @@ void		clean_graph_links(t_graph *g)
 
 void		clean_graph_everything(t_graph *g)
 {
-	uint32_t	i[2];
+	uint	i[2];
 
 	i[0] = -1;
 	while (++i[0] < g->map.size)
@@ -58,7 +58,7 @@ void		clean_graph_everything(t_graph *g)
 
 void		clean_graph_memlnk(t_graph *g)
 {
-	uint32_t	i;
+	uint	i;
 
 	i = -1;
 	while (++i < g->map.used)

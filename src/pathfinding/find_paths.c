@@ -6,26 +6,22 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 20:42:54 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/11 14:42:03 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/11 14:48:00 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-//	What is mem_link, an investigation by allespag and awoimbee :
-//		we set mem_link when we enter another path and start breaking it by going 'upstream'
-//
 
 /*
 **	mem_link is used as an indicator that we are 'going upstream',
 **		erasing another path
 */
 
-static int		bfs(t_graph *g, uint32_t *parents, t_queue *q, int superpo)
+static int		bfs(t_graph *g, uint *parents, t_queue *q, int superpo)
 {
-	uint32_t	node;
-	uint32_t	tmp;
-	uint32_t	tmp_lnk;
+	uint		node;
+	uint		tmp;
+	uint		tmp_lnk;
 
 	if (!que_push(q, g->start))
 		exit_lem_in("Could not create queue, bfs cannot continue");
@@ -36,7 +32,7 @@ static int		bfs(t_graph *g, uint32_t *parents, t_queue *q, int superpo)
 		if (g->map.list[node].ants >= 0)
 		{
 			if (node != g->start && !g->map.list[parents[node]].mem_link
-				&& parents[g->map.list[node].ants] == (uint32_t)-1)
+				&& parents[g->map.list[node].ants] == (uint)-1)
 			{
 				g->map.list[node].mem_link = 1;
 				g->map.list[g->map.list[node].ants].mem_link = 1;
@@ -51,7 +47,7 @@ static int		bfs(t_graph *g, uint32_t *parents, t_queue *q, int superpo)
 		while (++tmp < g->map.list[node].nb_link)
 		{
 			tmp_lnk = g->map.list[node].links[tmp];
-			if (!(tmp_lnk & LNK_VISITED) && parents[tmp_lnk] == (uint32_t)-1)
+			if (!(tmp_lnk & LNK_VISITED) && parents[tmp_lnk] == (uint)-1)
 			{
 				parents[tmp_lnk] = node;
 				if (tmp_lnk == g->end)
@@ -69,12 +65,12 @@ void			edmonds_karp(t_graph *g, t_vector *path, int mx_pths,
 	int super_po)
 {
 	t_queue		*q;
-	uint32_t	*parents;
-	uint32_t	nb_paths;
-	uint32_t	i;
+	uint		*parents;
+	int			nb_paths;
+	uint		i;
 
 	q = que_new(g->map.used);
-	if (!(parents = malloc(g->map.used * sizeof(uint32_t))))
+	if (!(parents = malloc(g->map.used * sizeof(uint))))
 		exit_clean(g, 1);
 	nb_paths = 0;
 	clean_graph_everything(g);

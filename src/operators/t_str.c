@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:00:08 by allespag          #+#    #+#             */
-/*   Updated: 2019/05/06 17:47:37 by allespag         ###   ########.fr       */
+/*   Updated: 2019/05/11 14:46:15 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void			add_t_str(t_str *string, char *add)
 
 void			display_t_str(t_str *string)
 {
-	uint32_t	i;
+	uint	i;
 
 	i = 0;
 	while (i < string->used)

@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 17:55:10 by allespag          #+#    #+#             */
-/*   Updated: 2019/05/08 00:57:45 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/11 14:46:15 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_graph			*init_graph(void)
 
 void			free_t_graph(t_graph *g)
 {
-	uint32_t	i;
+	uint	i;
 
 	if (g)
 	{

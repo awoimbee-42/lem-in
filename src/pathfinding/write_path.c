@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 19:38:04 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/10 19:41:54 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/11 14:49:19 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,18 @@
 **	else i write the path as normal
 */
 
-static void	write_flow(t_graph *g, uint32_t *parents)
+static void	write_flow(t_graph *g, uint *parents)
 {
-	uint32_t	node;
-	uint32_t	*lnkptr;
+	uint	node;
+	uint	*lnkptr;
 
 	node = g->end;
-	while (node != g->start) // HERE WRITE LINK FROM START TO FIRST
+	while (node != g->start)
 	{
 		g->map.list[node].ants = -1;
 		lnkptr = g->map.list[node].links;
-		// ft_printf("searching %s (%u) in %u links\n", g->map.list[parents[node]].name, parents[node], g->map.list[node].nb_link);
 		while ((*lnkptr & ~LNK_VISITED) != parents[node])
-		{
-			// ft_printf("-");
 			++lnkptr;
-		}
-		// ft_printf("lnkptr found: %u", *lnkptr& ~LNK_VISITED);
-		// ft_printf("(%s)\n", g->map.list[*lnkptr& ~LNK_VISITED].name);
 		if (*lnkptr & LNK_VISITED)
 			*lnkptr &= ~LNK_VISITED;
 		else
@@ -60,10 +54,10 @@ static void	write_flow(t_graph *g, uint32_t *parents)
 
 static void	write_parents(t_graph *g)
 {
-	uint32_t	i;
-	uint32_t	j;
-	uint32_t	node;
-	uint32_t	parent;
+	uint	i;
+	uint	j;
+	uint	node;
+	uint	parent;
 
 	i = -1;
 	while (++i < g->map.list[g->start].nb_link)
@@ -86,7 +80,7 @@ static void	write_parents(t_graph *g)
 	}
 }
 
-void		write_path(t_graph *g, uint32_t *parents)
+void		write_path(t_graph *g, uint *parents)
 {
 	write_flow(g, parents);
 	write_parents(g);
