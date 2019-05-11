@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 19:11:16 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/10 22:09:48 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/11 14:41:50 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ static void		dispatch_remaining_ants(int tot, int launched, t_vector *paths)
 static int		superfluous_paths(t_vector *vec)
 {
 	uint32_t	i;
-	uint32_t	tmp;
 
 	i = -1;
 	while (++i < vec->len)
@@ -76,7 +75,6 @@ int				calc_ants_to_launch(t_graph *g, t_vector *vec)
 					- ((int)paths_len_sum - (int)vec->arr[i].len)))
 			/ (int)vec->len;
 		ants_launched += vec->arr[i].ants_to_lanch;
-		ft_printf("{PNK}path %u: %d ants (len: %u){eoc}\n", i, vec->arr[i].ants_to_lanch, vec->arr[i].len);
 	}
 	dispatch_remaining_ants((int)g->ants, ants_launched, vec);
 	return (superfluous_paths(vec));

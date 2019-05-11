@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 20:05:34 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/10 22:09:20 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/11 14:26:00 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ void			send_ants(t_graph *g, t_vector *paths)
 
 	line_nb = 0;
 	tot_ants = g->ants;
-	ft_printf("tot_ants == %d\n", tot_ants);
 	weird_reset_rooms(&g->map);
 	g->map.list[g->start].ants = tot_ants;
 	while (g->map.list[g->end].ants != tot_ants)

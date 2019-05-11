@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 20:07:33 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/10 21:50:19 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/11 14:29:53 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 /*
 **	Hopefuly useless.
+**	Paths are already sorted in ascending order,
+**	So we just have to write them one by one and if a path overlaps with
+**		a previous one, we simply remove it.
 */
 
 static uint32_t	count_overlapping_paths(t_graph *g, t_vector *vec)
@@ -28,7 +31,6 @@ static uint32_t	count_overlapping_paths(t_graph *g, t_vector *vec)
 	while (++i < vec->len)
 	{
 		j = -1;
-		ft_printf("{BLU}vec->arr[%u].dirs[0]: %s{eoc}\n", i, g->map.list[vec->arr[i].dirs[0]].name);
 		while (vec->arr[i].dirs[++j] != g->end)
 		{
 			if (g->map.list[vec->arr[i].dirs[j]].ants != -1)
@@ -47,8 +49,6 @@ static uint32_t	count_overlapping_paths(t_graph *g, t_vector *vec)
 	if (nb_overlaps)
 		calc_ants_to_launch(g, vec);
 	return (0);
-	ft_printf("%u overlaps\n", nb_overlaps);
-	return (nb_overlaps);
 }
 
 void			compute_paths(t_graph *g, t_vector *vec, int nb_p, int sup_po)

@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 17:37:38 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/10 21:56:15 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/11 14:41:26 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 # include <limits.h>
 # include <stdint.h>
+# include <sys/types.h>
 
 # include "libft.h"
 
