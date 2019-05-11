@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 20:03:32 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/07 00:13:43 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/11 14:49:35 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void		sort_paths(t_vector *p)
 {
 	t_path		buff;
-	uint32_t	i;
+	uint		i;
 
 	if (p->len == 0)
 		return ;
@@ -27,14 +27,14 @@ static void		sort_paths(t_vector *p)
 			buff = p->arr[i];
 			p->arr[i] = p->arr[i + 1];
 			p->arr[i + 1] = buff;
-			i = i < 2 ? (uint32_t)-1 : i - 2;
+			i = i < 2 ? (uint)-1 : i - 2;
 		}
 	}
 }
 
-static int		cpy_path2(t_graph *g, uint32_t node, t_path *p)
+static int		cpy_path2(t_graph *g, uint node, t_path *p)
 {
-	uint32_t	i;
+	uint		i;
 
 	p->len = 0;
 	if (!(p->dirs = malloc(sizeof(*p->dirs) * g->map.used)))
@@ -56,7 +56,7 @@ static int		cpy_path2(t_graph *g, uint32_t node, t_path *p)
 void			graph_to_paths(t_graph *g, t_vector *paths)
 {
 	t_path		p;
-	uint32_t	i;
+	uint		i;
 
 	i = -1;
 	while (++i < g->map.list[g->start].nb_link)

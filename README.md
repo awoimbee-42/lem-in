@@ -1,12 +1,5 @@
 # lem-in
 
-Y'a des leaks sur les maps qui sont a chier :)))
+while [ 1 ]; do; ./generator --big-superposition > d && ./lem-in --p < d | grep 'lines'; done > lem-in_output
 
--Dans free_t_map c'est quoi free_sub ?
-	-> Du boulot a faire au niveau de la clarete du code dans le parseur
-		-> Go utiliser https://www.draw.io/
--Vers quoi pointe `t_map *map` dans t_graph ? (et a quoi sert-il ?)
--Pourquoi `t_map *linked` et pas `t_map linked` ? (== pq c'est un pointeur ? Ca va grave ralentir le parcours de graph :/)
-
-
-FDP C'EST QUOI TON REALLOC DE T_STR QUI COPIE ET QUI NECESSITE UN FREE
+![allespag](https://images.alphacoders.com/566/566328.jpg)

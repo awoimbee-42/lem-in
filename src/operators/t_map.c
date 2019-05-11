@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:01:35 by allespag          #+#    #+#             */
-/*   Updated: 2019/05/06 17:00:00 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/08 00:58:37 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void			realloc_t_map(t_map *map)
 {
 	t_room		*new_list;
 
-	if (!(new_list = malloc(sizeof(*map->list) * map->size * REALLOC_COEFF)))
+	if (!(new_list = ft_memalloc(
+				sizeof(*map->list) * map->size * REALLOC_COEFF)))
 		exit_lem_in("Error: malloc in realloc_t_map\n");
 	ft_mempcpy(new_list, map->list, map->used * sizeof(*map->list));
 	free(map->list);

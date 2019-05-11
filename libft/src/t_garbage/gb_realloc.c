@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gb_init.c                                          :+:      :+:    :+:   */
+/*   gb_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/04 20:45:31 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/07 22:29:27 by awoimbee         ###   ########.fr       */
+/*   Created: 2019/05/07 18:36:14 by awoimbee          #+#    #+#             */
+/*   Updated: 2019/05/07 22:37:41 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <unistd.h>
+#include <stdlib.h>
 
-t_garbage		gb_init(void)
+void		*gb_realloc(t_garbage *gb, void *ptr, size_t new_size)
 {
-	t_garbage	gbc;
+	// void	**i;
+	void	*tmp;
+	size_t	i;
 
-	gbc.arr_len = 0;
-	gbc.mem_len = 10;
-	gbc.pointers = ft_memalloc(gbc.mem_len * sizeof(*gbc.pointers));
-	if (!__builtin_expect((long)gbc.pointers, 1))
-	{
-		write(STDERR_FILENO,
-			"Memory allocation error, terminating cleanly.\n",
-			46);
-		exit(EXIT_FAILURE);
-	}
-	return (gbc);
+	i = 0;
+	while (i < gb->arr_len && gb->pointers[i] != ptr)
+		++i;
+	if (i == gb->arr_len)
+		return (gb_malloc(gb, new_size));
+	tmp = realloc(ptr, new_size);
+	if (!__builtin_expect((long)tmp, 1))
+		intrin__gb_fail(gb);
+	gb->pointers[i] = tmp;
+	return (tmp);
 }

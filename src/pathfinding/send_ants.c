@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 20:05:34 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/07 00:26:06 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/11 14:59:56 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 **	And tht's it because we didn't have time to work out overlapping paths
 */
 
-static void		print_ant(uint32_t *is_first_out, int id, const t_room *room)
+static void		print_ant(uint *is_first_out, int id, const t_room *room)
 {
 	const char	*s;
 	const char	*eoc;
@@ -48,9 +48,9 @@ static void		weird_reset_rooms(t_map *m)
 
 static void		move_ants(t_graph *g, t_vector *paths)
 {
-	uint32_t	curr_p;
-	uint32_t	*p_ptr;
-	uint32_t	*p_start;
+	uint		curr_p;
+	uint		*p_ptr;
+	uint		*p_start;
 
 	curr_p = -1;
 	while (++curr_p < paths->len)
@@ -82,7 +82,8 @@ static void		launch_ants(t_graph *g, t_vector *paths)
 
 	last_path = &paths->arr[paths->len];
 	path_ptr = &paths->arr[-1];
-	while (++path_ptr < last_path && path_ptr->ants_to_lanch)
+	while (++path_ptr < last_path && path_ptr->ants_to_lanch
+		&& g->map.list[g->start].ants)
 	{
 		--path_ptr->ants_to_lanch;
 		first_room = &g->map.list[path_ptr->dirs[0]];
@@ -94,7 +95,7 @@ static void		launch_ants(t_graph *g, t_vector *paths)
 void			send_ants(t_graph *g, t_vector *paths)
 {
 	int			tot_ants;
-	uint32_t	line_nb;
+	uint		line_nb;
 
 	line_nb = 0;
 	tot_ants = g->ants;

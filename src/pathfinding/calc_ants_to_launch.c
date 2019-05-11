@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 19:11:16 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/05 19:58:41 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/11 14:48:16 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@
 **		ants it means that we have too many paths.
 */
 
-static uint32_t	get_paths_len_sum(t_vector *paths)
+static uint		get_paths_len_sum(t_vector *paths)
 {
 	size_t		i;
-	uint32_t	paths_len;
+	uint		paths_len;
 
 	i = -1;
 	paths_len = 0;
@@ -46,10 +46,23 @@ static void		dispatch_remaining_ants(int tot, int launched, t_vector *paths)
 	}
 }
 
+static int		superfluous_paths(t_vector *vec)
+{
+	uint		i;
+
+	i = -1;
+	while (++i < vec->len)
+	{
+		if (vec->arr[i].ants_to_lanch < 0)
+			return (vec->len - i);
+	}
+	return (0);
+}
+
 int				calc_ants_to_launch(t_graph *g, t_vector *vec)
 {
-	uint32_t	i;
-	uint32_t	paths_len_sum;
+	uint		i;
+	uint		paths_len_sum;
 	int			ants_launched;
 
 	ants_launched = 0;
@@ -62,9 +75,7 @@ int				calc_ants_to_launch(t_graph *g, t_vector *vec)
 					- ((int)paths_len_sum - (int)vec->arr[i].len)))
 			/ (int)vec->len;
 		ants_launched += vec->arr[i].ants_to_lanch;
-		if (vec->arr[i].ants_to_lanch < 0)
-			return (vec->len - i);
 	}
 	dispatch_remaining_ants((int)g->ants, ants_launched, vec);
-	return (0);
+	return (superfluous_paths(vec));
 }

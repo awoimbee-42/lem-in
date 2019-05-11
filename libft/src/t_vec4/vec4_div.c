@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gb_init.c                                          :+:      :+:    :+:   */
+/*   vec4_div.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/04 20:45:31 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/07 22:29:27 by awoimbee         ###   ########.fr       */
+/*   Created: 2019/04/30 02:30:26 by awoimbee          #+#    #+#             */
+/*   Updated: 2019/04/30 02:30:36 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <unistd.h>
 
-t_garbage		gb_init(void)
+static inline t_vec4		vec4_div(const t_vec4 a, const t_vec4 b)
 {
-	t_garbage	gbc;
+	return ((t_vec4)_mm_div_ps(a.sse, b.sse));
+}
 
-	gbc.arr_len = 0;
-	gbc.mem_len = 10;
-	gbc.pointers = ft_memalloc(gbc.mem_len * sizeof(*gbc.pointers));
-	if (!__builtin_expect((long)gbc.pointers, 1))
-	{
-		write(STDERR_FILENO,
-			"Memory allocation error, terminating cleanly.\n",
-			46);
-		exit(EXIT_FAILURE);
-	}
-	return (gbc);
+static inline t_vec4		vec4_divf(const t_vec4 a, const float b)
+{
+	return ((t_vec4)_mm_div_ps(a.sse, vec4_newf(b).sse));
 }

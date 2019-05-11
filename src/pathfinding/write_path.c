@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 19:38:04 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/07 00:19:13 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/11 14:49:19 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@
 **	else i write the path as normal
 */
 
-static void	write_flow(t_graph *g, uint32_t *parents)
+static void	write_flow(t_graph *g, uint *parents)
 {
-	uint32_t	node;
-	uint32_t	*lnkptr;
+	uint	node;
+	uint	*lnkptr;
 
 	node = g->end;
 	while (node != g->start)
@@ -54,15 +54,15 @@ static void	write_flow(t_graph *g, uint32_t *parents)
 
 static void	write_parents(t_graph *g)
 {
-	uint32_t	i;
-	uint32_t	j;
-	uint32_t	node;
-	uint32_t	parent;
+	uint	i;
+	uint	j;
+	uint	node;
+	uint	parent;
 
-	parent = g->start;
 	i = -1;
 	while (++i < g->map.list[g->start].nb_link)
 	{
+		parent = g->start;
 		if (g->map.list[g->start].links[i] & LNK_VISITED)
 		{
 			node = g->map.list[g->start].links[i] & ~LNK_VISITED;
@@ -80,7 +80,7 @@ static void	write_parents(t_graph *g)
 	}
 }
 
-void		write_path(t_graph *g, uint32_t *parents)
+void		write_path(t_graph *g, uint *parents)
 {
 	write_flow(g, parents);
 	write_parents(g);

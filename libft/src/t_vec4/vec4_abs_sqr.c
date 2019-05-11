@@ -1,31 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gb_init.c                                          :+:      :+:    :+:   */
+/*   vec4_abs_sqr.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/04 20:45:31 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/07 22:29:27 by awoimbee         ###   ########.fr       */
+/*   Created: 2019/04/13 03:40:08 by awoimbee          #+#    #+#             */
+/*   Updated: 2019/04/30 02:31:56 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <unistd.h>
 
-t_garbage		gb_init(void)
+/*
+**	Creates a mask that removes the sign bit
+*/
+
+static inline t_vec4		vec4_abs(const t_vec4 a)
 {
-	t_garbage	gbc;
+	__m128		mask;
 
-	gbc.arr_len = 0;
-	gbc.mem_len = 10;
-	gbc.pointers = ft_memalloc(gbc.mem_len * sizeof(*gbc.pointers));
-	if (!__builtin_expect((long)gbc.pointers, 1))
-	{
-		write(STDERR_FILENO,
-			"Memory allocation error, terminating cleanly.\n",
-			46);
-		exit(EXIT_FAILURE);
-	}
-	return (gbc);
+	mask = _mm_castsi128_ps(_mm_set1_epi32(0x7FFFFFFF));
+	return ((t_vec4)_mm_and_ps(a.sse, mask));
+}
+
+static inline t_vec4		vec4_sqrt(const t_vec4 a)
+{
+	return ((t_vec4)_mm_sqrt_ps(a.sse));
+}
+
+static inline t_vec4		vec4_square(const t_vec4 a)
+{
+	return (vec4_mul(a, a));
 }
