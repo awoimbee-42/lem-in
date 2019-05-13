@@ -6,7 +6,7 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 19:11:16 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/11 14:48:16 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/13 16:56:25 by awoimbee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,26 @@ static uint		get_paths_len_sum(t_vector *paths)
 static void		dispatch_remaining_ants(int tot, int launched, t_vector *paths)
 {
 	int			delta_ants;
-	int			step;
-	size_t		i;
+	int			i;
 
 	delta_ants = tot - launched;
-	step = delta_ants > 0 ? 1 : -1;
-	i = -1;
-	while (++i < paths->len && delta_ants != 0)
+	if (delta_ants > 0)
 	{
-		paths->arr[i].ants_to_lanch += step;
-		delta_ants -= step;
+		i = -1;
+		while (++i < (int)paths->len && delta_ants != 0)
+		{
+			paths->arr[i].ants_to_lanch += 1;
+			delta_ants -= 1;
+		}
+	}
+	else if (delta_ants < 0)
+	{
+		i = paths->len;
+		while (--i != -1 && delta_ants != 0)
+		{
+			paths->arr[i].ants_to_lanch -= 1;
+			delta_ants += 1;
+		}
 	}
 }
 
