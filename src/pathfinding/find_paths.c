@@ -6,24 +6,40 @@
 /*   By: awoimbee <awoimbee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 20:42:54 by awoimbee          #+#    #+#             */
-/*   Updated: 2019/05/11 15:53:03 by awoimbee         ###   ########.fr       */
+/*   Updated: 2019/05/13 16:16:36 by allespag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-// static void		push_node(t_graph *g, uint node, uint lnk, uint *parents, t_queue *q)
 
 /*
 **	mem_link is used as an indicator that we are 'going upstream',
 **		erasing another path
 */
 
+static void		explore_child(t_graph *g, t_queue *q, uint *parents, uint node)
+{
+	uint		i;
+	uint		tmp_lnk;
+
+	i = 0;
+	while (i < g->map.list[node].nb_link)
+	{
+		tmp_lnk = g->map.list[node].links[i];
+		if (!(tmp_lnk & LNK_VISITED) && parents[tmp_lnk] == (uint)-1)
+		{
+			parents[tmp_lnk] = node;
+			if (g->map.list[node].mem_link && g->map.list[node].ants >= 0)
+				g->map.list[tmp_lnk].mem_link = 1;
+			que_push(q, tmp_lnk);
+		}
+		i++;
+	}
+}
+
 static int		bfs(t_graph *g, uint *parents, t_queue *q, int superpo)
 {
 	uint		node;
-	uint		tmp;
-	uint		tmp_lnk;
 
 	if (!que_push(q, g->start))
 		exit_lem_in("Could not create queue, bfs cannot continue");
@@ -44,18 +60,7 @@ static int		bfs(t_graph *g, uint *parents, t_queue *q, int superpo)
 			else if (!superpo)
 				continue ;
 		}
-		tmp = -1;
-		while (++tmp < g->map.list[node].nb_link)
-		{
-			tmp_lnk = g->map.list[node].links[tmp];
-			if (!(tmp_lnk & LNK_VISITED) && parents[tmp_lnk] == (uint)-1)
-			{
-				parents[tmp_lnk] = node;
-				if (g->map.list[node].mem_link && g->map.list[node].ants >= 0)
-					g->map.list[tmp_lnk].mem_link = 1;
-				que_push(q, tmp_lnk);
-			}
-		}
+		explore_child(g, q, parents, node);
 	}
 	return (0);
 }
