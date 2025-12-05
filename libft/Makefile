@@ -70,7 +70,6 @@ SRCS_GARB =	gb_fail.c			gb_add.c			gb_defrag.c			\
 			gb_malloc.c			gb_remove.c			gb_memalloc.c		\
 			gb_init_existing.c	gb_realloc.c		intrin_gb_extend.c
 
-SRCS_OTHER = msg_exit.c
 
 SRCS_NAME =	$(addprefix libchar/, $(SRCS_CHAR))		\
 			$(addprefix libfd/,   $(SRCS_FD))		\
@@ -81,8 +80,7 @@ SRCS_NAME =	$(addprefix libchar/, $(SRCS_CHAR))		\
 			$(addprefix t_lst/,   $(SRCS_LST))		\
 			$(addprefix t_queue/, $(SRCS_QUE))		\
 			$(addprefix t_vector/, $(SRCS_VECT))	\
-			$(addprefix t_garbage/, $(SRCS_GARB))	\
-			$(SRCS_OTHER)
+			$(addprefix t_garbage/, $(SRCS_GARB))
 OBJ_NAME = $(SRCS_NAME:.c=.o)
 
 SRC_PATH = src

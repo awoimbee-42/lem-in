@@ -36,12 +36,12 @@ int			main(int argc, char **argv)
 
 	if (argc > 1 && !ft_strcmp(argv[1], "--help"))
 	{
-		ft_printf("Usage: ./lem-in [--p] [--help] < <map_file>\n");
+		ft_printf("Usage: ./lem-in [-p] [--help] < <map_file>\n");
 		return (EXIT_SUCCESS);
 	}
 	g = init_graph();
 	if (argc > 1 && (!ft_strcmp(argv[1], "--print")
-		|| !ft_strcmp(argv[1], "--p")))
+		|| !ft_strcmp(argv[1], "-p")))
 		g->print = 1;
 	file = new_t_str();
 	parse_input(g, &file);
